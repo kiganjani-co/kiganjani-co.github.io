@@ -33,8 +33,8 @@ $mail->Password = "ytjtktzrhuemgqph";           // Your Gmail login password or 
  * Message Configuration
  */
 
-$mail->setFrom('form_mail@kiganjani.co.tz', 'Website Contact Form'); // Set the sender of the message.
-$mail->addAddress('info@kiganjani.co.tz', 'Kiganjani Co.');          // Set the recipient of the message.
+$mail->setFrom('snoop.monotone@gmail.com', 'Website Contact Form'); // Set the sender of the message.
+$mail->addAddress('wbalaile@live.com', 'Kiganjani Co.');          // Set the recipient of the message.
 $mail->Subject = $subject;                                           // The subject of the message.
 
 /*

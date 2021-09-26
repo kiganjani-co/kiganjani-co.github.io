@@ -10,7 +10,7 @@ if(isset($_POST['submit'])){
     $message = $_POST['message'];
 
     // Recipient
-    $MailTo = "info@kiganjani.co.tz";
+    $MailTo = "wbalaile@live.com";
     $MailHeader = "From: ".$email;
     $Content = "Mail from ".$fname."\n\n".$message;
 
