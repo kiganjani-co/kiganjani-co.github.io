@@ -1,0 +1,35 @@
+Home Page
+- Add founder photo or graphic to about section
+- Secure message box
+
+Website, E-Commerce (All service pages)
+- add images relevant to service
+- add testimonials/reference work 
+
+Admin & Maintenance, Internet Marketing* 
+- edit service copy
+- page properties
+
+Products
+- edit product tiers descriptions
+- rename product tiers
+- edit pricing
+- change buttons to show descriptions before purchase
+
+Payment Gateway/System
+- Receive payments
+- Make payments
+
+E-Mail notification/receipt (Automate)
+- Auto-response for received emails
+- receipt of purchase
+- Gift vouchers
+
+Marketing Campaign (Strategy, Calendar/Schedule, Content)
+- Select types of content to post and channels for posting
+- Plan release dates and production Schedule
+- Create content
+
+Enterprise, Online 30*
+- JS + VueJS
+- PHP + MySQL
