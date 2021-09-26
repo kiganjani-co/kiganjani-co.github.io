@@ -32,6 +32,8 @@
   // Prevent columns from becoming too narrow when at smaller grid tiers by
   // always setting `width: 100%;`. This works because we use `flex` values
   // later on to override this initial width.
+  border: 5px solid #00d2b5;
+  border-radius: 7px;
   width: 100%;
   min-height: 1px; // Prevent collapsing
   padding-right: ($grid-gutter-width / 2);
