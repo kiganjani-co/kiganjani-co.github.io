@@ -388,10 +388,10 @@ export default function App() {
 
 // ── Process Journey (scroll-driven) ──────────────────────────
 const STEPS = [
-  { phase: "Week 1", title: "Discovery & Strategy", desc: "We map your business goals, target clients, and the exact message your site needs to communicate.", icon: "◎" },
-  { phase: "Week 2", title: "Design & Content",     desc: "Brand-aligned layouts and copy written for your audience — no lorem ipsum, no placeholder thinking.",   icon: "◈" },
-  { phase: "Week 3", title: "Build & Review",        desc: "The site comes together. You review, request changes, and we refine until it's exactly right.",          icon: "◇" },
-  { phase: "Week 4", title: "Launch & Handover",     desc: "Go live on your domain. Full training, SEO basics set up, and ongoing support available.",               icon: "◉" },
+  { phase: "Step 1", title: "Understand your business", desc: "We map your business goals, target clients, and the exact message your site needs to communicate.", icon: "◎" },
+  { phase: "Step 2", title: "Design & Content",     desc: "Brand-aligned layouts and copy written for your audience — no lorem ipsum, no placeholder thinking.",   icon: "◈" },
+  { phase: "Step 3", title: "Build & Review",        desc: "The site comes together. You review, request changes, and we refine until it's exactly right.",        icon: "◇" },
+  { phase: "Step 4", title: "Launch & Handover",     desc: "Launch the site on your domain, understand on how it runs, working for you without daily upkeep",      icon: "◉" },
 ]
 
 // Marker coordinates for the snake path (viewBox 0 0 100 100)
