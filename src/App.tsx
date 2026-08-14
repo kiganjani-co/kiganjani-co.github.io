@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import logo from "./imports/Simple-transparent.png"
 import williamPhoto from "./imports/annotation-reference.jpeg"
 
