@@ -37,7 +37,7 @@ const body    = "'Outfit', system-ui, sans-serif"
 
 type C = typeof lightC
 
-const NAV_LINKS = ["Services", "Work", "About", "Process", "Contact"]
+const NAV_LINKS = ["Services", "Work", "Process", "About", "Contact"]
 
 const SERVICES = [
   { number: "01", title: "Website Design",      description: "Bespoke websites built around your brand. Clean, fast, and crafted to convert visitors into clients." },
