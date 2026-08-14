@@ -1,0 +1,10 @@
+{
+  "description": "A professional landing page showcasing a solo agency's expertise to attract and engage potential clients for collaboration opportunities.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
