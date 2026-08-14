@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/react"
 import logo from "./imports/Simple-transparent.png"
 import williamPhoto from "./imports/annotation-reference.jpeg"
 
@@ -383,6 +383,7 @@ export default function App() {
           #stats > div > div { border-right: none !important; border-bottom: 1px solid; }
         }
       `}</style>
+      <Analytics />
     </div>
   )
 }
