@@ -394,11 +394,24 @@ const STEPS = [
   { phase: "Week 4", title: "Launch & Handover",     desc: "Go live on your domain. Full training, SEO basics set up, and ongoing support available.",               icon: "◉" },
 ]
 
+// Marker coordinates for the snake path (viewBox 0 0 100 100)
+const SNAKE_PATH =
+  "M 12 30 C 20 30, 25 70, 37 70 C 49 70, 51 30, 63 30 C 75 30, 80 70, 88 70"
+const SNAKE_POINTS = [
+  { x: 12, y: 30 },
+  { x: 37, y: 70 },
+  { x: 63, y: 30 },
+  { x: 88, y: 70 },
+]
+
 function ProcessJourney({ c }: { c: C }) {
   const outerRef = useRef<HTMLDivElement>(null)
-  const [revealed, setRevealed] = useState(0)       // 0-4 steps visible
-  const [linePct, setLinePct]   = useState(0)        // 0-100 line width %
+  const pathRef  = useRef<SVGPathElement>(null)
+  const [progress, setProgress] = useState(0)               // 0-1 scroll progress
+  const [pathLen, setPathLen]   = useState(1000)            // snake path length
+  const [fractions, setFractions] = useState<number[]>([0, 0.34, 0.67, 1]) // marker position along path (0-1)
 
+  // Scroll progress
   useEffect(() => {
     const onScroll = () => {
       const el = outerRef.current
@@ -406,69 +419,103 @@ function ProcessJourney({ c }: { c: C }) {
       const rect  = el.getBoundingClientRect()
       const total = el.offsetHeight - window.innerHeight
       const scrolled = Math.max(0, -rect.top)
-      const progress = total > 0 ? Math.min(1, scrolled / total) : 0
-
-      // Each step gets 1/(N+1) of the scroll range; +1 so there's a pause at the end
-      const n = STEPS.length
-      const newRevealed = Math.min(n, Math.floor(progress * (n + 0.8)))
-      const pct = Math.min(100, (progress * (n + 0.8)) / n * 100)
-      setRevealed(newRevealed)
-      setLinePct(pct)
+      setProgress(total > 0 ? Math.min(1, scrolled / total) : 0)
     }
     window.addEventListener("scroll", onScroll, { passive: true })
     onScroll()
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
+  // Measure the path once so the draw tip stays in sync with the markers
+  useEffect(() => {
+    const p = pathRef.current
+    if (!p) return
+    const L = p.getTotalLength()
+    setPathLen(L)
+    const fr = SNAKE_POINTS.map((pt) => {
+      let best = 0
+      let bestDist = Infinity
+      for (let i = 0; i <= 200; i++) {
+        const f = i / 200
+        const c = p.getPointAtLength(f * L)
+        const d = (c.x - pt.x) ** 2 + (c.y - pt.y) ** 2
+        if (d < bestDist) { bestDist = d; best = f }
+      }
+      return best
+    })
+    setFractions(fr)
+  }, [])
+
+  const n = STEPS.length
+  const revealedCount = fractions.reduce((acc, f) => acc + (progress >= f ? 1 : 0), 0)
+  const pct = Math.min(100, (progress * (n + 0.8)) / n * 100)
+  const draw = pathLen * (1 - Math.min(1, Math.max(0, progress)))
+
   return (
     <div ref={outerRef} id="process" style={{ height: `${STEPS.length * 90 + 60}vh`, position: "relative", borderTop: `1px solid ${c.rule}` }}>
-      <div style={{ position: "sticky", top: 0, height: "100vh", backgroundColor: c.canvas, display: "flex", flexDirection: "column", justifyContent: "center", padding: "clamp(4rem, 8vh, 6rem) clamp(1.5rem, 5vw, 4rem)", overflow: "hidden" }}>
+      <div style={{ position: "sticky", top: 0, height: "100vh", backgroundColor: c.canvas, display: "flex", flexDirection: "column", justifyContent: "center", padding: "clamp(3rem, 6vh, 5rem) clamp(1.5rem, 5vw, 4rem)", overflow: "hidden" }}>
 
         {/* Header */}
-        <p style={{ fontSize: "0.68rem", letterSpacing: "0.24em", textTransform: "uppercase", color: teal, marginBottom: "0.75rem" }}>How it works</p>
-        <h2 style={{ fontFamily: display, fontSize: "clamp(1.8rem, 4vw, 3rem)", fontWeight: 400, color: c.fg, lineHeight: 1.1, marginBottom: "clamp(2.5rem, 5vh, 4rem)" }}>
+        <p style={{ fontSize: "0.68rem", letterSpacing: "0.24em", textTransform: "uppercase", color: teal, marginBottom: "0.6rem" }}>How it works</p>
+        <h2 style={{ fontFamily: display, fontSize: "clamp(1.8rem, 4vw, 3rem)", fontWeight: 400, color: c.fg, lineHeight: 1.1, marginBottom: "clamp(1.5rem, 3vh, 2.5rem)" }}>
           Online in 30 days — <em style={{ fontStyle: "italic", color: teal }}>guaranteed.</em>
         </h2>
 
-        {/* Timeline track */}
-        <div className="journey-outer">
-          {/* Growing connector line */}
-          <div className="journey-track" style={{ backgroundColor: c.rule }}>
-            <div style={{ height: "100%", width: `${linePct}%`, backgroundColor: teal, transition: "width 0.4s ease", borderRadius: "2px" }} />
-          </div>
+        {/* Snake: line + markers + cards */}
+        <div className="snake-wrap" style={{ ["--snake-pct" as any]: `${pct}%` }}>
 
-          {/* Steps */}
+          <svg className="snake-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            {/* base track */}
+            <path
+              d={SNAKE_PATH}
+              fill="none" stroke={c.rule} strokeWidth="1.6"
+              vectorEffect="non-scaling-stroke" strokeLinecap="round"
+            />
+            {/* drawing tip */}
+            <path
+              ref={pathRef}
+              d={SNAKE_PATH}
+              fill="none" stroke={teal} strokeWidth="1.6"
+              vectorEffect="non-scaling-stroke" strokeLinecap="round"
+              style={{ strokeDasharray: pathLen, strokeDashoffset: draw }}
+            />
+          </svg>
+
           {STEPS.map((step, i) => {
+            const pt   = SNAKE_POINTS[i]
             const above = i % 2 === 0
-            const visible = i < revealed
+            const visible = progress >= fractions[i]
             return (
-              <div key={step.phase} className="journey-step">
-                {/* Card — alternates above / below the track */}
-                <div className={above ? "journey-card-above" : "journey-card-below"}
-                  style={{
-                    opacity: visible ? 1 : 0,
-                    transform: visible ? "translateY(0)" : above ? "translateY(12px)" : "translateY(-12px)",
-                    transition: "opacity 0.45s ease, transform 0.45s ease",
-                    transitionDelay: visible ? "0.1s" : "0s",
-                  }}
-                >
-                  <p style={{ fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: teal, marginBottom: "0.4rem" }}>{step.phase}</p>
-                  <h3 style={{ fontFamily: display, fontSize: "clamp(0.95rem, 1.5vw, 1.15rem)", fontWeight: 400, color: c.fg, marginBottom: "0.5rem", lineHeight: 1.25 }}>{step.title}</h3>
-                  <p style={{ fontSize: "0.78rem", color: c.fgDim, lineHeight: 1.7 }}>{step.desc}</p>
+              <div key={step.phase} className="snake-step">
+                {/* Numbered circular marker */}
+                <div className="snake-marker" style={{ left: `${pt.x}%`, top: `${pt.y}%` }}>
+                  <div style={{
+                    width: "36px", height: "36px", borderRadius: "50%",
+                    backgroundColor: visible ? teal : c.canvas,
+                    border: `2px solid ${visible ? teal : c.rule}`,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    fontSize: "0.75rem", fontWeight: 600, color: visible ? c.canvas : c.fgDim,
+                    transition: "background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease",
+                    fontFamily: display,
+                  }}>
+                    {i + 1}
+                  </div>
                 </div>
 
-                {/* Node on the track */}
-                <div style={{
-                  width: "36px", height: "36px", borderRadius: "50%",
-                  backgroundColor: visible ? teal : c.canvas,
-                  border: `2px solid ${visible ? teal : c.rule}`,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: "0.75rem", fontWeight: 600, color: visible ? c.canvas : c.fgDim,
-                  transition: "background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease",
-                  flexShrink: 0, position: "relative", zIndex: 2,
-                  fontFamily: display,
+                {/* Step card — anchored directly above/below its marker, clear of the line */}
+                <div className="snake-card" style={{
+                  left: `${pt.x}%`,
+                  top: `${pt.y}%`,
+                  opacity: visible ? 1 : 0,
+                  transform: visible
+                    ? `translate(-50%, ${above ? "calc(-100% - 1.5rem)" : "1.5rem"})`
+                    : `translate(-50%, ${above ? "calc(-100% - 2rem)" : "2rem"})`,
+                  transition: "opacity 0.45s ease, transform 0.45s ease",
+                  transitionDelay: visible ? "0.08s" : "0s",
                 }}>
-                  {i + 1}
+                  <p style={{ fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: teal, marginBottom: "0.35rem" }}>{step.phase}</p>
+                  <h3 style={{ fontFamily: display, fontSize: "clamp(0.95rem, 1.5vw, 1.1rem)", fontWeight: 400, color: c.fg, marginBottom: "0.45rem", lineHeight: 1.2 }}>{step.title}</h3>
+                  <p style={{ fontSize: "0.75rem", color: c.fgDim, lineHeight: 1.6 }}>{step.desc}</p>
                 </div>
               </div>
             )
@@ -476,61 +523,79 @@ function ProcessJourney({ c }: { c: C }) {
         </div>
 
         {/* Step counter */}
-        <p style={{ marginTop: "clamp(1.5rem, 3vh, 2.5rem)", fontSize: "0.7rem", color: c.fgDim, letterSpacing: "0.1em" }}>
-          <span style={{ color: teal, fontFamily: display, fontSize: "1rem" }}>{revealed}</span>
-          {" / "}{STEPS.length} steps
+        <p style={{ marginTop: "clamp(1.25rem, 2.5vh, 2rem)", fontSize: "0.7rem", color: c.fgDim, letterSpacing: "0.1em" }}>
+          <span style={{ color: teal, fontFamily: display, fontSize: "1rem" }}>{revealedCount}</span>
+          {" / "}{n} steps
         </p>
       </div>
 
       <style>{`
-        .journey-outer {
-          display: flex;
-          align-items: center;
+        .snake-wrap {
           position: relative;
-          gap: 0;
+          width: 100%;
+          height: clamp(360px, 58vh, 640px);
         }
-        .journey-track {
+        .snake-svg {
           position: absolute;
-          top: 50%;
-          left: 0; right: 0;
-          height: 2px;
-          transform: translateY(-50%);
-          border-radius: 2px;
-          overflow: hidden;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
         }
-        .journey-step {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          position: relative;
-          gap: 0;
-        }
-        .journey-card-above {
-          order: -1;
-          margin-bottom: clamp(1rem, 2.5vh, 1.75rem);
+        .snake-step { position: absolute; inset: 0; }
+        .snake-marker { position: absolute; transform: translate(-50%, -50%); z-index: 2; }
+        .snake-card {
+          position: absolute;
+          max-width: 210px;
           text-align: center;
-          max-width: 220px;
-          min-height: 120px;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-end;
         }
-        .journey-card-below {
-          order: 1;
-          margin-top: clamp(1rem, 2.5vh, 1.75rem);
-          text-align: center;
-          max-width: 220px;
-          min-height: 120px;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start;
+        @media (max-height: 780px) {
+          .snake-card { max-width: 185px; }
+          .snake-card p { font-size: 0.7rem !important; line-height: 1.5 !important; }
+          .snake-card h3 { font-size: 0.95rem !important; }
         }
-        @media (max-width: 640px) {
-          .journey-outer { flex-direction: column; align-items: flex-start; gap: 0; }
-          .journey-track { top: 0; bottom: 0; left: 17px; right: auto; width: 2px; height: auto; transform: none; }
-          .journey-step { flex-direction: row; align-items: flex-start; gap: 1rem; flex: none; width: 100%; padding: 1rem 0; }
-          .journey-card-above, .journey-card-below { order: 1; margin: 0; text-align: left; min-height: auto; max-width: none; justify-content: flex-start; }
+
+        @media (max-width: 860px) {
+          .snake-svg { display: none; }
+          .snake-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
+            height: auto;
+            padding-left: 1.5rem;
+          }
+          .snake-wrap::before {
+            content: "";
+            position: absolute;
+            left: 17px; top: 0; bottom: 0;
+            width: 2px;
+            background: ${c.rule};
+          }
+          .snake-wrap::after {
+            content: "";
+            position: absolute;
+            left: 17px; top: 0;
+            width: 2px; height: var(--snake-pct);
+            background: ${teal};
+            border-radius: 2px;
+            transition: height 0.3s ease;
+          }
+          .snake-step {
+            position: relative;
+            inset: auto;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+          }
+          .snake-marker { position: relative; left: auto !important; top: auto !important; transform: none; margin-top: 0.15rem; }
+          .snake-card {
+            position: relative;
+            left: auto !important; top: auto !important; bottom: auto !important;
+            transform: none !important;
+            text-align: left;
+            max-width: none;
+            flex: 1;
+          }
         }
       `}</style>
     </div>
