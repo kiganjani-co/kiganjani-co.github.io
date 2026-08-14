@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react"
+import { Analytics } from "@vercel/analytics/next"
 import logo from "./imports/Simple-transparent.png"
 import williamPhoto from "./imports/annotation-reference.jpeg"
 
