@@ -1,5 +1,10 @@
 {
- "name": "App",
+ "name": "Kiganjani Co.",
+ "short_name": "Kiganjani Co.",
+ "start_url": "/",
+ "display": "standalone",
+ "background_color": "#00d2b5",
+ "theme_color": "#00d2b5",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",

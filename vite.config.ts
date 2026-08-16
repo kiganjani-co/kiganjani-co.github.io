@@ -2,6 +2,7 @@ import { defineConfig, type HtmlTagDescriptor, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'node:path'
+import fs from 'node:fs'
 
 import siteConfiguration from './.figma/make/site.json'
 
@@ -20,6 +21,7 @@ export default defineConfig(({ mode }) => {
       react(),
       tailwindcss(),
       figmaSiteConfiguration(siteConfiguration),
+      figmaFaviconsPlugin(),
       figmaErrorOverlayReplay(),
       figmaReactRefreshBoundaryFallback(),
       figmaMakeKitPlugin({ storiesGlob: '/src/**/*.stories.{ts,tsx,js,jsx}' }),
@@ -66,6 +68,84 @@ type FigmaSiteConfiguration = {
   }
   accessibility?: {
     addBypassLinks?: boolean
+  }
+}
+
+/**
+ * Serves and emits the favicon set from src/imports/favicon at the site root.
+ * Favicon generators (manifest.json / browserconfig.xml) reference these files
+ * with root-relative paths, so they must live at the web root rather than in
+ * /assets. Covers the per-use-case tags: browser tab, iOS home screen,
+ * Android/Chrome manifest, and Windows tile.
+ */
+function figmaFaviconsPlugin(): Plugin {
+  const faviconDir = path.resolve(__dirname, 'src/imports/favicon')
+  const files = fs.existsSync(faviconDir)
+    ? fs.readdirSync(faviconDir).filter((f) => fs.statSync(path.join(faviconDir, f)).isFile())
+    : []
+
+  const mimeOf: Record<string, string> = {
+    '.png': 'image/png',
+    '.ico': 'image/x-icon',
+    '.json': 'application/json',
+    '.xml': 'application/xml',
+    '.svg': 'image/svg+xml',
+  }
+
+  const themeColors = { tile: '#00d2b5', msapp: '#00d2b5' }
+
+  const appleSizes = [57, 60, 72, 76, 114, 120, 144, 152, 180]
+
+  const faviconTags: HtmlTagDescriptor[] = [
+    { tag: 'link', attrs: { rel: 'icon', href: '/favicon.ico', type: 'image/x-icon' }, injectTo: 'head' },
+    { tag: 'link', attrs: { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' }, injectTo: 'head' },
+    { tag: 'link', attrs: { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' }, injectTo: 'head' },
+    { tag: 'link', attrs: { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/favicon-96x96.png' }, injectTo: 'head' },
+    ...appleSizes.map((s) => ({
+      tag: 'link',
+      attrs: { rel: 'apple-touch-icon', sizes: `${s}x${s}`, href: `/apple-icon-${s}x${s}.png` },
+      injectTo: 'head' as const,
+    })),
+    { tag: 'link', attrs: { rel: 'apple-touch-icon', href: '/apple-icon.png' }, injectTo: 'head' },
+    { tag: 'link', attrs: { rel: 'manifest', href: '/manifest.json' }, injectTo: 'head' },
+    { tag: 'meta', attrs: { name: 'theme-color', content: themeColors.tile }, injectTo: 'head' },
+    { tag: 'meta', attrs: { name: 'msapplication-TileColor', content: themeColors.msapp }, injectTo: 'head' },
+    { tag: 'meta', attrs: { name: 'msapplication-TileImage', content: '/ms-icon-144x144.png' }, injectTo: 'head' },
+    { tag: 'meta', attrs: { name: 'msapplication-config', content: '/browserconfig.xml' }, injectTo: 'head' },
+  ]
+
+  return {
+    name: 'figma-favicons',
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const url = (req.url || '').split('?')[0]
+        if (!url.startsWith('/')) return next()
+        const name = url.slice(1)
+        if (!files.includes(name)) return next()
+
+        const full = path.join(faviconDir, name)
+        if (!fs.existsSync(full)) return next()
+
+        const ext = path.extname(name).toLowerCase()
+        res.setHeader('Content-Type', mimeOf[ext] || 'application/octet-stream')
+        res.end(fs.readFileSync(full))
+      })
+    },
+    generateBundle() {
+      for (const name of files) {
+        this.emitFile({
+          type: 'asset',
+          fileName: name,
+          source: fs.readFileSync(path.join(faviconDir, name)),
+        })
+      }
+    },
+    transformIndexHtml: {
+      order: 'pre',
+      handler() {
+        return faviconTags
+      },
+    },
   }
 }
 
