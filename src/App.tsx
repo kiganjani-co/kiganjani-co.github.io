@@ -9,7 +9,7 @@ const lightC = {
   canvasMid: "#f5f5f5",
   canvasCard:"#f0f0f0",
   fg:        "#000000",
-  fgDim:     "rgba(0,0,0,0.55)",
+  fgDim:     "rgba(0,0,0,0.62)",
   rule:      "rgba(0,0,0,0.08)",
   navBg:     "rgba(255,255,255,0.95)",
   overlayBg: "rgba(255,255,255,0.99)",
@@ -22,7 +22,7 @@ const darkC = {
   canvasMid: "#0a0a0a",
   canvasCard:"#0f0f0f",
   fg:        "#ffffff",
-  fgDim:     "rgba(255,255,255,0.55)",
+  fgDim:     "rgba(255,255,255,0.62)",
   rule:      "rgba(255,255,255,0.08)",
   navBg:     "rgba(0,0,0,0.92)",
   overlayBg: "rgba(0,0,0,0.98)",
@@ -111,6 +111,16 @@ export default function App() {
     document.body.style.backgroundColor = c.canvas
     document.body.style.color = c.fg
   }, [dark])
+
+  // Close the mobile menu on Escape
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false)
+    }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [menuOpen])
 
   const navOpaque = scrollY > 60
 
@@ -293,6 +303,8 @@ export default function App() {
             <img
               src={williamPhoto}
               alt="William Balaile, founder of Kiganjani Co."
+              loading="lazy"
+              decoding="async"
               style={{ width: "100%", height: "480px", objectFit: "cover", borderRadius: "2px", display: "block", backgroundColor: "#ccc" }}
             />
             <div style={{ position: "absolute", bottom: "1.5rem", left: "1.5rem", backgroundColor: c.captionBg, backdropFilter: "blur(8px)", padding: "0.75rem 1.25rem", borderLeft: `2px solid ${teal}` }}>
@@ -330,10 +342,12 @@ export default function App() {
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
               {[
                 { icon: "✉", label: "Email",            value: "kiganjani.co@gmail.com", href: "mailto:kiganjani.co@gmail.com" },
-                { icon: "✆", label: "Phone / WhatsApp", value: "+255 782 506 217",      href: "tel:+255782506217" },
+                { icon: "✆", label: "Phone / WhatsApp", value: "+255 782 506 217",      href: "https://wa.me/255782506217" },
                 { icon: "⊕", label: "Instagram",        value: "@kiganjani.co",         href: "https://instagram.com/kiganjani.co" },
               ].map((ct) => (
                 <a key={ct.label} href={ct.href}
+                  target={ct.href.startsWith("http") ? "_blank" : undefined}
+                  rel={ct.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   style={{ display: "flex", alignItems: "center", gap: "1rem", textDecoration: "none", padding: "1rem", border: `1px solid ${c.rule}`, borderRadius: "2px", transition: "border-color 0.2s, background-color 0.2s" }}
                   onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(0,210,181,0.4)"; e.currentTarget.style.backgroundColor = "rgba(0,210,181,0.05)" }}
                   onMouseLeave={(e) => { e.currentTarget.style.borderColor = c.rule; e.currentTarget.style.backgroundColor = "transparent" }}
@@ -357,6 +371,10 @@ export default function App() {
           <img src={logo} alt="Kiganjani Co." style={{ height: "28px", width: "auto", filter: dark ? "invert(1)" : "none", transition: "filter 0.3s" }} />
           <span style={{ width: "4px", height: "4px", borderRadius: "50%", backgroundColor: teal, display: "inline-block" }} />
           <span style={{ fontSize: "0.72rem", color: c.fgDim }}>Dar es Salaam, Tanzania</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
+          <a href="/privacy.html" style={{ fontSize: "0.72rem", color: c.fgDim, textDecoration: "none" }}>Privacy</a>
+          <a href="/terms.html" style={{ fontSize: "0.72rem", color: c.fgDim, textDecoration: "none" }}>Terms</a>
         </div>
         <p style={{ fontSize: "0.72rem", color: c.fgDim }}>© {new Date().getFullYear()} Kiganjani Technologies Co. All rights reserved.</p>
       </footer>
@@ -412,6 +430,7 @@ function ProcessJourney({ c }: { c: C }) {
   const [progress, setProgress] = useState(0)               // 0-1 scroll progress
   const [pathLen, setPathLen]   = useState(1000)            // snake path length
   const [fractions, setFractions] = useState<number[]>([0, 0.34, 0.67, 1]) // marker position along path (0-1)
+  const [reducedMotion] = useState(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches)
 
   // Scroll progress
   useEffect(() => {
@@ -449,9 +468,10 @@ function ProcessJourney({ c }: { c: C }) {
   }, [])
 
   const n = STEPS.length
-  const revealedCount = fractions.reduce((acc, f) => acc + (progress >= f ? 1 : 0), 0)
-  const pct = Math.min(100, (progress * (n + 0.8)) / n * 100)
-  const draw = pathLen * (1 - Math.min(1, Math.max(0, progress)))
+  const p = reducedMotion ? 1 : progress
+  const revealedCount = fractions.reduce((acc, f) => acc + (p >= f ? 1 : 0), 0)
+  const pct = Math.min(100, (p * (n + 0.8)) / n * 100)
+  const draw = pathLen * (1 - Math.min(1, Math.max(0, p)))
 
   return (
     <div ref={outerRef} id="process" style={{ height: `${STEPS.length * 90 + 60}vh`, position: "relative", borderTop: `1px solid ${c.rule}` }}>
@@ -486,7 +506,7 @@ function ProcessJourney({ c }: { c: C }) {
           {STEPS.map((step, i) => {
             const pt   = SNAKE_POINTS[i]
             const above = i % 2 === 0
-            const visible = progress >= fractions[i]
+            const visible = p >= fractions[i]
             return (
               <div key={step.phase} className="snake-step">
                 {/* Numbered circular marker */}
@@ -625,7 +645,7 @@ function ProjectCard({ id, category, title, description, tags, image, c }: { id:
     <div onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
       style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))", backgroundColor: hovered ? c.cardHover : c.canvasMid, transition: "background-color 0.3s", cursor: "default" }}>
       <div style={{ overflow: "hidden", height: "280px", backgroundColor: "#888" }}>
-        <img src={image} alt={title} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.5s ease", transform: hovered ? "scale(1.04)" : "scale(1)" }} />
+        <img src={image} alt={title} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.5s ease", transform: hovered ? "scale(1.04)" : "scale(1)" }} />
       </div>
       <div style={{ padding: "2.5rem 2rem", display: "flex", flexDirection: "column", justifyContent: "center" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.25rem" }}>
@@ -676,23 +696,23 @@ function ContactForm({ c }: { c: C }) {
     <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
         <div>
-          <label style={{ display: "block", fontSize: "0.62rem", letterSpacing: "0.16em", textTransform: "uppercase", color: c.fgDim, marginBottom: "0.5rem" }}>Your name</label>
-          <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
+          <label htmlFor="contact-name" style={{ display: "block", fontSize: "0.62rem", letterSpacing: "0.16em", textTransform: "uppercase", color: c.fgDim, marginBottom: "0.5rem" }}>Your name</label>
+          <input id="contact-name" required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
             style={inputStyle} placeholder="Jane Doe"
             onFocus={(e) => (e.target.style.borderColor = "rgba(0,210,181,0.5)")}
             onBlur={(e) => (e.target.style.borderColor = c.rule)} />
         </div>
         <div>
-          <label style={{ display: "block", fontSize: "0.62rem", letterSpacing: "0.16em", textTransform: "uppercase", color: c.fgDim, marginBottom: "0.5rem" }}>Business name</label>
-          <input value={form.business} onChange={(e) => setForm({ ...form, business: e.target.value })}
+          <label htmlFor="contact-business" style={{ display: "block", fontSize: "0.62rem", letterSpacing: "0.16em", textTransform: "uppercase", color: c.fgDim, marginBottom: "0.5rem" }}>Business name</label>
+          <input id="contact-business" value={form.business} onChange={(e) => setForm({ ...form, business: e.target.value })}
             style={inputStyle} placeholder="Optional"
             onFocus={(e) => (e.target.style.borderColor = "rgba(0,210,181,0.5)")}
             onBlur={(e) => (e.target.style.borderColor = c.rule)} />
         </div>
       </div>
       <div>
-        <label style={{ display: "block", fontSize: "0.62rem", letterSpacing: "0.16em", textTransform: "uppercase", color: c.fgDim, marginBottom: "0.5rem" }}>Tell me about your project</label>
-        <textarea required rows={6} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })}
+        <label htmlFor="contact-message" style={{ display: "block", fontSize: "0.62rem", letterSpacing: "0.16em", textTransform: "uppercase", color: c.fgDim, marginBottom: "0.5rem" }}>Tell me about your project</label>
+        <textarea id="contact-message" required rows={6} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })}
           style={{ ...inputStyle, resize: "vertical" }} placeholder="What does your business do? What are you hoping to achieve online?"
           onFocus={(e) => (e.target.style.borderColor = "rgba(0,210,181,0.5)")}
           onBlur={(e) => (e.target.style.borderColor = c.rule)} />
