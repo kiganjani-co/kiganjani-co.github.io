@@ -1,0 +1,5 @@
+project_id = "kiganjani"
+[functions.whatsapp-webhook]
+verify_jwt = false
+[functions.notify-enquiry]
+verify_jwt = false

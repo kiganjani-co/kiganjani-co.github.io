@@ -3,6 +3,8 @@ dist/
 build/
 .cache/
 .env*
+!.env.example
+supabase/.temp/
 .vite/
 vite.config.*.timestamp-*
 *.tsbuildinfo

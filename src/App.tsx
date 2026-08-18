@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import { Analytics } from "@vercel/analytics/react"
+import { hasSupabase, supabase } from "./lib/supabase"
 import logo from "./imports/Simple-transparent.png"
 import williamPhoto from "./imports/annotation-reference.jpeg"
 
@@ -666,28 +667,75 @@ function ProjectCard({ id, category, title, description, tags, image, c }: { id:
 
 // ── Contact Form ──────────────────────────────────────────────
 function ContactForm({ c }: { c: C }) {
-  const [form, setForm] = useState({ name: "", business: "", message: "" })
-  const [sent, setSent] = useState(false)
+  const [form, setForm] = useState({ name: "", email: "", business: "", phone: "", message: "" })
+  const [status, setStatus] = useState<"idle" | "submitting" | "sent" | "error">("idle")
 
   const inputStyle: React.CSSProperties = {
     width: "100%", backgroundColor: c.inputBg, border: `1px solid ${c.rule}`,
     borderRadius: "2px", padding: "0.85rem 1rem", color: c.fg, fontSize: "0.9rem",
     fontFamily: body, outline: "none", transition: "border-color 0.2s",
   }
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    const subject = encodeURIComponent(`Project enquiry from ${form.name}${form.business ? ` — ${form.business}` : ""}`)
-    const body2 = encodeURIComponent(form.message)
-    window.location.href = `mailto:kiganjani.co@gmail.com?subject=${subject}&body=${body2}`
-    setSent(true)
+  const fieldProps = (key: keyof typeof form) => ({
+    value: form[key],
+    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setForm({ ...form, [key]: e.target.value }),
+    style: inputStyle,
+    onFocus: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      (e.target.style.borderColor = "rgba(0,210,181,0.5)"),
+    onBlur: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      (e.target.style.borderColor = c.rule),
+  })
+  const labelStyle: React.CSSProperties = {
+    display: "block", fontSize: "0.62rem", letterSpacing: "0.16em", textTransform: "uppercase",
+    color: c.fgDim, marginBottom: "0.5rem",
   }
 
-  if (sent) {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    // Honeypot: a hidden "website" field bots fill in. If it has a value, drop silently.
+    const honeypot = (document.getElementById("contact-website") as HTMLInputElement | null)?.value
+    if (honeypot) return
+
+    const enquiry = {
+      name: form.name.trim(),
+      email: form.email.trim(),
+      business: form.business.trim() || null,
+      phone: form.phone.trim() || null,
+      message: form.message.trim(),
+    }
+
+    setStatus("submitting")
+    if (hasSupabase && supabase) {
+      const { error } = await supabase.from("enquiries").insert(enquiry)
+      if (!error) {
+        setStatus("sent")
+        return
+      }
+      console.error("enquiry insert failed", error)
+    }
+
+    // Fallback: Supabase unavailable/failed → open the visitor's mail client.
+    const subject = encodeURIComponent(
+      `Project enquiry from ${enquiry.name}${enquiry.business ? ` — ${enquiry.business}` : ""}`
+    )
+    const body2 = encodeURIComponent(
+      `${enquiry.message}\n\n— ${enquiry.name}${enquiry.business ? `, ${enquiry.business}` : ""}\n${enquiry.email}${enquiry.phone ? `\n${enquiry.phone}` : ""}`
+    )
+    window.location.href = `mailto:kiganjani.co@gmail.com?subject=${subject}&body=${body2}`
+    setStatus("sent")
+  }
+
+  if (status === "sent") {
     return (
       <div style={{ padding: "3rem 2rem", border: `1px solid rgba(0,210,181,0.3)`, borderRadius: "2px", textAlign: "center" }}>
-        <p style={{ fontFamily: display, fontSize: "1.5rem", color: c.fg, marginBottom: "0.75rem" }}>Message ready.</p>
-        <p style={{ fontSize: "0.875rem", color: c.fgDim }}>Your mail client should have opened. Alternatively, reach me directly at kiganjani.co@gmail.com</p>
+        <p style={{ fontFamily: display, fontSize: "1.5rem", color: c.fg, marginBottom: "0.75rem" }}>Message sent.</p>
+        <p style={{ fontSize: "0.875rem", color: c.fgDim, lineHeight: 1.7 }}>
+          Thanks — I'll get back to you within 24 hours. Need me sooner?{" "}
+          <a href="https://wa.me/255782506217" target="_blank" rel="noopener noreferrer" style={{ color: teal, textDecoration: "none" }}>
+            WhatsApp me
+          </a>{" "}
+          or email kiganjani.co@gmail.com
+        </p>
       </div>
     )
   }
@@ -696,32 +744,38 @@ function ContactForm({ c }: { c: C }) {
     <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
         <div>
-          <label htmlFor="contact-name" style={{ display: "block", fontSize: "0.62rem", letterSpacing: "0.16em", textTransform: "uppercase", color: c.fgDim, marginBottom: "0.5rem" }}>Your name</label>
-          <input id="contact-name" required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
-            style={inputStyle} placeholder="Jane Doe"
-            onFocus={(e) => (e.target.style.borderColor = "rgba(0,210,181,0.5)")}
-            onBlur={(e) => (e.target.style.borderColor = c.rule)} />
+          <label htmlFor="contact-name" style={labelStyle}>Your name</label>
+          <input id="contact-name" required autoComplete="name" placeholder="Jane Doe" {...fieldProps("name")} />
         </div>
         <div>
-          <label htmlFor="contact-business" style={{ display: "block", fontSize: "0.62rem", letterSpacing: "0.16em", textTransform: "uppercase", color: c.fgDim, marginBottom: "0.5rem" }}>Business name</label>
-          <input id="contact-business" value={form.business} onChange={(e) => setForm({ ...form, business: e.target.value })}
-            style={inputStyle} placeholder="Optional"
-            onFocus={(e) => (e.target.style.borderColor = "rgba(0,210,181,0.5)")}
-            onBlur={(e) => (e.target.style.borderColor = c.rule)} />
+          <label htmlFor="contact-email" style={labelStyle}>Your email</label>
+          <input id="contact-email" type="email" required autoComplete="email" placeholder="jane@company.com" {...fieldProps("email")} />
+        </div>
+        <div>
+          <label htmlFor="contact-business" style={labelStyle}>Business name</label>
+          <input id="contact-business" autoComplete="organization" placeholder="Optional" {...fieldProps("business")} />
+        </div>
+        <div>
+          <label htmlFor="contact-phone" style={labelStyle}>Phone / WhatsApp</label>
+          <input id="contact-phone" type="tel" autoComplete="tel" placeholder="Optional" {...fieldProps("phone")} />
         </div>
       </div>
       <div>
-        <label htmlFor="contact-message" style={{ display: "block", fontSize: "0.62rem", letterSpacing: "0.16em", textTransform: "uppercase", color: c.fgDim, marginBottom: "0.5rem" }}>Tell me about your project</label>
-        <textarea id="contact-message" required rows={6} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })}
-          style={{ ...inputStyle, resize: "vertical" }} placeholder="What does your business do? What are you hoping to achieve online?"
-          onFocus={(e) => (e.target.style.borderColor = "rgba(0,210,181,0.5)")}
-          onBlur={(e) => (e.target.style.borderColor = c.rule)} />
+        <label htmlFor="contact-message" style={labelStyle}>Tell me about your project</label>
+        <textarea id="contact-message" required rows={6} placeholder="What does your business do? What are you hoping to achieve online?" {...fieldProps("message")} style={{ ...inputStyle, resize: "vertical" }} />
       </div>
-      <button type="submit"
-        style={{ width: "100%", padding: "1rem", backgroundColor: teal, color: c.canvas, border: "none", borderRadius: "2px", fontSize: "0.82rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", fontFamily: body, transition: "background-color 0.2s" }}
-        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = mint)}
-        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = teal)}
-      >Send enquiry</button>
+      <input id="contact-website" type="text" tabIndex={-1} autoComplete="off" aria-hidden="true"
+        style={{ position: "absolute", left: "-9999px", opacity: 0, height: 0 }} />
+      {status === "error" && (
+        <p style={{ fontSize: "0.8rem", color: "#e5484d", marginTop: "-0.5rem" }}>
+          Something went wrong sending your message. Please email kiganjani.co@gmail.com directly.
+        </p>
+      )}
+      <button type="submit" disabled={status === "submitting"}
+        style={{ width: "100%", padding: "1rem", backgroundColor: teal, color: c.canvas, border: "none", borderRadius: "2px", fontSize: "0.82rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", cursor: status === "submitting" ? "wait" : "pointer", fontFamily: body, transition: "background-color 0.2s", opacity: status === "submitting" ? 0.7 : 1 }}
+        onMouseEnter={(e) => { if (status !== "submitting") e.currentTarget.style.backgroundColor = mint }}
+        onMouseLeave={(e) => { if (status !== "submitting") e.currentTarget.style.backgroundColor = teal }}
+      >{status === "submitting" ? "Sending…" : "Send enquiry"}</button>
     </form>
   )
 }
