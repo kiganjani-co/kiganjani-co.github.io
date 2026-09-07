@@ -1,15 +1,48 @@
+# Dependencies
 node_modules/
+.pnpm-store/
+
+# Build outputs
 dist/
 build/
 .cache/
+.vite/
+
+# Environment files
 .env*
 !.env.example
+
+# Supabase local dev
 supabase/.temp/
-.vite/
-vite.config.*.timestamp-*
+
+# TypeScript
 *.tsbuildinfo
-*-debug.log*
+
+# Logs
 logs/
 *.log
-.claude-replay.*
+*-debug.log*
+
+# IDE/Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Figma Make (dev tooling)
+.figma/
+
+# Temporary files
 .tmp-*
+.claude-replay.*
+
+# Vercel
+.vercel
+
+# Misc
+*.timestamp-*
