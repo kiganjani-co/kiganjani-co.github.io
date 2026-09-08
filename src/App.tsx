@@ -49,10 +49,19 @@ const SERVICES = [
 ]
 
 const TECH_STACK = [
-  { category: "Languages", items: ["HTML", "CSS", "JavaScript", "Python", "SQL"] },
-  { category: "Frameworks", items: ["Bootstrap", "Vue.js", "Express", "Django"] },
-  { category: "Databases",  items: ["MongoDB", "MySQL"] },
-  { category: "Tools",      items: ["CPanel", "Shopify", "Webflow", "GitHub", "Node.js"] },
+  { name: "HTML",       icon: "html5" },
+  { name: "CSS",        icon: "css" },
+  { name: "JavaScript", icon: "javascript" },
+  { name: "Python",     icon: "python" },
+  { name: "SQL",        icon: "mysql" },
+  { name: "Bootstrap",  icon: "bootstrap" },
+  { name: "Vue.js",     icon: "vue.js" },
+  { name: "Express",    icon: "express" },
+  { name: "Django",     icon: "django" },
+  { name: "MongoDB",    icon: "mongodb" },
+  { name: "MySQL",      icon: "mysql" },
+  { name: "GitHub",     icon: "github" },
+  { name: "Node.js",    icon: "node.js" },
 ]
 
 const PRICING = [
@@ -113,9 +122,9 @@ const PROJECTS = [
 ]
 
 const STATS = [
-  { value: "30",   unit: "days",  label: "from brief to live site" },
-  { value: "100%", unit: "",      label: "remote — anywhere in East Africa" },
-  { value: "1",    unit: "owner", label: "direct access, no middlemen" },
+  { value: "30",   unit: "days",  label: "from brief to live site",         icon: "clock" },
+  { value: "100%", unit: "",      label: "remote — anywhere in East Africa", icon: "globe" },
+  { value: "1",    unit: "owner", label: "direct access, no middlemen",     icon: "user" },
 ]
 
 const TRUST_BADGES = [
@@ -328,7 +337,7 @@ export default function App() {
       </section>
 
       {/* ── WORK ── */}
-      <section id="work" style={{ padding: "clamp(4rem, 10vh, 8rem) clamp(1.5rem, 5vw, 4rem)", borderTop: `1px solid ${c.rule}`, backgroundColor: c.canvasMid }}>
+      <section id="work" style={{ padding: "clamp(4rem, 10vh, 8rem) clamp(1.5rem, 5vw, 4rem)", borderTop: `1px solid ${c.rule}` }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "4rem", flexWrap: "wrap", gap: "1rem" }}>
           <div>
             <p style={{ fontSize: "0.68rem", letterSpacing: "0.24em", textTransform: "uppercase", color: teal, marginBottom: "1rem" }}>Case studies</p>
@@ -360,14 +369,43 @@ export default function App() {
 
       {/* ── STATS ── */}
       <section id="stats" style={{ padding: "clamp(3rem, 6vh, 5rem) clamp(1.5rem, 5vw, 4rem)", borderTop: `1px solid ${c.rule}`, backgroundColor: c.canvasMid }}>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "0", justifyContent: "space-around" }}>
-          {STATS.map((s, i) => (
-            <div key={s.label} style={{ flex: "1 1 180px", textAlign: "center", padding: "1.5rem 1rem", borderRight: i < STATS.length - 1 ? `1px solid ${c.rule}` : "none" }}>
-              <div style={{ display: "flex", alignItems: "baseline", justifyContent: "center", gap: "0.4rem" }}>
-                <span style={{ fontFamily: display, fontSize: "2.5rem", fontWeight: 300, color: c.fg }}>{s.value}</span>
-                {s.unit && <span style={{ fontSize: "0.7rem", color: teal, letterSpacing: "0.12em", textTransform: "uppercase" }}>{s.unit}</span>}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", justifyContent: "center" }}>
+          {STATS.map((s) => (
+            <div key={s.label} style={{
+              display: "flex", alignItems: "center", gap: "0.85rem",
+              padding: "0.85rem 1.5rem", backgroundColor: c.canvas,
+              border: `1px solid ${c.rule}`, borderRadius: "2px",
+              minWidth: "220px",
+            }}>
+              <div style={{
+                width: "36px", height: "36px", borderRadius: "6px",
+                backgroundColor: "rgba(0,210,181,0.1)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                flexShrink: 0, color: teal,
+              }}>
+                {s.icon === "clock" && (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                )}
+                {s.icon === "globe" && (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                  </svg>
+                )}
+                {s.icon === "user" && (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                  </svg>
+                )}
               </div>
-              <p style={{ fontSize: "0.75rem", color: c.fgDim, marginTop: "0.4rem", letterSpacing: "0.04em" }}>{s.label}</p>
+              <div>
+                <div style={{ display: "flex", alignItems: "baseline", gap: "0.35rem" }}>
+                  <span style={{ fontFamily: display, fontSize: "1.5rem", fontWeight: 400, color: c.fg }}>{s.value}</span>
+                  {s.unit && <span style={{ fontSize: "0.65rem", color: teal, letterSpacing: "0.1em", textTransform: "uppercase" }}>{s.unit}</span>}
+                </div>
+                <p style={{ fontSize: "0.72rem", color: c.fgDim, marginTop: "0.15rem" }}>{s.label}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -704,31 +742,50 @@ function ProcessJourney({ c }: { c: C }) {
 
 // ── Tech Stack ──────────────────────────────────────────────
 function TechStackSection({ c }: { c: C }) {
+  const tripled = [...TECH_STACK, ...TECH_STACK, ...TECH_STACK]
+
   return (
-    <section id="tech-stack" style={{ padding: "clamp(4rem, 10vh, 8rem) clamp(1.5rem, 5vw, 4rem)", borderTop: `1px solid ${c.rule}` }}>
-      <div style={{ marginBottom: "4rem" }}>
+    <section id="tech-stack" style={{ padding: "clamp(2rem, 4vh, 3rem) 0", borderTop: `1px solid ${c.rule}`, overflow: "hidden", backgroundColor: c.canvasMid }}>
+      <div style={{ padding: "0 clamp(1.5rem, 5vw, 4rem)", marginBottom: "3rem" }}>
         <p style={{ fontSize: "0.68rem", letterSpacing: "0.24em", textTransform: "uppercase", color: teal, marginBottom: "1rem" }}>Tech Stack</p>
-        <h2 style={{ fontFamily: display, fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 400, color: c.fg, lineHeight: 1.1 }}>Tools & Technologies</h2>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 240px), 1fr))", gap: "2.5rem" }}>
-        {TECH_STACK.map((group) => (
-          <div key={group.category}>
-            <h3 style={{ fontFamily: display, fontSize: "1rem", fontWeight: 400, color: c.fg, marginBottom: "1rem" }}>{group.category}</h3>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-              {group.items.map((item) => (
-                <span key={item} style={{
-                  fontSize: "0.72rem", letterSpacing: "0.06em", color: c.fgDim,
-                  border: `1px solid ${c.rule}`, borderRadius: "2px", padding: "0.4rem 0.85rem",
-                  transition: "border-color 0.2s, color 0.2s",
-                }}
-                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(0,210,181,0.4)"; e.currentTarget.style.color = teal }}
-                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = c.rule; e.currentTarget.style.color = c.fgDim }}
-                >{item}</span>
-              ))}
+      <div className="tech-carousel" style={{
+        maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+        WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+      }}>
+        <div className="tech-track">
+          {tripled.map((item, i) => (
+            <div key={`${item.name}-${i}`} style={{
+              display: "flex", alignItems: "center", gap: "0.5rem",
+              padding: "0.55rem 1rem", backgroundColor: c.canvas,
+              border: `1px solid ${c.rule}`, borderRadius: "2px",
+              flexShrink: 0,
+            }}>
+              <img
+                src={`https://cdn.simpleicons.org/${item.icon}`}
+                alt={item.name}
+                style={{ width: "18px", height: "18px", flexShrink: 0, opacity: 0.8 }}
+              />
+              <span style={{ fontSize: "0.7rem", fontWeight: 500, color: c.fgDim, whiteSpace: "nowrap" }}>{item.name}</span>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
+      <style>{`
+        .tech-track {
+          display: flex;
+          gap: 0.75rem;
+          width: max-content;
+          animation: tech-scroll 30s linear infinite;
+        }
+        .tech-track:hover {
+          animation-play-state: paused;
+        }
+        @keyframes tech-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-33.333%); }
+        }
+      `}</style>
     </section>
   )
 }
