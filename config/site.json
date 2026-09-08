@@ -1,0 +1,18 @@
+{
+  "title": "Kiganjani Co. — Websites, E-Commerce & Digital Marketing in Dar es Salaam",
+  "description": "A Dar es Salaam-based digital agency. Bespoke websites, e-commerce stores, and internet marketing for businesses across East Africa — online and growing in 30 days.",
+  "robots": {
+    "index": true
+  },
+  "openGraph": {
+    "image": "https://kiganjani-co.vercel.app/og-image.png"
+  },
+  "accessibility": {
+    "addBypassLinks": true,
+    "ignoreReducedMotion": false
+  },
+  "customScripts": {
+    "headStart": "<link rel=\"canonical\" href=\"https://kiganjani-co.vercel.app/\"><link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin><link rel=\"preconnect\" href=\"https://images.unsplash.com\"><link href=\"https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&display=swap\" rel=\"stylesheet\"><link href=\"https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap\" rel=\"stylesheet\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:site_name\" content=\"Kiganjani Co.\"><meta property=\"og:locale\" content=\"en_US\">",
+    "headEnd": "<script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"ProfessionalService\",\"name\":\"Kiganjani Co.\",\"url\":\"https://kiganjani-co.vercel.app/\",\"image\":\"https://kiganjani-co.vercel.app/og-image.png\",\"logo\":\"https://kiganjani-co.vercel.app/apple-icon-180x180.png\",\"description\":\"A Dar es Salaam-based digital agency. Bespoke websites, e-commerce stores, and internet marketing for businesses across East Africa.\",\"email\":\"kiganjani.co@gmail.com\",\"telephone\":\"+255782506217\",\"founder\":{\"@type\":\"Person\",\"name\":\"William Balaile\",\"jobTitle\":\"Founder & Digital Strategist\"},\"address\":{\"@type\":\"PostalAddress\",\"addressLocality\":\"Dar es Salaam\",\"addressCountry\":\"TZ\"},\"geo\":{\"@type\":\"GeoCoordinates\",\"latitude\":-6.7924,\"longitude\":39.2083},\"areaServed\":{\"@type\":\"Country\",\"name\":\"Tanzania\"},\"priceRange\":\"$$\",\"sameAs\":[\"https://instagram.com/kiganjani.co\"],\"openingHours\":\"Mo-Fr 08:00-18:00\",\"makesOffer\":[{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Service\",\"name\":\"Website Design\"}},{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Service\",\"name\":\"E-Commerce Platform\"}},{\"@type\":\"Offer\",\"itemOffered\":{\"@type\":\"Service\",\"name\":\"Internet Marketing\"}}]}</script>"
+  }
+}
