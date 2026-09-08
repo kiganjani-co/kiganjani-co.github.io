@@ -1,4 +1,5 @@
 ---
+import DarkModeToggle from "./DarkModeToggle";
 const navLinks = ["Services", "Work", "Process", "Pricing", "About", "Contact"];
 ---
 
@@ -25,8 +26,7 @@ const navLinks = ["Services", "Work", "Process", "Pricing", "About", "Contact"];
       </a>
     ))}
 
-    <!-- Dark mode toggle inserted by React -->
-    <div id="dark-toggle-mount"></div>
+    <DarkModeToggle client:load />
 
     <a
       href="mailto:kiganjani.co@gmail.com"
@@ -38,7 +38,7 @@ const navLinks = ["Services", "Work", "Process", "Pricing", "About", "Contact"];
 
   <!-- Mobile row -->
   <div class="show-mobile flex items-center gap-3">
-    <div id="dark-toggle-mount-mobile"></div>
+    <DarkModeToggle client:load />
     <button
       id="mobile-menu-btn"
       class="border-none bg-transparent p-1 cursor-pointer"
