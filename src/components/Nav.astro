@@ -1,6 +1,8 @@
 ---
 import DarkModeToggle from "./DarkModeToggle";
+const { isHome = false } = Astro.props;
 const navLinks = ["Services", "Work", "Process", "Pricing", "About", "Contact"];
+const prefix = isHome ? "" : "/";
 ---
 
 <nav
@@ -20,7 +22,7 @@ const navLinks = ["Services", "Work", "Process", "Pricing", "About", "Contact"];
   <div class="hide-mobile flex items-center gap-10">
     {navLinks.map((l) => (
       <a
-        href={`#${l.toLowerCase()}`}
+        href={`${prefix}#${l.toLowerCase()}`}
         class="text-[0.75rem] uppercase tracking-[0.14em] text-fg-dim no-underline transition-colors hover:text-fg"
       >
         {l}
@@ -61,7 +63,7 @@ const navLinks = ["Services", "Work", "Process", "Pricing", "About", "Contact"];
 >
   {navLinks.map((l) => (
     <a
-      href={`#${l.toLowerCase()}`}
+      href={`${prefix}#${l.toLowerCase()}`}
       class="font-display text-4xl text-fg no-underline mobile-overlay-link"
     >
       {l}
