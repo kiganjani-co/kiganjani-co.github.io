@@ -231,6 +231,14 @@ body {
   align-items: center;
 }
 
+/* Logo: white on transparent, force black in light mode */
+[data-logo] {
+  filter: brightness(0);
+}
+:root.dark [data-logo] {
+  filter: brightness(0) invert(1);
+}
+
 @media (max-width: 860px) {
   .about-grid {
     grid-template-columns: 1fr;
