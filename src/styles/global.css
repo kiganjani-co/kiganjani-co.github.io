@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@theme inline {
+@theme {
   --color-canvas: #ffffff;
   --color-canvas-mid: #f5f5f5;
   --color-canvas-card: #f0f0f0;

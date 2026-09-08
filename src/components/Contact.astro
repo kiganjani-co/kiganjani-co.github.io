@@ -1,4 +1,5 @@
 ---
+import ContactForm from "./ContactForm";
 const contactMethods = [
   { icon: "✉", label: "Email", value: "kiganjani.co@gmail.com", href: "mailto:kiganjani.co@gmail.com" },
   { icon: "✆", label: "Phone / WhatsApp", value: "+255 782 506 217", href: "https://wa.me/255782506217?text=Hello%2C%20I%27m%20interested%20in%20your%20services" },
@@ -39,7 +40,6 @@ const contactMethods = [
       </div>
     </div>
 
-    <!-- Contact form mounted by React -->
-    <div id="contact-form-mount"></div>
+    <ContactForm client:load />
   </div>
 </section>
