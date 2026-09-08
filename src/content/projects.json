@@ -4,7 +4,7 @@
     "category": "Website Design",
     "title": "Placeholder Project Title",
     "description": "A brief description of the project, what the client needed, and the outcome delivered. Replace with your real case study.",
-    "tags": ["Branding", "Web Design", "SEO"],
+    "tags": ["Website", "Web Design", "SEO"],
     "image": "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&h=500&fit=crop&auto=format"
   },
   {
@@ -17,10 +17,10 @@
   },
   {
     "id": "03",
-    "category": "Internet Marketing",
+    "category": "Web Application",
     "title": "Placeholder Project Title",
-    "description": "Growth campaign across search and social. Describe the strategy, channels used, and growth achieved for the client.",
-    "tags": ["Social Media", "Email", "SEO"],
+    "description": "A brief description of the web application developed, the technologies used, and the impact on the client's business.",
+    "tags": ["Web Application", "React", "Database"],
     "image": "https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=800&h=500&fit=crop&auto=format"
   }
 ]
