@@ -271,7 +271,7 @@ export default function App() {
         <div style={{ position: "absolute", top: "-10vh", right: "-10vw", width: "60vw", height: "60vh", background: "radial-gradient(ellipse at center, rgba(0,210,181,0.1) 0%, transparent 70%)", pointerEvents: "none" }} />
 
         <div style={{ maxWidth: "920px", position: "relative" }}>
-          <h1 style={{ fontFamily: display, fontSize: "clamp(2.8rem, 8vw, 6.5rem)", fontWeight: 400, lineHeight: 1.05, letterSpacing: "-0.02em", color: c.fg, marginBottom: "2.5rem" }}>
+          <h1 style={{ fontFamily: display, fontSize: "clamp(2.8rem, 8vw, 5rem)", fontWeight: 400, lineHeight: 1.05, letterSpacing: "-0.02em", color: c.fg, marginBottom: "2.5rem" }}>
             We build the digital<br />
             infrastructure <em style={{ fontStyle: "italic", color: teal }}>your business<br />needs to grow.</em>
           </h1>
@@ -296,29 +296,31 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── TRUST BADGES ── */}
-      <section style={{ padding: "clamp(2rem, 4vh, 3rem) clamp(1.5rem, 5vw, 4rem)", borderTop: `1px solid ${c.rule}`, backgroundColor: c.canvasMid }}>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", justifyContent: "center" }}>
-          {TRUST_BADGES.map((badge) => (
-            <div key={badge.label} style={{
-              display: "flex", alignItems: "center", gap: "0.85rem",
-              padding: "0.85rem 1.5rem", backgroundColor: c.canvas,
-              border: `1px solid ${c.rule}`, borderRadius: "2px",
-              minWidth: "200px",
-            }}>
-              <img
-                src={badge.logo}
-                alt={badge.label}
-                style={{ width: "36px", height: "36px", objectFit: "contain", flexShrink: 0 }}
-              />
-              <div>
-                <p style={{ fontSize: "0.82rem", fontWeight: 500, color: c.fg, lineHeight: 1.3 }}>{badge.label}</p>
-                <p style={{ fontSize: "0.7rem", color: c.fgDim, marginTop: "0.15rem" }}>{badge.detail}</p>
+      {/* ── TRUST BADGES (hidden — re-add later) ── */}
+      {false && (
+        <section style={{ padding: "clamp(2rem, 4vh, 3rem) clamp(1.5rem, 5vw, 4rem)", borderTop: `1px solid ${c.rule}`, backgroundColor: c.canvasMid }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", justifyContent: "center" }}>
+            {TRUST_BADGES.map((badge) => (
+              <div key={badge.label} style={{
+                display: "flex", alignItems: "center", gap: "0.85rem",
+                padding: "0.85rem 1.5rem", backgroundColor: c.canvas,
+                border: `1px solid ${c.rule}`, borderRadius: "2px",
+                minWidth: "200px",
+              }}>
+                <img
+                  src={badge.logo}
+                  alt={badge.label}
+                  style={{ width: "36px", height: "36px", objectFit: "contain", flexShrink: 0 }}
+                />
+                <div>
+                  <p style={{ fontSize: "0.82rem", fontWeight: 500, color: c.fg, lineHeight: 1.3 }}>{badge.label}</p>
+                  <p style={{ fontSize: "0.7rem", color: c.fgDim, marginTop: "0.15rem" }}>{badge.detail}</p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* ── SERVICES ── */}
       <section id="services" style={{ padding: "clamp(4rem, 10vh, 8rem) clamp(1.5rem, 5vw, 4rem)", borderTop: `1px solid ${c.rule}` }}>
