@@ -96,7 +96,7 @@ export default function Process() {
           className="font-display mb-[clamp(1.5rem,3vh,2.5rem)] text-[clamp(1.8rem,4vw,3rem)] font-normal leading-[1.1]"
           style={{ color: fg }}
         >
-          Online in 30 days — <em className="italic text-teal">guaranteed.</em>
+          10 days — <em className="italic text-teal"> from start to launch.</em>
         </h2>
 
         {/* Snake */}
