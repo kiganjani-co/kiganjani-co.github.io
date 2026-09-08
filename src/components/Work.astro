@@ -1,0 +1,55 @@
+---
+import projects from "../content/projects.json";
+---
+
+<section id="work" class="border-t border-rule px-[clamp(1.5rem,5vw,4rem)] py-[clamp(4rem,10vh,8rem)]">
+  <div class="mb-16 flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <p class="mb-4 text-[0.68rem] uppercase tracking-[0.24em] text-teal">Case studies</p>
+      <h2 class="font-display text-[clamp(2rem,5vw,3.5rem)] font-normal leading-[1.1] text-fg">Selected work</h2>
+    </div>
+    <p class="max-w-[340px] text-[0.9rem] leading-[1.75] text-fg-dim">
+      Projects that moved the needle — from first website to full digital operations.
+    </p>
+  </div>
+
+  <div class="flex flex-col gap-6">
+    {projects.map((project) => (
+      <div class="grid bg-canvas-mid transition-colors duration-300 hover:bg-card-hover" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));">
+        <div class="overflow-hidden bg-[#888] h-[280px]">
+          <img
+            src={project.image}
+            alt={project.title}
+            loading="lazy"
+            decoding="async"
+            class="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.04]"
+          />
+        </div>
+        <div class="flex flex-col justify-center p-10">
+          <div class="mb-5 flex items-center gap-4">
+            <span class="text-[0.62rem] uppercase tracking-[0.18em] text-teal">{project.category}</span>
+            <span class="font-display text-[0.65rem] text-fg-dim">{project.id}</span>
+          </div>
+          <h3 class="font-display mb-4 text-[clamp(1.25rem,2.5vw,1.75rem)] font-normal leading-[1.2] text-fg">
+            {project.title}
+          </h3>
+          <p class="mb-7 text-[0.875rem] leading-[1.8] text-fg-dim">{project.description}</p>
+          <div class="flex flex-wrap gap-2">
+            {project.tags.map((tag) => (
+              <span class="rounded-sm border border-teal/30 px-2.5 py-1 text-[0.65rem] uppercase tracking-[0.1em] text-teal">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="mt-12 text-center">
+    <p class="text-[0.8rem] tracking-[0.06em] text-fg-dim">
+      More projects available on request —{" "}
+      <a href="mailto:kiganjani.co@gmail.com" class="text-teal no-underline">get in touch</a>
+    </p>
+  </div>
+</section>

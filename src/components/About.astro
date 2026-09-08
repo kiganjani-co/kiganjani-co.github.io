@@ -1,0 +1,47 @@
+---
+import williamPhoto from "../imports/annotation-reference.png";
+---
+
+<section id="about" class="border-t border-rule px-[clamp(1.5rem,5vw,4rem)] py-[clamp(4rem,10vh,8rem)]">
+  <div class="about-grid">
+    <div class="relative flex-shrink-0">
+      <div
+        class="pointer-events-none absolute rounded-sm border border-teal/35"
+        style="inset: -12px 12px 12px -12px;"
+      ></div>
+      <img
+        src={williamPhoto.src}
+        alt="William Balaile, founder of Kiganjani Co."
+        loading="lazy"
+        decoding="async"
+        class="h-[480px] w-full rounded-sm object-cover bg-[#ccc] block"
+      />
+      <div
+        class="absolute bottom-6 left-6 rounded-sm border-l-2 border-teal bg-caption-bg px-5 py-3 backdrop-blur-sm"
+      >
+        <p class="font-display text-base font-normal text-fg">William Balaile</p>
+        <p class="mt-0.5 text-[0.65rem] uppercase tracking-[0.14em] text-teal">
+          Founder &amp; Digital Strategist
+        </p>
+      </div>
+    </div>
+
+    <div class="flex flex-col justify-center">
+      <p class="mb-6 text-[0.68rem] uppercase tracking-[0.24em] text-teal">About</p>
+      <h2
+        class="font-display mb-7 text-[clamp(1.8rem,4vw,2.75rem)] font-normal leading-[1.2] text-fg"
+      >
+        One person.<br />Full accountability.
+      </h2>
+      <p class="mb-5 text-base leading-[1.85] text-fg-dim">
+        I'm William — the person who answers your messages, builds your site, and thinks about your
+        growth. No account managers. No offshore handoffs. When you work with Kiganjani Co., you
+        work with me directly.
+      </p>
+      <p class="text-base leading-[1.85] text-fg-dim">
+        Based in Dar es Salaam, I've helped businesses across East Africa establish their digital
+        presence and grow it with intention — not noise.
+      </p>
+    </div>
+  </div>
+</section>

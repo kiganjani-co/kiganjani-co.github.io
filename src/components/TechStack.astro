@@ -1,0 +1,44 @@
+---
+const techStack = [
+  { name: "HTML", icon: "html5" },
+  { name: "CSS", icon: "css" },
+  { name: "JavaScript", icon: "javascript" },
+  { name: "Python", icon: "python" },
+  { name: "SQL", icon: "mysql" },
+  { name: "Bootstrap", icon: "bootstrap" },
+  { name: "Vue.js", icon: "vue.js" },
+  { name: "Express", icon: "express" },
+  { name: "Django", icon: "django" },
+  { name: "MongoDB", icon: "mongodb" },
+  { name: "MySQL", icon: "mysql" },
+  { name: "GitHub", icon: "github" },
+  { name: "Node.js", icon: "node.js" },
+];
+
+const tripled = [...techStack, ...techStack, ...techStack];
+---
+
+<section id="tech-stack" class="overflow-hidden border-t border-rule bg-canvas-mid py-[clamp(2rem,4vh,3rem)]">
+  <div class="mb-12 px-[clamp(1.5rem,5vw,4rem)]">
+    <p class="text-[0.68rem] uppercase tracking-[0.24em] text-teal">Tech Stack</p>
+  </div>
+  <div
+    class="tech-carousel"
+    style="mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);"
+  >
+    <div class="tech-track">
+      {tripled.map((item, i) => (
+        <div
+          class="flex flex-shrink-0 items-center gap-2 rounded-sm border border-rule bg-canvas px-4 py-2"
+        >
+          <img
+            src={`https://cdn.simpleicons.org/${item.icon}`}
+            alt={item.name}
+            class="h-[18px] w-[18px] flex-shrink-0 opacity-80"
+          />
+          <span class="whitespace-nowrap text-[0.7rem] font-medium text-fg-dim">{item.name}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

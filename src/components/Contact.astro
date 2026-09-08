@@ -1,0 +1,45 @@
+---
+const contactMethods = [
+  { icon: "✉", label: "Email", value: "kiganjani.co@gmail.com", href: "mailto:kiganjani.co@gmail.com" },
+  { icon: "✆", label: "Phone / WhatsApp", value: "+255 782 506 217", href: "https://wa.me/255782506217?text=Hello%2C%20I%27m%20interested%20in%20your%20services" },
+  { icon: "⊕", label: "Instagram", value: "@kiganjani.co", href: "https://instagram.com/kiganjani.co" },
+];
+---
+
+<section id="contact" class="border-t border-rule px-[clamp(1.5rem,5vw,4rem)] py-[clamp(4rem,10vh,8rem)]">
+  <div class="grid gap-16 items-start" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));">
+    <div>
+      <p class="mb-6 text-[0.68rem] uppercase tracking-[0.24em] text-teal">Start a project</p>
+      <h2 class="font-display mb-6 text-[clamp(2rem,5vw,3.5rem)] font-normal leading-[1.15] text-fg">
+        Let's get your business online.
+      </h2>
+      <p class="mb-10 text-base leading-[1.85] text-fg-dim">
+        Tell me what you're building. I'll come back within 24 hours with how I can help and what
+        it'll take to get there.
+      </p>
+      <div class="flex flex-col gap-4">
+        {contactMethods.map((ct) => (
+          <a
+            href={ct.href}
+            target={ct.href.startsWith("http") ? "_blank" : undefined}
+            rel={ct.href.startsWith("http") ? "noopener noreferrer" : undefined}
+            class="flex items-center gap-4 rounded-sm border border-rule p-4 no-underline transition-colors hover:border-teal/40 hover:bg-teal/5"
+          >
+            <span
+              class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-sm bg-teal/10 text-[0.9rem] text-teal"
+            >
+              {ct.icon}
+            </span>
+            <div>
+              <p class="mb-0.5 text-[0.62rem] uppercase tracking-[0.14em] text-fg-dim">{ct.label}</p>
+              <p class="text-[0.9rem] text-fg">{ct.value}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Contact form mounted by React -->
+    <div id="contact-form-mount"></div>
+  </div>
+</section>

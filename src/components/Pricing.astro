@@ -1,0 +1,88 @@
+---
+const pricing = [
+  {
+    tier: "Website",
+    price: "400,000",
+    features: [
+      "Custom landing page (up to 5 pages)",
+      "Custom .co.tz Domain + Emails",
+      "1yr Hosting + Maintenance",
+      "Contact form + Chat on WhatsApp",
+      "Search Engine Optimization",
+    ],
+  },
+  {
+    tier: "E-Commerce",
+    price: "1,800,000",
+    features: [
+      "All core Website features included",
+      "Secure Payment Gateway Integration",
+      "Shopping Cart & Checkout system",
+      "Inventory, Order Tracking & Discount systems",
+      "Automated customer invoice & email notifications",
+    ],
+  },
+  {
+    tier: "Web Application",
+    price: "3,200,000",
+    features: [
+      "All core Website features included",
+      "Secure Authentication (Login/Signup)",
+      "Interactive Dashboard + Database",
+      "Business Logic & API Integration",
+      "Admin Panel (for managing users, content, and data)",
+    ],
+  },
+];
+---
+
+<section id="pricing" class="border-t border-rule px-[clamp(1.5rem,5vw,4rem)] py-[clamp(4rem,10vh,8rem)]">
+  <div class="mb-16">
+    <p class="mb-4 text-[0.68rem] uppercase tracking-[0.24em] text-teal">Pricing</p>
+    <h2 class="font-display text-[clamp(2rem,5vw,3.5rem)] font-normal leading-[1.1] text-fg">
+      Transparent packages
+    </h2>
+  </div>
+
+  <div class="grid gap-px bg-rule" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));">
+    {pricing.map((plan) => (
+      <div class="group cursor-default bg-canvas p-10 transition-colors duration-200 hover:bg-card-hover">
+        <p class="mb-6 text-[0.62rem] uppercase tracking-[0.18em] text-teal">{plan.tier}</p>
+        <div class="mb-7 flex items-baseline gap-1.5">
+          <span class="font-display text-[clamp(2rem,4vw,2.75rem)] font-normal text-fg">{plan.price}</span>
+          <span class="text-[0.7rem] tracking-[0.08em] text-fg-dim">TZS</span>
+        </div>
+        <ul class="flex flex-col gap-3 list-none p-0 m-0">
+          {plan.features.map((f) => (
+            <li class="flex items-start gap-2.5 text-[0.82rem] leading-[1.5] text-fg-dim">
+              <span class="mt-0.5 flex-shrink-0 text-teal">&#10003;</span>
+              {f}
+            </li>
+          ))}
+        </ul>
+        <a
+          href="#contact"
+          class="mt-8 block rounded-sm border border-rule p-3.5 text-center text-[0.75rem] font-medium uppercase tracking-[0.1em] text-fg no-underline transition-colors hover:border-teal hover:bg-teal/5"
+        >
+          Get Started
+        </a>
+      </div>
+    ))}
+  </div>
+
+  <!-- Custom request -->
+  <div class="mt-6 flex flex-wrap items-center justify-between gap-6 rounded-sm border border-rule p-8">
+    <div>
+      <p class="font-display mb-1.5 text-[1.1rem] font-normal text-fg">Custom Request</p>
+      <p class="text-[0.85rem] leading-[1.6] text-fg-dim">
+        Have a unique project in mind? Let's discuss your requirements and I'll provide a tailored quote.
+      </p>
+    </div>
+    <a
+      href="#contact"
+      class="flex-shrink-0 rounded-sm bg-teal px-6 py-3 text-[0.75rem] font-medium uppercase tracking-[0.1em] text-canvas no-underline transition-colors hover:bg-mint"
+    >
+      Contact for Quote
+    </a>
+  </div>
+</section>

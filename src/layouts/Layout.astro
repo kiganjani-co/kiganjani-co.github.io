@@ -1,0 +1,153 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = "Kiganjani Co. — Websites, E-Commerce & Digital Marketing in Dar es Salaam",
+  description = "A Dar es Salaam-based digital agency. Bespoke websites, e-commerce stores, and internet marketing for businesses across East Africa — online and growing in 30 days.",
+  ogImage = "https://kiganjani-co.github.io/og-image.png",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, "https://kiganjani-co.github.io");
+
+const jsonLD = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "Kiganjani Co.",
+  url: "https://kiganjani-co.github.io/",
+  image: ogImage,
+  description,
+  email: "kiganjani.co@gmail.com",
+  telephone: "+255782506217",
+  founder: {
+    "@type": "Person",
+    name: "William Balaile",
+    jobTitle: "Founder & Digital Strategist",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Dar es Salaam",
+    addressCountry: "TZ",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: -6.7924,
+    longitude: 39.2083,
+  },
+  areaServed: {
+    "@type": "Country",
+    name: "Tanzania",
+  },
+  priceRange: "$$",
+  sameAs: ["https://instagram.com/kiganjani.co"],
+  openingHours: "Mo-Fr 08:00-18:00",
+  makesOffer: [
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Website Design" } },
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "E-Commerce Platform" } },
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Internet Marketing" } },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Preconnect to external origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="Kiganjani Co." />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#00d2b5" />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png" />
+    <link rel="apple-touch-icon" href="/favicon/apple-icon.png" />
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLD)} />
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JJT7ZBG0SZ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-JJT7ZBG0SZ");
+    </script>
+
+    <!-- Dark mode: run early to prevent flash -->
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (stored === "dark" || (!stored && prefersDark)) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-teal focus:px-4 focus:py-2 focus:text-black"
+    >
+      Skip to content
+    </a>
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <!-- Vercel Analytics (optional — remove if not needed) -->
+  </body>
+</html>

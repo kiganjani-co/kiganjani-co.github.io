@@ -1,0 +1,29 @@
+---
+import brelaLogo from "../imports/brela.png";
+import traLogo from "../imports/tra-logo.png";
+
+const badges = [
+  { label: "BRELA Registered", detail: "No. 200242289", logo: brelaLogo },
+  { label: "TRA Certified", detail: "TIN: 200-242-289", logo: traLogo },
+];
+---
+
+<section class="border-t border-rule bg-canvas-mid px-[clamp(1.5rem,5vw,4rem)] py-[clamp(2rem,4vh,3rem)]">
+  <div class="flex flex-wrap justify-center gap-4">
+    {badges.map((badge) => (
+      <div
+        class="flex min-w-[200px] items-center gap-3.5 rounded-sm border border-rule bg-canvas px-6 py-3.5"
+      >
+        <img
+          src={badge.logo.src}
+          alt={badge.label}
+          class="h-9 w-9 flex-shrink-0 object-contain"
+        />
+        <div>
+          <p class="text-[0.82rem] font-medium leading-tight text-fg">{badge.label}</p>
+          <p class="mt-0.5 text-[0.7rem] text-fg-dim">{badge.detail}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

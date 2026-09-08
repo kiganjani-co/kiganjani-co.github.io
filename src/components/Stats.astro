@@ -1,0 +1,42 @@
+---
+const stats = [
+  { value: "30", unit: "days", label: "from brief to live site" },
+  { value: "100%", unit: "", label: "remote — anywhere in East Africa" },
+  { value: "1", unit: "owner", label: "direct access, no middlemen" },
+];
+---
+
+<section class="border-t border-rule bg-canvas-mid px-[clamp(1.5rem,5vw,4rem)] py-[clamp(3rem,6vh,5rem)]">
+  <div class="flex flex-wrap justify-center gap-4">
+    {stats.map((s) => (
+      <div class="flex min-w-[220px] items-center gap-3.5 rounded-sm border border-rule bg-canvas px-6 py-3.5">
+        <div class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md bg-teal/10 text-teal">
+          {s.label.includes("brief") && (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+          )}
+          {s.label.includes("remote") && (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          )}
+          {s.label.includes("direct") && (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+          )}
+        </div>
+        <div>
+          <div class="flex items-baseline gap-1.5">
+            <span class="font-display text-[1.5rem] font-normal text-fg">{s.value}</span>
+            {s.unit && (
+              <span class="text-[0.65rem] uppercase tracking-[0.1em] text-teal">{s.unit}</span>
+            )}
+          </div>
+          <p class="mt-0.5 text-[0.72rem] text-fg-dim">{s.label}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

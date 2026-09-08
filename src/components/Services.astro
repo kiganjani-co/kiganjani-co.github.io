@@ -1,0 +1,29 @@
+---
+const services = [
+  { number: "01", title: "Websites", description: "Custom websites built around your brand. Clean, fast, and crafted to convert visitors into clients." },
+  { number: "02", title: "E-Commerce", description: "End-to-end online stores — product listings, inventory, orders, and payments in one coherent system." },
+  { number: "03", title: "Application Development", description: "Responsive web applications built to meet your specific business needs — from internal tools to customer-facing platforms." },
+];
+---
+
+<section id="services" class="border-t border-rule px-[clamp(1.5rem,5vw,4rem)] py-[clamp(4rem,10vh,8rem)]">
+  <div class="mb-16 flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <p class="mb-4 text-[0.68rem] uppercase tracking-[0.24em] text-teal">What we do</p>
+      <h2 class="font-display text-[clamp(2rem,5vw,3.5rem)] font-normal leading-[1.1] text-fg">Services</h2>
+    </div>
+    <p class="max-w-[340px] text-[0.9rem] leading-[1.75] text-fg-dim">
+      Minimalist design principles, open-source technology, and organic growth strategies.
+    </p>
+  </div>
+  <div class="grid gap-px bg-rule" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));">
+    {services.map((svc) => (
+      <div class="group cursor-default bg-canvas p-10 transition-colors duration-200 hover:bg-card-hover">
+        <p class="font-display mb-6 text-[0.72rem] tracking-[0.06em] text-teal">{svc.number}</p>
+        <h3 class="font-display mb-3.5 text-[1.35rem] font-normal leading-[1.2] text-fg">{svc.title}</h3>
+        <p class="text-[0.875rem] leading-[1.8] text-fg-dim">{svc.description}</p>
+        <div class="mt-8 h-[1.5px] w-5 bg-teal transition-all duration-300 group-hover:w-12"></div>
+      </div>
+    ))}
+  </div>
+</section>

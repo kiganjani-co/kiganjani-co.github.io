@@ -1,0 +1,127 @@
+---
+const navLinks = ["Services", "Work", "Process", "Pricing", "About", "Contact"];
+---
+
+<nav
+  id="site-nav"
+  class="fixed inset-x-0 top-0 z-50 flex h-16 items-center justify-between px-[clamp(1.5rem,5vw,4rem)] transition-all duration-300"
+  style="background-color: transparent; backdrop-filter: none; border-bottom: none;"
+>
+  <a href="#" class="flex items-center gap-2.5 no-underline">
+    <img
+      src="/logo.png"
+      alt="Kiganjani Co."
+      class="h-10 w-auto transition-filter duration-300 dark:invert"
+    />
+  </a>
+
+  <div class="hide-mobile flex items-center gap-10">
+    {navLinks.map((l) => (
+      <a
+        href={`#${l.toLowerCase()}`}
+        class="text-[0.75rem] uppercase tracking-[0.14em] text-fg-dim no-underline transition-colors hover:text-fg"
+      >
+        {l}
+      </a>
+    ))}
+
+    <!-- Dark mode toggle inserted by React -->
+    <div id="dark-toggle-mount"></div>
+
+    <a
+      href="mailto:kiganjani.co@gmail.com"
+      class="text-[0.78rem] font-medium tracking-[0.06em] rounded-sm bg-teal px-5 py-2 text-canvas no-underline transition-colors hover:bg-mint"
+    >
+      Get in touch
+    </a>
+  </div>
+
+  <!-- Mobile row -->
+  <div class="show-mobile flex items-center gap-3">
+    <div id="dark-toggle-mount-mobile"></div>
+    <button
+      id="mobile-menu-btn"
+      class="border-none bg-transparent p-1 cursor-pointer"
+      aria-label="Toggle menu"
+    >
+      <div class="flex w-[22px] flex-col gap-[5px]">
+        <span class="block h-[1.5px] bg-fg transition-transform duration-200" id="bar-0"></span>
+        <span class="block h-[1.5px] bg-fg transition-transform duration-200" id="bar-1"></span>
+        <span class="block h-[1.5px] bg-fg transition-transform duration-200" id="bar-2"></span>
+      </div>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile overlay -->
+<div
+  id="mobile-overlay"
+  class="fixed inset-0 z-40 hidden flex-col items-center justify-center gap-10 bg-overlay-bg"
+>
+  {navLinks.map((l) => (
+    <a
+      href={`#${l.toLowerCase()}`}
+      class="font-display text-4xl text-fg no-underline mobile-overlay-link"
+    >
+      {l}
+    </a>
+  ))}
+  <a
+    href="mailto:kiganjani.co@gmail.com"
+    class="mt-4 text-[0.9rem] tracking-[0.12em] text-teal no-underline mobile-overlay-link"
+  >
+    kiganjani.co@gmail.com
+  </a>
+</div>
+
+<script is:inline>
+  // Mobile menu toggle
+  const btn = document.getElementById("mobile-menu-btn");
+  const overlay = document.getElementById("mobile-overlay");
+  let menuOpen = false;
+
+  function toggleMenu() {
+    menuOpen = !menuOpen;
+    if (menuOpen) {
+      overlay.classList.remove("hidden");
+      overlay.classList.add("flex");
+      document.getElementById("bar-0").style.transform = "translateY(6.5px) rotate(45deg)";
+      document.getElementById("bar-1").style.transform = "scaleX(0)";
+      document.getElementById("bar-2").style.transform = "translateY(-6.5px) rotate(-45deg)";
+    } else {
+      overlay.classList.add("hidden");
+      overlay.classList.remove("flex");
+      document.getElementById("bar-0").style.transform = "none";
+      document.getElementById("bar-1").style.transform = "none";
+      document.getElementById("bar-2").style.transform = "none";
+    }
+  }
+
+  btn?.addEventListener("click", toggleMenu);
+
+  // Close on Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && menuOpen) toggleMenu();
+  });
+
+  // Close on link click
+  document.querySelectorAll(".mobile-overlay-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      if (menuOpen) toggleMenu();
+    });
+  });
+
+  // Nav scroll effect
+  const nav = document.getElementById("site-nav");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 60) {
+      nav.style.backgroundColor = "var(--color-nav-bg)";
+      nav.style.backdropFilter = "blur(12px)";
+      nav.style.borderBottom = "1px solid var(--color-rule)";
+    } else {
+      nav.style.backgroundColor = "transparent";
+      nav.style.backdropFilter = "none";
+      nav.style.borderBottom = "none";
+    }
+  }, { passive: true });
+</script>

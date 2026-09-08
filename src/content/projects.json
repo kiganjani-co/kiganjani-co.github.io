@@ -1,0 +1,26 @@
+[
+  {
+    "id": "01",
+    "category": "Website Design",
+    "title": "Placeholder Project Title",
+    "description": "A brief description of the project, what the client needed, and the outcome delivered. Replace with your real case study.",
+    "tags": ["Branding", "Web Design", "SEO"],
+    "image": "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&h=500&fit=crop&auto=format"
+  },
+  {
+    "id": "02",
+    "category": "E-Commerce",
+    "title": "Placeholder Project Title",
+    "description": "A brief description of the e-commerce solution built, the problem solved, and measurable results achieved.",
+    "tags": ["E-Commerce", "Payments", "Inventory"],
+    "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=500&fit=crop&auto=format"
+  },
+  {
+    "id": "03",
+    "category": "Internet Marketing",
+    "title": "Placeholder Project Title",
+    "description": "Growth campaign across search and social. Describe the strategy, channels used, and growth achieved for the client.",
+    "tags": ["Social Media", "Email", "SEO"],
+    "image": "https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=800&h=500&fit=crop&auto=format"
+  }
+]
