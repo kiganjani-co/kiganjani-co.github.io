@@ -3,6 +3,8 @@ import { Analytics } from "@vercel/analytics/react"
 import { hasSupabase, supabase } from "./lib/supabase"
 import logo from "./imports/Simple-transparent.png"
 import williamPhoto from "./imports/annotation-reference.jpeg"
+import brelaLogo from "./imports/brela.png"
+import traLogo from "./imports/tra-logo.png"
 
 // ── Theme ─────────────────────────────────────────────────────
 const lightC = {
@@ -38,12 +40,55 @@ const body    = "'Outfit', system-ui, sans-serif"
 
 type C = typeof lightC
 
-const NAV_LINKS = ["Services", "Work", "Process", "About", "Contact"]
+const NAV_LINKS = ["Services", "Work", "Process", "Pricing", "About", "Contact"]
 
 const SERVICES = [
-  { number: "01", title: "Website Design",      description: "Bespoke websites built around your brand. Clean, fast, and crafted to convert visitors into clients." },
-  { number: "02", title: "E-Commerce Platform", description: "End-to-end online stores — product listings, inventory, orders, and payments in one coherent system." },
-  { number: "03", title: "Internet Marketing",  description: "Search, social, and email working in concert. Organic strategies that compound over time." },
+  { number: "01", title: "Websites",               description: "Custom websites built around your brand. Clean, fast, and crafted to convert visitors into clients." },
+  { number: "02", title: "E-Commerce",             description: "End-to-end online stores — product listings, inventory, orders, and payments in one coherent system." },
+  { number: "03", title: "Application Development", description: "Responsive web applications built to meet your specific business needs — from internal tools to customer-facing platforms." },
+]
+
+const TECH_STACK = [
+  { category: "Languages", items: ["HTML", "CSS", "JavaScript", "Python", "SQL"] },
+  { category: "Frameworks", items: ["Bootstrap", "Vue.js", "Express", "Django"] },
+  { category: "Databases",  items: ["MongoDB", "MySQL"] },
+  { category: "Tools",      items: ["CPanel", "Shopify", "Webflow", "GitHub", "Node.js"] },
+]
+
+const PRICING = [
+  {
+    tier: "Website",
+    price: "400,000",
+    features: [
+      "Custom landing page (up to 5 pages)",
+      "Custom .co.tz Domain + Emails",
+      "1yr Hosting + Maintenance",
+      "Contact form + Chat on WhatsApp",
+      "Search Engine Optimization",
+    ],
+  },
+  {
+    tier: "E-Commerce",
+    price: "1,800,000",
+    features: [
+      "All core Website features included",
+      "Secure Payment Gateway Integration",
+      "Shopping Cart & Checkout system",
+      "Inventory, Order Tracking & Discount systems",
+      "Automated customer invoice & email notifications",
+    ],
+  },
+  {
+    tier: "Web Application",
+    price: "3,200,000",
+    features: [
+      "All core Website features included",
+      "Secure Authentication (Login/Signup)",
+      "Interactive Dashboard + Database",
+      "Business Logic & API Integration",
+      "Admin Panel (for managing users, content, and data)",
+    ],
+  },
 ]
 
 const PROJECTS = [
@@ -71,6 +116,11 @@ const STATS = [
   { value: "30",   unit: "days",  label: "from brief to live site" },
   { value: "100%", unit: "",      label: "remote — anywhere in East Africa" },
   { value: "1",    unit: "owner", label: "direct access, no middlemen" },
+]
+
+const TRUST_BADGES = [
+  { label: "BRELA Registered",  detail: "No. 200242289",     logo: brelaLogo },
+  { label: "TRA Certified",     detail: "TIN: 200-242-289", logo: traLogo },
 ]
 
 // ── Sun / Moon icons ──────────────────────────────────────────
@@ -212,15 +262,12 @@ export default function App() {
         <div style={{ position: "absolute", top: "-10vh", right: "-10vw", width: "60vw", height: "60vh", background: "radial-gradient(ellipse at center, rgba(0,210,181,0.1) 0%, transparent 70%)", pointerEvents: "none" }} />
 
         <div style={{ maxWidth: "920px", position: "relative" }}>
-          <p style={{ fontSize: "0.7rem", letterSpacing: "0.24em", textTransform: "uppercase", color: teal, marginBottom: "2rem", fontWeight: 500 }}>
-            Dar es Salaam, Tanzania — Digital Agency
-          </p>
           <h1 style={{ fontFamily: display, fontSize: "clamp(2.8rem, 8vw, 6.5rem)", fontWeight: 400, lineHeight: 1.05, letterSpacing: "-0.02em", color: c.fg, marginBottom: "2.5rem" }}>
-            Your business,<br />
-            <em style={{ fontStyle: "italic", color: teal }}>online</em> and growing.
+            We build the digital<br />
+            infrastructure <em style={{ fontStyle: "italic", color: teal }}>your business<br />needs to grow.</em>
           </h1>
           <p style={{ fontSize: "clamp(1rem, 2vw, 1.15rem)", lineHeight: 1.8, color: c.fgDim, maxWidth: "500px", marginBottom: "3rem" }}>
-            Kiganjani Co. handles the technical complexity of going online — so you can focus on running your business. Websites, stores, and marketing that actually work.
+            A solo agency with the precision of a specialist and the range of a full-service studio. Websites, e-commerce, and custom applications — built to convert.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", alignItems: "center" }}>
             <a href="#contact"
@@ -237,6 +284,30 @@ export default function App() {
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3l5 5-5 5M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </a>
           </div>
+        </div>
+      </section>
+
+      {/* ── TRUST BADGES ── */}
+      <section style={{ padding: "clamp(2rem, 4vh, 3rem) clamp(1.5rem, 5vw, 4rem)", borderTop: `1px solid ${c.rule}`, backgroundColor: c.canvasMid }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", justifyContent: "center" }}>
+          {TRUST_BADGES.map((badge) => (
+            <div key={badge.label} style={{
+              display: "flex", alignItems: "center", gap: "0.85rem",
+              padding: "0.85rem 1.5rem", backgroundColor: c.canvas,
+              border: `1px solid ${c.rule}`, borderRadius: "2px",
+              minWidth: "200px",
+            }}>
+              <img
+                src={badge.logo}
+                alt={badge.label}
+                style={{ width: "36px", height: "36px", objectFit: "contain", flexShrink: 0 }}
+              />
+              <div>
+                <p style={{ fontSize: "0.82rem", fontWeight: 500, color: c.fg, lineHeight: 1.3 }}>{badge.label}</p>
+                <p style={{ fontSize: "0.7rem", color: c.fgDim, marginTop: "0.15rem" }}>{badge.detail}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -278,8 +349,14 @@ export default function App() {
         </div>
       </section>
 
+      {/* ── TECH STACK ── */}
+      <TechStackSection c={c} />
+
       {/* ── PROCESS ── */}
       <ProcessJourney c={c} />
+
+      {/* ── PRICING ── */}
+      <PricingSection c={c} />
 
       {/* ── STATS ── */}
       <section id="stats" style={{ padding: "clamp(3rem, 6vh, 5rem) clamp(1.5rem, 5vw, 4rem)", borderTop: `1px solid ${c.rule}`, backgroundColor: c.canvasMid }}>
@@ -621,6 +698,90 @@ function ProcessJourney({ c }: { c: C }) {
           }
         }
       `}</style>
+    </div>
+  )
+}
+
+// ── Tech Stack ──────────────────────────────────────────────
+function TechStackSection({ c }: { c: C }) {
+  return (
+    <section id="tech-stack" style={{ padding: "clamp(4rem, 10vh, 8rem) clamp(1.5rem, 5vw, 4rem)", borderTop: `1px solid ${c.rule}` }}>
+      <div style={{ marginBottom: "4rem" }}>
+        <p style={{ fontSize: "0.68rem", letterSpacing: "0.24em", textTransform: "uppercase", color: teal, marginBottom: "1rem" }}>Tech Stack</p>
+        <h2 style={{ fontFamily: display, fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 400, color: c.fg, lineHeight: 1.1 }}>Tools & Technologies</h2>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 240px), 1fr))", gap: "2.5rem" }}>
+        {TECH_STACK.map((group) => (
+          <div key={group.category}>
+            <h3 style={{ fontFamily: display, fontSize: "1rem", fontWeight: 400, color: c.fg, marginBottom: "1rem" }}>{group.category}</h3>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+              {group.items.map((item) => (
+                <span key={item} style={{
+                  fontSize: "0.72rem", letterSpacing: "0.06em", color: c.fgDim,
+                  border: `1px solid ${c.rule}`, borderRadius: "2px", padding: "0.4rem 0.85rem",
+                  transition: "border-color 0.2s, color 0.2s",
+                }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(0,210,181,0.4)"; e.currentTarget.style.color = teal }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = c.rule; e.currentTarget.style.color = c.fgDim }}
+                >{item}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+// ── Pricing ──────────────────────────────────────────────────
+function PricingSection({ c }: { c: C }) {
+  return (
+    <section id="pricing" style={{ padding: "clamp(4rem, 10vh, 8rem) clamp(1.5rem, 5vw, 4rem)", borderTop: `1px solid ${c.rule}` }}>
+      <div style={{ marginBottom: "4rem" }}>
+        <p style={{ fontSize: "0.68rem", letterSpacing: "0.24em", textTransform: "uppercase", color: teal, marginBottom: "1rem" }}>Pricing</p>
+        <h2 style={{ fontFamily: display, fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 400, color: c.fg, lineHeight: 1.1 }}>Transparent packages</h2>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: "1px", backgroundColor: c.rule }}>
+        {PRICING.map((plan) => <PricingCard key={plan.tier} {...plan} c={c} />)}
+      </div>
+      <div style={{ marginTop: "1.5rem", padding: "2rem", border: `1px solid ${c.rule}`, borderRadius: "2px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1.5rem" }}>
+        <div>
+          <p style={{ fontFamily: display, fontSize: "1.1rem", fontWeight: 400, color: c.fg, marginBottom: "0.35rem" }}>Custom Request</p>
+          <p style={{ fontSize: "0.85rem", color: c.fgDim, lineHeight: 1.6 }}>Have a unique project in mind? Let's discuss your requirements and I'll provide a tailored quote.</p>
+        </div>
+        <a href="#contact"
+          style={{ fontSize: "0.75rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", color: c.canvas, backgroundColor: teal, padding: "0.75rem 1.5rem", borderRadius: "2px", textDecoration: "none", transition: "background-color 0.2s", flexShrink: 0 }}
+          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = mint)}
+          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = teal)}
+        >Contact for Quote</a>
+      </div>
+    </section>
+  )
+}
+
+function PricingCard({ tier, price, features, c }: { tier: string; price: string; features: string[]; c: C }) {
+  const [hovered, setHovered] = useState(false)
+  return (
+    <div onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+      style={{ padding: "2.5rem 2rem", backgroundColor: hovered ? c.cardHover : c.canvas, transition: "background-color 0.25s", cursor: "default" }}>
+      <p style={{ fontSize: "0.62rem", letterSpacing: "0.18em", textTransform: "uppercase", color: teal, marginBottom: "1.5rem" }}>{tier}</p>
+      <div style={{ display: "flex", alignItems: "baseline", gap: "0.4rem", marginBottom: "1.75rem" }}>
+        <span style={{ fontFamily: display, fontSize: "clamp(2rem, 4vw, 2.75rem)", fontWeight: 400, color: c.fg }}>{price}</span>
+        <span style={{ fontSize: "0.7rem", color: c.fgDim, letterSpacing: "0.08em" }}>TZS</span>
+      </div>
+      <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        {features.map((f) => (
+          <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "0.65rem", fontSize: "0.82rem", color: c.fgDim, lineHeight: 1.5 }}>
+            <span style={{ color: teal, flexShrink: 0, marginTop: "0.15rem" }}>✓</span>
+            {f}
+          </li>
+        ))}
+      </ul>
+      <a href="#contact"
+        style={{ display: "block", marginTop: "2rem", padding: "0.85rem", border: `1px solid ${c.rule}`, borderRadius: "2px", textAlign: "center", fontSize: "0.75rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", color: c.fg, textDecoration: "none", transition: "border-color 0.2s, background-color 0.2s" }}
+        onMouseEnter={(e) => { e.currentTarget.style.borderColor = teal; e.currentTarget.style.backgroundColor = "rgba(0,210,181,0.05)" }}
+        onMouseLeave={(e) => { e.currentTarget.style.borderColor = c.rule; e.currentTarget.style.backgroundColor = "transparent" }}
+      >Get Started</a>
     </div>
   )
 }

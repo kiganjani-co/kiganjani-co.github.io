@@ -14,6 +14,7 @@ export default defineConfig(({ mode }) => {
   return {
     base: process.env.FIGMA_PUBLIC_URL ? `${process.env.FIGMA_PUBLIC_URL}/` : '/',
     build: {
+      outDir: 'docs',
       sourcemap: emitSourcemaps ? 'inline' : false,
       minify: !emitSourcemaps,
     },
@@ -72,10 +73,9 @@ type FigmaSiteConfiguration = {
 }
 
 /**
- * Serves and emits the favicon set from src/imports/favicon at the site root.
+ * Serves and emits the favicon set from src/imports/favicon into assets/favicon/.
  * Favicon generators (manifest.json / browserconfig.xml) reference these files
- * with root-relative paths, so they must live at the web root rather than in
- * /assets. Covers the per-use-case tags: browser tab, iOS home screen,
+ * with relative paths. Covers the per-use-case tags: browser tab, iOS home screen,
  * Android/Chrome manifest, and Windows tile.
  */
 function figmaFaviconsPlugin(): Plugin {
@@ -97,21 +97,21 @@ function figmaFaviconsPlugin(): Plugin {
   const appleSizes = [57, 60, 72, 76, 114, 120, 144, 152, 180]
 
   const faviconTags: HtmlTagDescriptor[] = [
-    { tag: 'link', attrs: { rel: 'icon', href: '/favicon.ico', type: 'image/x-icon' }, injectTo: 'head' },
-    { tag: 'link', attrs: { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' }, injectTo: 'head' },
-    { tag: 'link', attrs: { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' }, injectTo: 'head' },
-    { tag: 'link', attrs: { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/favicon-96x96.png' }, injectTo: 'head' },
+    { tag: 'link', attrs: { rel: 'icon', href: 'assets/favicon/favicon.ico', type: 'image/x-icon' }, injectTo: 'head' },
+    { tag: 'link', attrs: { rel: 'icon', type: 'image/png', sizes: '16x16', href: 'assets/favicon/favicon-16x16.png' }, injectTo: 'head' },
+    { tag: 'link', attrs: { rel: 'icon', type: 'image/png', sizes: '32x32', href: 'assets/favicon/favicon-32x32.png' }, injectTo: 'head' },
+    { tag: 'link', attrs: { rel: 'icon', type: 'image/png', sizes: '96x96', href: 'assets/favicon/favicon-96x96.png' }, injectTo: 'head' },
     ...appleSizes.map((s) => ({
       tag: 'link',
-      attrs: { rel: 'apple-touch-icon', sizes: `${s}x${s}`, href: `/apple-icon-${s}x${s}.png` },
+      attrs: { rel: 'apple-touch-icon', sizes: `${s}x${s}`, href: `assets/favicon/apple-icon-${s}x${s}.png` },
       injectTo: 'head' as const,
     })),
-    { tag: 'link', attrs: { rel: 'apple-touch-icon', href: '/apple-icon.png' }, injectTo: 'head' },
-    { tag: 'link', attrs: { rel: 'manifest', href: '/manifest.json' }, injectTo: 'head' },
+    { tag: 'link', attrs: { rel: 'apple-touch-icon', href: 'assets/favicon/apple-icon.png' }, injectTo: 'head' },
+    { tag: 'link', attrs: { rel: 'manifest', href: 'manifest.json' }, injectTo: 'head' },
     { tag: 'meta', attrs: { name: 'theme-color', content: themeColors.tile }, injectTo: 'head' },
     { tag: 'meta', attrs: { name: 'msapplication-TileColor', content: themeColors.msapp }, injectTo: 'head' },
-    { tag: 'meta', attrs: { name: 'msapplication-TileImage', content: '/ms-icon-144x144.png' }, injectTo: 'head' },
-    { tag: 'meta', attrs: { name: 'msapplication-config', content: '/browserconfig.xml' }, injectTo: 'head' },
+    { tag: 'meta', attrs: { name: 'msapplication-TileImage', content: 'assets/favicon/ms-icon-144x144.png' }, injectTo: 'head' },
+    { tag: 'meta', attrs: { name: 'msapplication-config', content: 'browserconfig.xml' }, injectTo: 'head' },
   ]
 
   return {
@@ -119,9 +119,18 @@ function figmaFaviconsPlugin(): Plugin {
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         const url = (req.url || '').split('?')[0]
-        if (!url.startsWith('/')) return next()
-        const name = url.slice(1)
-        if (!files.includes(name)) return next()
+        // Handle both /favicon.ico and /assets/favicon/* paths
+        const faviconPrefix = '/assets/favicon/'
+        let name: string | null = null
+        if (url.startsWith(faviconPrefix)) {
+          name = url.slice(faviconPrefix.length)
+        } else if (url.startsWith('/') && !url.startsWith('/assets/')) {
+          const potential = url.slice(1)
+          if (files.includes(potential)) {
+            name = potential
+          }
+        }
+        if (!name || !files.includes(name)) return next()
 
         const full = path.join(faviconDir, name)
         if (!fs.existsSync(full)) return next()
@@ -132,10 +141,12 @@ function figmaFaviconsPlugin(): Plugin {
       })
     },
     generateBundle() {
+      const rootFiles = ['manifest.json', 'browserconfig.xml']
       for (const name of files) {
+        const target = rootFiles.includes(name) ? name : `assets/favicon/${name}`
         this.emitFile({
           type: 'asset',
-          fileName: name,
+          fileName: target,
           source: fs.readFileSync(path.join(faviconDir, name)),
         })
       }
