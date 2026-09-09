@@ -10,16 +10,16 @@ export interface Props {
 const {
   title = "Kiganjani Co. — Websites, E-Commerce & Applications",
   description = "A Dar es Salaam-based digital agency crafting bespoke websites, e-commerce stores, and web applications for businesses.",
-  ogImage = "https://kiganjani-co.github.io/og-image.png",
+  ogImage = "https://kiganjani-co.tech/og-image.png",
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, "https://kiganjani-co.github.io");
+const canonicalURL = new URL(Astro.url.pathname, "https://kiganjani-co.tech");
 
 const jsonLD = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   name: "Kiganjani Co.",
-  url: "https://kiganjani-co.github.io/",
+  url: "https://kiganjani-co.tech/",
   image: ogImage,
   description,
   email: "kiganjani.co@gmail.com",
@@ -49,7 +49,7 @@ const jsonLD = {
   makesOffer: [
     { "@type": "Offer", itemOffered: { "@type": "Service", name: "Website Design" } },
     { "@type": "Offer", itemOffered: { "@type": "Service", name: "E-Commerce Platform" } },
-    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Internet Marketing" } },
+    { "@type": "Offer", itemOffered: { "@type": "Service", name: "Web Applications" } },
   ],
 };
 ---

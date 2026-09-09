@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: "https://kiganjani-co.github.io",
+  site: "https://kiganjani-co.tech",
   output: "static",
   outDir: "./docs",
 
