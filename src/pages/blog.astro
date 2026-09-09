@@ -1,0 +1,35 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout title="Blog — Kiganjani Co." description="Insights on web design, e-commerce, and digital growth for businesses in Tanzania and East Africa.">
+  <Nav />
+  <section class="mx-auto max-w-3xl px-6 pt-36 pb-24">
+    <p class="mb-6 text-[0.68rem] uppercase tracking-[0.24em] text-teal">Blog</p>
+    <h1 class="font-display text-[2.5rem] leading-[1.1] text-fg mb-8">Insights &amp; Guides</h1>
+    <p class="mb-12 text-base leading-[1.8] text-fg-dim">
+      Practical advice on web design, e-commerce, and growing your business online — written for entrepreneurs and teams in Tanzania and East Africa.
+    </p>
+
+    <div class="rounded-sm border border-rule p-10">
+      <p class="font-display mb-4 text-[1.25rem] text-fg">Read on Hashnode</p>
+      <p class="mb-8 text-[0.9rem] leading-[1.7] text-fg-dim">
+        All posts are published on our Hashnode blog. Head over for the latest articles, guides, and deep dives on building your digital presence.
+      </p>
+      <a
+        href="https://kiganjani-co.hashnode.dev/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 rounded-sm bg-teal px-8 py-3.5 text-[0.82rem] font-medium uppercase tracking-[0.1em] text-canvas no-underline transition-colors hover:bg-mint"
+      >
+        Visit Blog
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M4.5 11.5l7-7M5 4.5h7v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+    </div>
+  </section>
+  <Footer />
+</Layout>
