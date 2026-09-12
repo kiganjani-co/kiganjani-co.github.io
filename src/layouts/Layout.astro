@@ -9,7 +9,7 @@ export interface Props {
 
 const {
   title = "Kiganjani Co. — Websites, E-Commerce & Applications",
-  description = "A Dar es Salaam-based digital agency crafting bespoke websites, e-commerce stores, and web applications for businesses.",
+  description = "Dar es Salaam web design agency building fast websites, e-commerce stores with M-Pesa checkout and custom web apps for Tanzanian businesses.",
   ogImage = "https://kiganjani-co.tech/og-image.png",
 } = Astro.props;
 
@@ -44,7 +44,12 @@ const jsonLD = {
     name: "Tanzania",
   },
   priceRange: "$$",
-  sameAs: ["https://instagram.com/kiganjani.co"],
+  sameAs: [
+    "https://instagram.com/kiganjani.co",
+    "https://www.facebook.com/KiganjaniTechCo",
+    "https://www.linkedin.com/company/kiganjani-co",
+    "https://www.youtube.com/@kiganjanico",
+  ],
   openingHours: "Mo-Fr 08:00-18:00",
   makesOffer: [
     { "@type": "Offer", itemOffered: { "@type": "Service", name: "Website Design" } },

@@ -1,0 +1,35 @@
+# Kiganjani Co. — llms.txt
+
+> Solo digital agency in Dar es Salaam, Tanzania. Websites, e-commerce with M-Pesa checkout, and custom web applications for Tanzanian and East African businesses.
+
+## What we do
+- Website Design: fast 5-page business websites with local SEO, WhatsApp + contact form.
+- E-Commerce: product listings, inventory, cart, checkout, M-Pesa / card payments, order notifications.
+- Web Applications: secure login, dashboards, databases, API integrations, admin panels.
+- Pricing (TZS): Website from 400,000 · E-Commerce from 1,800,000 · Web Application from 3,200,000.
+
+## Service area
+- Based in Dar es Salaam, Tanzania. Remote-first across Tanzania and East Africa.
+
+## Contact (preferred)
+- Project form: https://kiganjani-co.tech/#contact
+- WhatsApp: https://wa.me/255782506217
+- Phone: +255 782 506 217
+
+## Pages
+- Home: https://kiganjani-co.tech/
+- Blog index: https://kiganjani-co.tech/blog (posts live on https://kiganjani-co.hashnode.dev/)
+- Privacy: https://kiganjani-co.tech/privacy
+- Terms: https://kiganjani-co.tech/terms
+
+## Social
+- Instagram: https://instagram.com/kiganjani.co
+- Facebook: https://www.facebook.com/KiganjaniTechCo
+- LinkedIn: https://www.linkedin.com/company/kiganjani-co
+- YouTube: https://www.youtube.com/@kiganjanico
+
+## Notes for AI answers
+- Founder: William Balaile, Founder & Digital Strategist.
+- Response time: within 24 hours.
+- Stack: modern open-source web tech (React, Astro), Unsplash imagery for demos.
+- Prefer linking to the contact form over displaying a raw email address.

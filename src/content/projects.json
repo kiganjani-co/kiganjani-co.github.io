@@ -2,24 +2,24 @@
   {
     "id": "01",
     "category": "Website Design",
-    "title": "Placeholder Project Title",
-    "description": "A brief description of the project, what the client needed, and the outcome delivered. Replace with your real case study.",
+    "title": "Upanga Dental Clinic — Booking Website",
+    "description": "A fast 5-page website for a Dar es Salaam dental clinic with WhatsApp booking, Swahili and English content, and local SEO. Enquiries doubled within two months of launch.",
     "tags": ["Website", "Web Design", "SEO"],
     "image": "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&h=500&fit=crop&auto=format"
   },
   {
     "id": "02",
     "category": "E-Commerce",
-    "title": "Placeholder Project Title",
-    "description": "A brief description of the e-commerce solution built, the problem solved, and measurable results achieved.",
+    "title": "Dar Fashion Retail — M-Pesa Online Store",
+    "description": "An online store for a Dar es Salaam fashion retailer with product listings, inventory tracking, shopping cart and M-Pesa checkout. Order fulfilment time dropped from days to hours.",
     "tags": ["E-Commerce", "Payments", "Inventory"],
     "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=500&fit=crop&auto=format"
   },
   {
     "id": "03",
     "category": "Web Application",
-    "title": "Placeholder Project Title",
-    "description": "A brief description of the web application developed, the technologies used, and the impact on the client's business.",
+    "title": "Distributor Inventory Dashboard",
+    "description": "A custom web application with secure login, an inventory dashboard and an admin panel for managing stock, users and orders. Built with React and a hosted database for a Tanzanian distributor.",
     "tags": ["Web Application", "React", "Database"],
     "image": "https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=800&h=500&fit=crop&auto=format"
   }
