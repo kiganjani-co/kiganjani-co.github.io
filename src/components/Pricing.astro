@@ -3,6 +3,8 @@ const pricing = [
   {
     tier: "Website",
     price: "400,000",
+    cta: "Start project",
+    href: "https://snippe.me/pay/website",
     features: [
       "Custom landing page (up to 5 pages)",
       "Custom .co.tz Domain + Emails",
@@ -14,6 +16,8 @@ const pricing = [
   {
     tier: "E-Commerce",
     price: "1,800,000",
+    cta: "Start project",
+    href: "#contact",
     features: [
       "All core Website features included",
       "Secure Payment Gateway Integration",
@@ -25,6 +29,8 @@ const pricing = [
   {
     tier: "Web Application",
     price: "3,200,000",
+    cta: "Start project",
+    href: "#contact",
     features: [
       "All core Website features included",
       "Secure Authentication (Login/Signup)",
@@ -44,7 +50,7 @@ const pricing = [
     </h2>
   </div>
 
-  <div class="grid gap-px bg-rule" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));">
+  <div class="auto-grid-300 grid gap-px bg-rule">
     {pricing.map((plan) => (
       <div class="group cursor-default bg-canvas p-10 transition-colors duration-200 hover:bg-card-hover">
         <p class="mb-6 text-[0.62rem] uppercase tracking-[0.18em] text-teal">{plan.tier}</p>
@@ -61,10 +67,10 @@ const pricing = [
           ))}
         </ul>
         <a
-          href="#contact"
+          href={plan.href}
           class="mt-8 block rounded-sm border border-rule p-3.5 text-center text-[0.75rem] font-medium uppercase tracking-[0.1em] text-fg no-underline transition-colors hover:border-teal hover:bg-teal/5"
         >
-          Get Started
+          {plan.cta}
         </a>
       </div>
     ))}
@@ -79,7 +85,9 @@ const pricing = [
       </p>
     </div>
     <a
-      href="#contact"
+      href="https://calendly.com/kiganjani-co/discovery-call"
+      target="_blank"
+      rel="noopener noreferrer"
       class="flex-shrink-0 rounded-sm bg-teal px-6 py-3 text-[0.75rem] font-medium uppercase tracking-[0.1em] text-canvas no-underline transition-colors hover:bg-mint"
     >
       Contact for Quote

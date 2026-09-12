@@ -8,12 +8,13 @@ const prefix = isHome ? "" : "/";
 <nav
   id="site-nav"
   class="fixed inset-x-0 top-0 z-50 flex h-16 items-center justify-between px-[clamp(1.5rem,5vw,4rem)] transition-all duration-300"
-  style="background-color: transparent; backdrop-filter: none; border-bottom: none;"
 >
   <a href="/" class="flex items-center gap-2.5 no-underline">
     <img
       src="/logo.png"
       alt="Kiganjani Co."
+      width="500"
+      height="350"
       class="h-11 w-auto"
       data-logo
     />
@@ -100,15 +101,11 @@ const prefix = isHome ? "" : "/";
     if (menuOpen) {
       overlay.classList.remove("hidden");
       overlay.classList.add("flex");
-      document.getElementById("bar-0").style.transform = "translateY(6.5px) rotate(45deg)";
-      document.getElementById("bar-1").style.transform = "scaleX(0)";
-      document.getElementById("bar-2").style.transform = "translateY(-6.5px) rotate(-45deg)";
+      btn.classList.add("menu-open");
     } else {
       overlay.classList.add("hidden");
       overlay.classList.remove("flex");
-      document.getElementById("bar-0").style.transform = "none";
-      document.getElementById("bar-1").style.transform = "none";
-      document.getElementById("bar-2").style.transform = "none";
+      btn.classList.remove("menu-open");
     }
   }
 
@@ -129,14 +126,6 @@ const prefix = isHome ? "" : "/";
   // Nav scroll effect
   const nav = document.getElementById("site-nav");
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 60) {
-      nav.style.backgroundColor = "var(--color-nav-bg)";
-      nav.style.backdropFilter = "blur(12px)";
-      nav.style.borderBottom = "1px solid var(--color-rule)";
-    } else {
-      nav.style.backgroundColor = "transparent";
-      nav.style.backdropFilter = "none";
-      nav.style.borderBottom = "none";
-    }
+    nav.classList.toggle("is-scrolled", window.scrollY > 60);
   }, { passive: true });
 </script>

@@ -1,14 +1,14 @@
 ---
 import ContactForm from "./ContactForm";
 const contactMethods = [
-  { icon: "✉", label: "Email", value: "kiganjani.co@gmail.com", href: "mailto:kiganjani.co@gmail.com" },
   { icon: "✆", label: "Phone / WhatsApp", value: "+255 782 506 217", href: "https://wa.me/255782506217?text=Hello%2C%20I%27m%20interested%20in%20your%20services" },
   { icon: "⊕", label: "Instagram", value: "@kiganjani.co", href: "https://instagram.com/kiganjani.co" },
+  { icon: "◉", label: "Location", value: "Dar es Salaam, Tanzania · serving East Africa remotely", href: "#about" },
 ];
 ---
 
 <section id="contact" class="border-t border-rule px-[clamp(1.5rem,5vw,4rem)] py-[clamp(4rem,10vh,8rem)]">
-  <div class="grid gap-16 items-start" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));">
+  <div class="contact-grid grid gap-16 items-start">
     <div>
       <p class="mb-6 text-[0.68rem] uppercase tracking-[0.24em] text-teal">Start a project</p>
       <h2 class="font-display mb-6 text-[clamp(2rem,5vw,3.5rem)] font-normal leading-[1.15] text-fg">
@@ -19,6 +19,23 @@ const contactMethods = [
         it'll take to get there.
       </p>
       <div class="flex flex-col gap-4">
+        <a
+          href="#contact"
+          id="email-link"
+          data-email-user="kiganjani.co"
+          data-email-domain="gmail.com"
+          class="flex items-center gap-4 rounded-sm border border-rule p-4 no-underline transition-colors hover:border-teal/40 hover:bg-teal/5"
+        >
+          <span
+            class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-sm bg-teal/10 text-[0.9rem] text-teal"
+          >
+            ✉
+          </span>
+          <div>
+            <p class="mb-0.5 text-[0.62rem] uppercase tracking-[0.14em] text-fg-dim">Email — form preferred</p>
+            <p class="text-[0.9rem] text-fg">kiganjani.co&#64;gmail&#46;com</p>
+          </div>
+        </a>
         {contactMethods.map((ct) => (
           <a
             href={ct.href}
@@ -40,6 +57,17 @@ const contactMethods = [
       </div>
     </div>
 
-    <ContactForm client:load />
+    <ContactForm client:visible />
   </div>
 </section>
+
+<script is:inline>
+  // Assemble the email link at runtime so scrapers never see a plain address
+  const emailLink = document.getElementById("email-link");
+  emailLink?.addEventListener("click", (e) => {
+    e.preventDefault();
+    const user = emailLink.getAttribute("data-email-user");
+    const domain = emailLink.getAttribute("data-email-domain");
+    window.location.href = `mailto:${user}@${domain}`;
+  });
+</script>

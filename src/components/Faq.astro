@@ -1,0 +1,45 @@
+---
+const faqs = [
+  {
+    q: "How much does a website cost?",
+    a: "Fixed packages in Tanzanian shillings: Website from TZS 400,000, E-Commerce from TZS 1,800,000, Web Application from TZS 3,200,000. Custom requests get a tailored quote after a short discovery call.",
+  },
+  {
+    q: "How long does it take?",
+    a: "A standard business website goes from brief to live in about 10 days. E-commerce stores and custom web applications take longer depending on payments, inventory and dashboard scope — you'll get a timeline before we start.",
+  },
+  {
+    q: "Do you support M-Pesa payments?",
+    a: "Yes. E-commerce builds include M-Pesa checkout alongside cart, order tracking and customer notifications, plus support for card gateways where needed.",
+  },
+  {
+    q: "Will my site rank on Google?",
+    a: "Every site ships with technical SEO basics: semantic headings, meta tags, sitemap, fast mobile-first pages and local signals for Dar es Salaam and Tanzania. Ongoing ranking depends on content and reviews, which I advise on at handover.",
+  },
+  {
+    q: "What happens after launch?",
+    a: "Website packages include 1 year of hosting and maintenance plus your custom domain and emails. You get handover docs and direct access to me — no middlemen — for fixes and improvements.",
+  },
+  {
+    q: "Why hire a solo agency?",
+    a: "You work with the person who builds your site. Faster decisions, full accountability, and lower overhead than a full-service studio — with the same range: websites, e-commerce and web applications.",
+  },
+];
+---
+
+<section id="faq" class="border-t border-rule px-[clamp(1.5rem,5vw,4rem)] py-[clamp(4rem,10vh,8rem)]">
+  <div class="mb-12 max-w-[720px]">
+    <p class="mb-4 text-[0.68rem] uppercase tracking-[0.24em] text-teal">FAQ</p>
+    <h2 class="font-display text-[clamp(2rem,5vw,3.5rem)] font-normal leading-[1.1] text-fg">
+      Questions, answered
+    </h2>
+  </div>
+  <div class="faq-grid">
+    {faqs.map((f) => (
+      <div class="rounded-sm border border-rule bg-canvas p-8">
+        <h3 class="font-display mb-3 text-[1.05rem] font-normal leading-[1.35] text-fg">{f.q}</h3>
+        <p class="text-[0.875rem] leading-[1.8] text-fg-dim">{f.a}</p>
+      </div>
+    ))}
+  </div>
+</section>

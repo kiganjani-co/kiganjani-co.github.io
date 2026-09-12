@@ -106,6 +106,14 @@ body {
   animation-play-state: paused;
 }
 
+/* Tech icons: monochrome that inverts with the theme (same treatment as the logo) */
+.tech-track img {
+  filter: brightness(0);
+}
+:root.dark .tech-track img {
+  filter: brightness(0) invert(1);
+}
+
 /* Snake process section */
 .snake-wrap {
   position: relative;
@@ -244,4 +252,77 @@ body {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
+}
+
+/* Audit fixes: styles moved out of markup for cacheability */
+.hero-glow {
+  background: radial-gradient(ellipse at center, rgba(0, 210, 181, 0.1) 0%, transparent 70%);
+}
+
+.about-frame {
+  inset: -12px 12px 12px -12px;
+}
+
+.auto-grid-280 {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+
+.auto-grid-300 {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+}
+
+.auto-grid-320 {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+}
+
+.contact-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+}
+
+.faq-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+}
+
+.tech-carousel {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.process-sticky {
+  height: 100vh;
+  padding: clamp(3rem, 6vh, 5rem) clamp(1.5rem, 5vw, 4rem);
+}
+
+.snake-marker-dot {
+  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease;
+}
+
+.snake-card-anim {
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+#site-nav {
+  background-color: transparent;
+  backdrop-filter: none;
+  border-bottom: none;
+}
+
+#site-nav.is-scrolled {
+  background-color: var(--color-nav-bg);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-rule);
+}
+
+#mobile-menu-btn.menu-open #bar-0 {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+#mobile-menu-btn.menu-open #bar-1 {
+  transform: scaleX(0);
+}
+
+#mobile-menu-btn.menu-open #bar-2 {
+  transform: translateY(-6.5px) rotate(-45deg);
 }

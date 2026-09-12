@@ -10,6 +10,7 @@ import Process from "../components/Process.tsx";
 import Pricing from "../components/Pricing.astro";
 import Stats from "../components/Stats.astro";
 import About from "../components/About.astro";
+import Faq from "../components/Faq.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
 ---
@@ -27,13 +28,15 @@ import Footer from "../components/Footer.astro";
 
   <TechStack />
 
-  <Process client:load />
+  <Process client:visible />
 
   <Pricing />
 
   <Stats />
 
   <About />
+
+  <Faq />
 
   <Contact />
 

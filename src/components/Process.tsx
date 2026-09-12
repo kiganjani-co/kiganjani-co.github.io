@@ -72,7 +72,6 @@ export default function Process() {
 
   const teal = "var(--color-teal)";
   const rule = "var(--color-rule)";
-  const fg = "var(--color-fg)";
   const fgDim = "var(--color-fg-dim)";
   const canvas = "var(--color-canvas)";
 
@@ -84,17 +83,12 @@ export default function Process() {
       style={{ height: `${STEPS.length * 90 + 60}vh` }}
     >
       <div
-        className="sticky top-0 flex flex-col justify-center overflow-hidden bg-canvas"
-        style={{
-          height: "100vh",
-          padding: "clamp(3rem, 6vh, 5rem) clamp(1.5rem, 5vw, 4rem)",
-        }}
+        className="process-sticky sticky top-0 flex flex-col justify-center overflow-hidden bg-canvas"
       >
         {/* Header */}
         <p className="mb-2.5 text-[0.68rem] uppercase tracking-[0.24em] text-teal">How it works</p>
         <h2
-          className="font-display mb-[clamp(1.5rem,3vh,2.5rem)] text-[clamp(1.8rem,4vw,3rem)] font-normal leading-[1.1]"
-          style={{ color: fg }}
+          className="font-display mb-[clamp(1.5rem,3vh,2.5rem)] text-[clamp(1.8rem,4vw,3rem)] font-normal leading-[1.1] text-fg"
         >
           10 days — <em className="italic text-teal"> from start to launch.</em>
         </h2>
@@ -126,14 +120,11 @@ export default function Process() {
                   style={{ left: `${pt.x}%`, top: `${pt.y}%` }}
                 >
                   <div
-                    className="font-display flex items-center justify-center rounded-full text-[0.75rem] font-semibold"
+                    className="snake-marker-dot font-display flex h-9 w-9 items-center justify-center rounded-full text-[0.75rem] font-semibold"
                     style={{
-                      width: "36px",
-                      height: "36px",
                       backgroundColor: visible ? teal : canvas,
                       border: `2px solid ${visible ? teal : rule}`,
                       color: visible ? canvas : fgDim,
-                      transition: "background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease",
                     }}
                   >
                     {i + 1}
@@ -141,7 +132,7 @@ export default function Process() {
                 </div>
 
                 <div
-                  className="snake-card"
+                  className="snake-card snake-card-anim"
                   style={{
                     left: `${pt.x}%`,
                     top: `${pt.y}%`,
@@ -149,22 +140,21 @@ export default function Process() {
                     transform: visible
                       ? `translate(-50%, ${above ? "calc(-100% - 1.5rem)" : "1.5rem"})`
                       : `translate(-50%, ${above ? "calc(-100% - 2rem)" : "2rem"})`,
-                    transition: "opacity 0.45s ease, transform 0.45s ease",
                     transitionDelay: visible ? "0.08s" : "0s",
                   }}
                 >
                   <p className="mb-1.5 text-[0.6rem] uppercase tracking-[0.2em] text-teal">{step.phase}</p>
-                  <h3 className="font-display mb-1.5 text-[clamp(0.95rem,1.5vw,1.1rem)] font-normal leading-[1.2]" style={{ color: fg }}>
+                  <h3 className="font-display mb-1.5 text-[clamp(0.95rem,1.5vw,1.1rem)] font-normal leading-[1.2] text-fg">
                     {step.title}
                   </h3>
-                  <p className="text-[0.75rem] leading-[1.6]" style={{ color: fgDim }}>{step.desc}</p>
+                  <p className="text-[0.75rem] leading-[1.6] text-fg-dim">{step.desc}</p>
                 </div>
               </div>
             );
           })}
         </div>
 
-        <p className="mt-[clamp(1.25rem,2.5vh,2rem)] text-[0.7rem] tracking-[0.1em]" style={{ color: fgDim }}>
+        <p className="mt-[clamp(1.25rem,2.5vh,2rem)] text-[0.7rem] tracking-[0.1em] text-fg-dim">
           <span className="font-display text-[1rem] text-teal">{revealedCount}</span>
           {" / "}{n} steps
         </p>

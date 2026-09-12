@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 
 type FormData = {
   name: string;
@@ -17,7 +17,6 @@ const labelClass =
   "block mb-2 text-[0.62rem] uppercase tracking-[0.16em] text-fg-dim";
 
 const JOTFORM_URL = "https://submit.jotform.com/submit/262499042240051";
-const IFRAME_NAME = "jotform-frame";
 
 export default function ContactForm() {
   const [form, setForm] = useState<FormData>({
@@ -28,23 +27,12 @@ export default function ContactForm() {
     message: "",
   });
   const [status, setStatus] = useState<Status>("idle");
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-
-  useEffect(() => {
-    const iframe = iframeRef.current;
-    if (!iframe) return;
-    const handler = () => {
-      if (status === "submitting") setStatus("sent");
-    };
-    iframe.addEventListener("load", handler);
-    return () => iframe.removeEventListener("load", handler);
-  }, [status]);
 
   const handleChange = (key: keyof FormData) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       setForm((prev) => ({ ...prev, [key]: e.target.value }));
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     const honeypot = (
@@ -54,8 +42,17 @@ export default function ContactForm() {
 
     setStatus("submitting");
 
-    const formEl = e.target as HTMLFormElement;
-    formEl.submit();
+    try {
+      const formEl = e.target as HTMLFormElement;
+      await fetch(JOTFORM_URL, {
+        method: "POST",
+        body: new FormData(formEl),
+        mode: "no-cors",
+      });
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
   };
 
   if (status === "sent") {
@@ -71,17 +68,7 @@ export default function ContactForm() {
 
   return (
     <>
-      <iframe
-        ref={iframeRef}
-        name={IFRAME_NAME}
-        className="hidden"
-        tabIndex={-1}
-        aria-hidden="true"
-      />
       <form
-        action={JOTFORM_URL}
-        target={IFRAME_NAME}
-        method="POST"
         onSubmit={handleSubmit}
         className="flex flex-col gap-5"
       >
@@ -174,7 +161,16 @@ export default function ContactForm() {
         />
         {status === "error" && (
           <p className="mt-[-0.5rem] text-[0.8rem] text-[#e5484d]">
-            Something went wrong sending your message. Please email kiganjani.co@gmail.com directly.
+            Something went wrong sending your message. Please try{" "}
+            <a
+              href="https://wa.me/255782506217?text=Hello%2C%20I%27m%20interested%20in%20your%20services"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline"
+            >
+              WhatsApp
+            </a>{" "}
+            instead.
           </p>
         )}
         <button

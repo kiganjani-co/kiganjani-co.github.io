@@ -35,7 +35,6 @@ const tripled = [...techStack, ...techStack, ...techStack];
   </div>
   <div
     class="tech-carousel"
-    style="mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);"
   >
     <div class="tech-track">
       {tripled.map((item, i) => (
@@ -45,6 +44,10 @@ const tripled = [...techStack, ...techStack, ...techStack];
           <img
             src={item.icon.src}
             alt={item.name}
+            width="18"
+            height="18"
+            loading="lazy"
+            decoding="async"
             class="h-[18px] w-[18px] flex-shrink-0 opacity-80"
           />
           <span class="whitespace-nowrap text-[0.7rem] font-medium text-fg-dim">{item.name}</span>

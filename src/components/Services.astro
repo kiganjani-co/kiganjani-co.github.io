@@ -1,8 +1,8 @@
 ---
 const services = [
-  { number: "01", title: "Websites", description: "Custom websites built around your brand. Clean, fast, and crafted to convert visitors into clients." },
-  { number: "02", title: "E-Commerce", description: "End-to-end online stores — product listings, inventory, orders, and payments in one coherent system." },
-  { number: "03", title: "Application Development", description: "Responsive web applications built to meet your specific business needs — from internal tools to customer-facing platforms." },
+  { number: "01", title: "Websites", description: "Custom websites built around your brand and written for your customers. Clean, fast, mobile-first pages with local SEO so Dar es Salaam clients find you and enquire." },
+  { number: "02", title: "E-Commerce", description: "End-to-end online stores — product listings, inventory, orders, and M-Pesa checkout in one coherent system. Built to cut fulfilment time and grow repeat sales across Tanzania." },
+  { number: "03", title: "Application Development", description: "Responsive web applications built to meet your specific business needs — from internal tools to customer-facing platforms. Secure login, dashboards, databases and admin panels included." },
 ];
 ---
 
@@ -16,7 +16,7 @@ const services = [
       Minimalist design principles, open-source technology, and organic growth strategies.
     </p>
   </div>
-  <div class="grid gap-px bg-rule" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));">
+  <div class="auto-grid-280 grid gap-px bg-rule">
     {services.map((svc) => (
       <div class="group cursor-default bg-canvas p-10 transition-colors duration-200 hover:bg-card-hover">
         <p class="font-display mb-6 text-[0.72rem] tracking-[0.06em] text-teal">{svc.number}</p>
