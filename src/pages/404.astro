@@ -1,0 +1,55 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout
+  title="Page not found — Kiganjani Co."
+  description="This page doesn't exist. Head back to the homepage or get in touch."
+  noindex={true}
+>
+  <Nav />
+
+  <section
+    class="relative grid min-h-screen items-center overflow-hidden px-[clamp(1.5rem,5vw,4rem)] pt-[clamp(6rem,12vh,9rem)] pb-[clamp(4rem,8vh,6rem)]"
+  >
+    <div
+      class="hero-glow pointer-events-none absolute -right-[10vw] -top-[10vh] h-[60vh] w-[60vw]"
+    ></div>
+
+    <div class="relative max-w-[560px]">
+      <p class="mb-6 text-[0.68rem] uppercase tracking-[0.24em] text-teal">Error</p>
+      <h1
+        class="font-display mb-2 text-[clamp(5rem,18vw,11rem)] font-normal leading-[0.9] tracking-[-0.02em] text-fg"
+      >
+        404
+      </h1>
+      <p class="font-display mb-6 text-[clamp(1.4rem,3vw,2rem)] text-fg-dim">
+        Page not found.
+      </p>
+      <p class="mb-12 max-w-[440px] text-[clamp(1rem,2vw,1.15rem)] leading-[1.8] text-fg-dim">
+        The link you followed doesn't lead anywhere — it may have moved, been renamed, or been mistyped.
+      </p>
+      <div class="flex flex-wrap items-center gap-4">
+        <a
+          href="/"
+          class="inline-block rounded-sm bg-teal px-8 py-3.5 text-[0.82rem] font-medium uppercase tracking-[0.1em] text-canvas no-underline transition-colors hover:bg-mint"
+        >
+          Back to homepage
+        </a>
+        <a
+          href="/#contact"
+          class="inline-flex items-center gap-2 text-[0.82rem] uppercase tracking-[0.1em] text-fg-dim no-underline transition-colors hover:text-fg"
+        >
+          Get in touch
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 3l5 5-5 5M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

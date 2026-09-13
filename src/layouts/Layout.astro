@@ -1,16 +1,20 @@
 ---
 import "../styles/global.css";
+import MobileStickyCTA from "../components/MobileStickyCTA.astro";
+import CookieNotice from "../components/CookieNotice";
 
 export interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  noindex?: boolean;
 }
 
 const {
   title = "Kiganjani Co. — Websites, E-Commerce & Applications",
   description = "Dar es Salaam web design agency building fast websites, e-commerce stores with M-Pesa checkout and custom web apps for Tanzanian businesses.",
   ogImage = "https://kiganjani-co.tech/og-image.png",
+  noindex = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, "https://kiganjani-co.tech");
@@ -66,7 +70,7 @@ const jsonLD = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Preconnect to external origins -->
@@ -154,6 +158,9 @@ const jsonLD = {
     <main id="main-content">
       <slot />
     </main>
+
+    <MobileStickyCTA />
+    <CookieNotice client:load />
 
     <!-- Vercel Analytics (optional — remove if not needed) -->
   </body>
