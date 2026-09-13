@@ -1,41 +1,31 @@
-# figma-make-app
+# kiganjani-co.github.io
 
-React + Vite + Tailwind CSS project running inside Figma Make.
+Astro 5 static marketing site for Kiganjani Co. (kiganjani-co.tech) — solo digital agency in Dar es Salaam. Astro components + React islands + Tailwind CSS v4. No dev server assumption: start one with `pnpm dev` if you need a preview.
 
-## Development Server
+## Commands
 
-A Vite development server is **already running** on `$PORT` (default 8443). You don't need to start it manually.
+- `pnpm dev` — local preview (Astro dev server)
+- `pnpm build` — static build to `docs/` (required verification after any change)
+- `pnpm format` — format with oxfmt
 
-- Preview URL: The user can access the running app through the preview panel
-- Hot reload: Changes to source files are reflected immediately
+Package manager is **pnpm**. No test suite; verification is `pnpm build` plus assertions against `docs/` output.
 
 ## Project Structure
 
-This is the canonical project structure. Start with task-relevant files below. Only follow imports or inspect other files when required, when a documented path is missing, or when the repository contradicts this guide.
+- `src/pages/` — routes: `index.astro`, `blog.astro`, `privacy.astro`, `terms.astro`, `404.astro` (all render through `src/layouts/Layout.astro`)
+- `src/layouts/Layout.astro` — head/meta, OG/Twitter, canonical, JSON-LD schema, GA, dark-mode bootstrap; renders `MobileStickyCTA` + `CookieNotice` in body
+- `src/components/*.astro` — static sections (Nav, Hero, Services, Work, Pricing, Contact, Footer, Faq, …)
+- `src/components/*.tsx` — React islands: `Process` (`client:visible`), `ContactForm` (`client:visible`, fetch-POSTs to Jotform — no iframe), `CookieNotice` (`client:load`), `DarkModeToggle` (`client:load`)
+- `src/content/projects.json` — case-study data for the Work section (anonymized client examples)
+- `src/styles/global.css` — Tailwind v4 import, theme tokens (light + `:root.dark` overrides), section/component classes. Static styles live here — do not add `style=` attributes for static values
+- `src/assets/images/` — local images and SVG icons (tech icons render monochrome via CSS filter that inverts with the theme)
+- `public/` — `robots.txt`, `llms.txt`, `logo.png`, `og-image.png`, favicons (copied to output root on build)
 
-- `src/main.tsx` - React entrypoint; imports `src/index.css` and mounts `src/App.tsx` into the `#root` element
-- `src/App.tsx` - Primary application component and the usual starting point for UI work
-- `src/index.css` - Global CSS entrypoint and Tailwind CSS v4 import
-- `index.html` - Vite HTML shell containing the `#root` element and loading `src/main.tsx`
-- `package.json` - Project dependencies and the Vite build, development, preview, and formatting scripts
-- `vite.config.ts` - Vite configuration with React, Tailwind CSS v4, and Figma Make plugins plus the `@` alias for `src`
-- `.mise.toml` - Toolchain versions for Node.js and pnpm
+## Conventions & Constraints
 
-## Dependencies
-
-- Runtime: React 19 and React DOM 19
-- Styling: Tailwind CSS v4 with the `@tailwindcss/vite` plugin
-- Build tooling: Vite 8, TypeScript 5.7, and `@vitejs/plugin-react`
-- Formatting: oxfmt
-
-## Styling
-
-This project uses **Tailwind CSS v4** through the `@tailwindcss/vite` plugin configured in `vite.config.ts`. `src/index.css` imports Tailwind with `@import 'tailwindcss';`. Use Tailwind utility classes directly in JSX and put global CSS or Tailwind v4 theme customization in `src/index.css`. This scaffold does not need a Tailwind config file or PostCSS config.
-
-`src/main.tsx` imports `src/index.css`, so global font wiring belongs in `src/index.css`. Keep CSS `@import` statements first, then add any `@font-face` rules and font-family defaults there.
-
-## Code quality
-
-- Use double quotes for strings containing apostrophes (`"We're here to help"`), or escape them in single-quoted strings. An unescaped apostrophe in a single-quoted string breaks the build.
-- Ensure JSX tags are closed and braces are balanced.
-- Export components as default exports.
+- **No commits/pushes** without explicit instruction. Work stays local; `docs/` build output is gitignored (except the tracked `docs/index.html` legacy).
+- **Build config:** `astro.config.mjs` sets `site: https://kiganjani-co.tech`, `output: static`, `outDir: ./docs`; `vercel.json` builds with `pnpm build` and serves `docs/`.
+- **SEO defaults:** homepage meta description ~140 chars in Layout props; `sameAs` covers Instagram/Facebook/LinkedIn/YouTube; JSON-LD `email` field is intentional (keep it); visible email addresses must stay obfuscated (entity text + runtime-assembled `mailto:`), never plain.
+- **Islands:** prefer `client:visible` for below-fold React; `client:load` only for above-fold-critical UI.
+- **Styling:** Tailwind utilities in markup; static CSS in `global.css`; scroll/animation-driven values may stay inline (Process island).
+- **Contact flows:** Website tier → external payment link (same tab); quote button → external scheduling link (new tab); form → third-party `fetch` endpoint (no iframe); chat links site-wide plus floating mobile button. Do not paste phone numbers, endpoint URLs, or IDs into docs or chat — read them from source when needed.
