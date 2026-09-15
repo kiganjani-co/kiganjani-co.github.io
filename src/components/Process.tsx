@@ -101,7 +101,7 @@ export default function Process() {
         <h2
           className="font-display mb-[clamp(1.5rem,3vh,2.5rem)] text-[clamp(1.8rem,4vw,3rem)] font-normal leading-[1.1] text-fg"
         >
-          10 days — <em className="italic text-teal"> from start to launch.</em>
+          10 days — <em className="not-italic text-teal"> from start to launch.</em>
         </h2>
 
         {/* Snake */}
