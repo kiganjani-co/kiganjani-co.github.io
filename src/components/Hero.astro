@@ -1,4 +1,7 @@
 ---
+import { copy, type Lang } from "../i18n/copy";
+const { lang = "en" }: { lang?: Lang } = Astro.props;
+const t = copy[lang].hero;
 ---
 
 <section
@@ -13,27 +16,30 @@
     <h1
       class="font-display mb-10 text-[clamp(2.8rem,8vw,5rem)] font-normal leading-[1.05] tracking-[-0.02em] text-fg"
     >
-      Building the digital<br />
-      infrastructure <em class="not-italic text-teal">your business<br />needs to grow.</em>
+      {t.l1}<br />
+      {t.l2} <em class="not-italic text-teal">{t.em1}<br />{t.em2}</em>
     </h1>
     <p
       class="mb-12 max-w-[500px] text-[clamp(1rem,2vw,1.15rem)] leading-[1.8] text-fg-dim"
     >
-      A solo agency with the precision of a specialist and the range of a full-service
-      studio. Websites, e-commerce, and custom applications — built to convert.
+      {t.body}
     </p>
     <div class="flex flex-wrap items-center gap-4">
       <a
         href="#contact"
+        data-track="cta_click"
+        data-id="hero-start"
         class="inline-block rounded-sm bg-teal px-8 py-3.5 text-[0.82rem] font-medium uppercase tracking-[0.1em] text-canvas no-underline transition-colors hover:bg-mint"
       >
-        Start a project
+        {t.cta}
       </a>
       <a
         href="#work"
+        data-track="cta_click"
+        data-id="hero-work"
         class="inline-flex items-center gap-2 text-[0.82rem] uppercase tracking-[0.1em] text-fg-dim no-underline transition-colors hover:text-fg"
       >
-        See work
+        {t.cta2}
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M8 3l5 5-5 5M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>

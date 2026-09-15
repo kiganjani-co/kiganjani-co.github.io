@@ -1,10 +1,13 @@
 import { useState, type FormEvent } from "react";
+import { trackEvent } from "../lib/track";
+import { copy, type Lang } from "../i18n/copy";
 
 type FormData = {
   name: string;
   email: string;
   business: string;
   phone: string;
+  service: string;
   message: string;
 };
 
@@ -18,18 +21,26 @@ const labelClass =
 
 const JOTFORM_URL = "https://submit.jotform.com/submit/262499042240051";
 
-export default function ContactForm() {
+// Must match the Dropdown question's Field Name in the Jotform builder
+// (form 262499042240051). Jotform ignores posted fields it doesn't recognise,
+// so after adding the "Service" dropdown there, paste its name (e.g.
+// "q13_q13_dropdown13") here.
+const SERVICE_FIELD_NAME = "q_service_dropdown";
+
+export default function ContactForm({ lang = "en" }: { lang?: Lang }) {
+  const t = copy[lang].contactForm;
   const [form, setForm] = useState<FormData>({
     name: "",
     email: "",
     business: "",
     phone: "",
+    service: "",
     message: "",
   });
   const [status, setStatus] = useState<Status>("idle");
 
   const handleChange = (key: keyof FormData) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
       setForm((prev) => ({ ...prev, [key]: e.target.value }));
 
   const handleSubmit = async (e: FormEvent) => {
@@ -41,6 +52,7 @@ export default function ContactForm() {
     if (honeypot) return;
 
     setStatus("submitting");
+    trackEvent("form_start", { form: "short" });
 
     try {
       const formEl = e.target as HTMLFormElement;
@@ -50,17 +62,19 @@ export default function ContactForm() {
         mode: "no-cors",
       });
       setStatus("sent");
+      trackEvent("form_success", { form: "short" });
     } catch {
       setStatus("error");
+      trackEvent("form_error", { form: "short" });
     }
   };
 
   if (status === "sent") {
     return (
       <div className="rounded-sm border border-teal/30 p-12 text-center">
-        <p className="font-display mb-3 text-[1.5rem] text-fg">Message sent.</p>
+        <p className="font-display mb-3 text-[1.5rem] text-fg">{t.sentTitle}</p>
         <p className="text-[0.875rem] leading-[1.7] text-fg-dim">
-          Thanks — I'll get back to you within 24 hours.
+          {t.sentBody}
         </p>
       </div>
     );
@@ -76,14 +90,14 @@ export default function ContactForm() {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label htmlFor="contact-name" className={labelClass}>
-              Your name
+              {t.nameLabel}
             </label>
             <input
               id="contact-name"
               name="q3_q3_textbox1"
               required
               autoComplete="name"
-              placeholder="Jane Doe"
+              placeholder={t.namePh}
               value={form.name}
               onChange={handleChange("name")}
               className={inputClass}
@@ -91,7 +105,7 @@ export default function ContactForm() {
           </div>
           <div>
             <label htmlFor="contact-email" className={labelClass}>
-              Your email
+              {t.emailLabel}
             </label>
             <input
               id="contact-email"
@@ -99,7 +113,7 @@ export default function ContactForm() {
               type="email"
               required
               autoComplete="email"
-              placeholder="jane@company.com"
+              placeholder={t.emailPh}
               value={form.email}
               onChange={handleChange("email")}
               className={inputClass}
@@ -107,13 +121,13 @@ export default function ContactForm() {
           </div>
           <div>
             <label htmlFor="contact-business" className={labelClass}>
-              Business name
+              {t.bizLabel}
             </label>
             <input
               id="contact-business"
               name="q5_q5_textbox3"
               autoComplete="organization"
-              placeholder="Optional"
+              placeholder={t.bizPh}
               value={form.business}
               onChange={handleChange("business")}
               className={inputClass}
@@ -121,14 +135,14 @@ export default function ContactForm() {
           </div>
           <div>
             <label htmlFor="contact-phone" className={labelClass}>
-              Phone / WhatsApp
+              {t.phoneLabel}
             </label>
             <input
               id="contact-phone"
               name="q6_q6_phone4[full]"
               type="tel"
               autoComplete="tel"
-              placeholder="Optional"
+              placeholder={t.phonePh}
               value={form.phone}
               onChange={handleChange("phone")}
               className={inputClass}
@@ -136,15 +150,37 @@ export default function ContactForm() {
           </div>
         </div>
         <div>
+          <label htmlFor="contact-service" className={labelClass}>
+            {t.serviceLabel}
+          </label>
+          <select
+            id="contact-service"
+            name={SERVICE_FIELD_NAME}
+            required
+            value={form.service}
+            onChange={handleChange("service")}
+            className={inputClass}
+          >
+            <option value="" disabled>
+              {t.servicePh}
+            </option>
+            {t.serviceOptions.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
           <label htmlFor="contact-message" className={labelClass}>
-            Tell me about your project
+            {t.msgLabel}
           </label>
           <textarea
             id="contact-message"
             name="q11_q11_textarea9"
             required
             rows={6}
-            placeholder="What does your business do? What are you hoping to achieve online?"
+            placeholder={t.msgPh}
             value={form.message}
             onChange={handleChange("message")}
             className={`${inputClass} resize-vertical`}
@@ -161,16 +197,17 @@ export default function ContactForm() {
         />
         {status === "error" && (
           <p className="mt-[-0.5rem] text-[0.8rem] text-[#e5484d]">
-            Something went wrong sending your message. Please try{" "}
+            {t.errorA}{" "}
             <a
               href="https://wa.me/255782506217?text=Hello%2C%20I%27m%20interested%20in%20your%20services"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackEvent("whatsapp_click", { placement: "form-error" })}
               className="underline"
             >
-              WhatsApp
+              {t.errorLink}
             </a>{" "}
-            instead.
+            {t.errorB}
           </p>
         )}
         <button
@@ -178,7 +215,7 @@ export default function ContactForm() {
           disabled={status === "submitting"}
           className="w-full cursor-pointer rounded-sm border-none bg-teal p-4 text-[0.82rem] font-semibold uppercase tracking-[0.1em] text-canvas transition-colors hover:bg-mint disabled:cursor-wait disabled:opacity-70 font-body"
         >
-          {status === "submitting" ? "Sending\u2026" : "Send enquiry"}
+          {status === "submitting" ? t.sending : t.submit}
         </button>
       </form>
     </>

@@ -1,68 +1,36 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Nav from "../components/Nav.astro";
-import Footer from "../components/Footer.astro";
+import Layout from "../../layouts/Layout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import { copy } from "../../i18n/copy";
+
+const t = copy.sw.processPage;
 
 const whatsapp =
   "https://wa.me/255782506217?text=Hello%2C%20I%27m%20interested%20in%20your%20services";
 const calendly = "https://calendly.com/kiganjani-co/discovery-call";
-
-const steps = [
-  {
-    n: "01",
-    days: "Days 1–2",
-    title: "Discovery & Strategy",
-    desc: "We map your business goals, target clients, and the exact message your site needs to communicate.",
-    includes: ["Goal and audience map", "Page outline (sitemap)", "Message and section plan"],
-  },
-  {
-    n: "02",
-    days: "Days 3–5",
-    title: "Design & Content",
-    desc: "Brand-aligned layouts and copy written for your audience — no lorem ipsum, no placeholder thinking.",
-    includes: ["Layout draft for each page", "Copy written for your audience", "Review round before build"],
-  },
-  {
-    n: "03",
-    days: "Days 6–8",
-    title: "Build & Review",
-    desc: "The site comes together. You review, request changes, and we refine until it's exactly right.",
-    includes: ["Working site on a preview link", "M-Pesa checkout where needed", "Two review rounds included"],
-  },
-  {
-    n: "04",
-    days: "Days 9–10",
-    title: "Launch & Handover",
-    desc: "Launch the site on your domain, understand how it runs, working for you without daily upkeep.",
-    includes: ["Launch on your domain", "Handover notes", "Hosting and maintenance terms"],
-  },
-];
 ---
 
-<Layout
-  title="Our Process — 10 Days from Brief to Launch | Kiganjani Co."
-  description="How Kiganjani Co. works: a structured 10-day process from discovery to launch, with M-Pesa-ready builds for Tanzanian businesses."
->
-  <Nav altHref="/sw/process/" />
+<Layout lang="sw" title={t.metaTitle} description={t.metaDesc}>
+  <Nav lang="sw" altHref="/process/" />
 
   <section class="mx-auto max-w-3xl px-6 pt-36 pb-16">
-    <p class="mb-4 text-[0.68rem] uppercase tracking-[0.24em] text-teal">Process</p>
+    <p class="mb-4 text-[0.68rem] uppercase tracking-[0.24em] text-teal">{t.eyebrow}</p>
     <h1 class="font-display text-[clamp(2rem,5vw,3.25rem)] font-normal leading-[1.1] text-fg">
-      10 days — from brief to launch.
+      {t.h1}
     </h1>
     <p class="mt-6 text-[0.95rem] leading-[1.8] text-fg-dim">
-      One person, one structured process. You always know what happens next, what you get at
-      each step, and what is needed from you.
+      {t.intro}
     </p>
   </section>
 
   <section class="mx-auto max-w-3xl px-6 pb-16">
     <div class="flex flex-col gap-px border border-rule bg-rule">
-      {steps.map((s) => (
+      {t.steps.map((s) => (
         <div class="bg-canvas p-8">
           <div class="mb-4 flex items-baseline justify-between gap-4">
             <p class="text-[0.62rem] uppercase tracking-[0.18em] text-teal">
-              Step {s.n} · {s.title}
+              Hatua {s.n} · {s.title}
             </p>
             <p class="flex-shrink-0 text-[0.65rem] uppercase tracking-[0.1em] text-fg-dim">{s.days}</p>
           </div>
@@ -83,9 +51,9 @@ const steps = [
   <section class="mx-auto max-w-3xl px-6 pb-24">
     <div class="flex flex-wrap items-center justify-between gap-6 rounded-sm border border-rule p-8">
       <div>
-        <p class="font-display mb-1.5 text-[1.1rem] font-normal text-fg">Ready to start?</p>
+        <p class="font-display mb-1.5 text-[1.1rem] font-normal text-fg">{t.ctaTitle}</p>
         <p class="text-[0.85rem] leading-[1.6] text-fg-dim">
-          Message on WhatsApp with what you're building — I'll reply within 24 hours with next steps.
+          {t.ctaBody}
         </p>
       </div>
       <div class="flex flex-shrink-0 flex-wrap gap-3">
@@ -97,7 +65,7 @@ const steps = [
           data-placement="process"
           class="rounded-sm bg-teal px-6 py-3 text-[0.75rem] font-medium uppercase tracking-[0.1em] text-canvas no-underline transition-colors hover:bg-mint"
         >
-          Start on WhatsApp
+          {t.waBtn}
         </a>
         <a
           href={calendly}
@@ -106,11 +74,11 @@ const steps = [
           data-track="calendly_click"
           class="rounded-sm border border-rule px-6 py-3 text-[0.75rem] font-medium uppercase tracking-[0.1em] text-fg no-underline transition-colors hover:border-teal hover:bg-teal/5"
         >
-          Book a Meeting
+          {t.calBtn}
         </a>
       </div>
     </div>
   </section>
 
-  <Footer />
+  <Footer lang="sw" />
 </Layout>

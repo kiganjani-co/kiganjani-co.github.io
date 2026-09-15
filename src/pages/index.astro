@@ -16,7 +16,7 @@ import Footer from "../components/Footer.astro";
 ---
 
 <Layout>
-  <Nav isHome={true} />
+  <Nav isHome={true} altHref="/sw/" />
 
   <Hero />
 
@@ -33,6 +33,8 @@ import Footer from "../components/Footer.astro";
   <div class="process-linkout border-t border-rule px-[clamp(1.5rem,5vw,4rem)] py-10 text-center">
     <a
       href="/process"
+      data-track="cta_click"
+      data-id="home-process-link"
       class="text-[0.75rem] font-medium uppercase tracking-[0.14em] text-teal no-underline hover:text-mint"
     >
       See the full 10-day process →

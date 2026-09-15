@@ -1,5 +1,8 @@
 ---
 import devPhoto from "../assets/images/kiganjani-dev.jpg";
+import { copy, type Lang } from "../i18n/copy";
+const { lang = "en" }: { lang?: Lang } = Astro.props;
+const t = copy[lang].about;
 ---
 
 <section id="about" class="border-t border-rule px-[clamp(1.5rem,5vw,4rem)] py-[clamp(4rem,10vh,8rem)]">
@@ -10,7 +13,7 @@ import devPhoto from "../assets/images/kiganjani-dev.jpg";
       ></div>
       <img
         src={devPhoto.src}
-        alt="William Balaile, founder of Kiganjani Co."
+        alt={t.imgAlt}
         width="1024"
         height="1024"
         loading="lazy"
@@ -20,33 +23,28 @@ import devPhoto from "../assets/images/kiganjani-dev.jpg";
       <div
         class="absolute bottom-6 left-6 rounded-sm border-l-2 border-teal bg-caption-bg px-5 py-3 backdrop-blur-sm"
       >
-        <p class="font-display text-base font-normal text-fg">William Balaile</p>
+        <p class="font-display text-base font-normal text-fg">{t.name}</p>
         <p class="mt-0.5 text-[0.65rem] uppercase tracking-[0.14em] text-teal">
-          Founder &amp; Digital Strategist
+          {t.role}
         </p>
       </div>
     </div>
 
     <div class="flex flex-col justify-center">
-      <p class="mb-6 text-[0.68rem] uppercase tracking-[0.24em] text-teal">About</p>
+      <p class="mb-6 text-[0.68rem] uppercase tracking-[0.24em] text-teal">{t.eyebrow}</p>
       <h2
         class="font-display mb-7 text-[clamp(1.8rem,4vw,2.75rem)] font-normal leading-[1.2] text-fg"
       >
-        One person.<br />Full accountability.
+        {t.h1a}<br />{t.h1b}
       </h2>
       <p class="mb-5 text-base leading-[1.85] text-fg-dim">
-        I'm William — the person who answers your messages, builds your site, and thinks about your
-        growth. No account managers. No offshore handoffs. When you work with Kiganjani Co., you
-        work with me directly.
+        {t.p1}
       </p>
       <p class="mb-5 text-base leading-[1.85] text-fg-dim">
-        Based in Dar es Salaam, I've helped businesses across East Africa establish their digital
-        presence and grow it with intention — not noise.
+        {t.p2}
       </p>
       <p class="text-base leading-[1.85] text-fg-dim">
-        Every project ships fast, mobile-first and easy to maintain: modern open-source tooling,
-        M-Pesa-ready checkout where it matters, and handover docs so your site keeps working
-        without daily upkeep.
+        {t.p3}
       </p>
     </div>
   </div>

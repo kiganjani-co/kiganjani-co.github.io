@@ -1,11 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-
-const STEPS = [
-  { phase: "Step 1", title: "Discovery & Strategy", desc: "We map your business goals, target clients, and the exact message your site needs to communicate." },
-  { phase: "Step 2", title: "Design & Content", desc: "Brand-aligned layouts and copy written for your audience — no lorem ipsum, no placeholder thinking." },
-  { phase: "Step 3", title: "Build & Review", desc: "The site comes together. You review, request changes, and we refine until it's exactly right." },
-  { phase: "Step 4", title: "Launch & Handover", desc: "Launch the site on your domain, understand on how it runs, working for you without daily upkeep." },
-];
+import { trackEvent } from "../lib/track";
+import { copy, type Lang } from "../i18n/copy";
 
 const SNAKE_PATH =
   "M 12 30 C 20 30, 25 70, 37 70 C 49 70, 51 30, 63 30 C 75 30, 80 70, 88 70";
@@ -20,7 +15,9 @@ const SNAKE_POINTS = [
 // while the user keeps scrolling, then the section releases to Pricing.
 const CTA_VH = 140;
 
-export default function Process() {
+export default function Process({ lang = "en" }: { lang?: Lang }) {
+  const t = copy[lang].process;
+  const STEPS = t.steps;
   const outerRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const [progress, setProgress] = useState(0);
@@ -97,11 +94,11 @@ export default function Process() {
         className="process-sticky sticky top-0 flex flex-col justify-center overflow-hidden bg-canvas"
       >
         {/* Header */}
-        <p className="mb-2.5 text-[0.68rem] uppercase tracking-[0.24em] text-teal">How it works</p>
+        <p className="mb-2.5 text-[0.68rem] uppercase tracking-[0.24em] text-teal">{t.eyebrow}</p>
         <h2
           className="font-display mb-[clamp(1.5rem,3vh,2.5rem)] text-[clamp(1.8rem,4vw,3rem)] font-normal leading-[1.1] text-fg"
         >
-          10 days — <em className="not-italic text-teal"> from start to launch.</em>
+          {t.h1} <em className="not-italic text-teal">{t.h1em}</em>
         </h2>
 
         {/* Snake */}
@@ -171,7 +168,7 @@ export default function Process() {
           style={{ opacity: 1 - ctaT }}
         >
           <span className="font-display text-[1rem] text-teal">{revealedCount}</span>
-          {" / "}{n} steps
+          {" / "}{n} {t.counterUnit}
         </p>
 
         {/* End-of-animation CTA: rises in once the snake completes, holds pinned */}
@@ -185,11 +182,12 @@ export default function Process() {
           }}
         >
           <a
-            href="/process"
+            href={lang === "sw" ? "/sw/process" : "/process"}
             tabIndex={ctaT > 0.5 ? 0 : -1}
+            onClick={() => trackEvent("cta_click", { id: "process-section" })}
             className="inline-block rounded-sm bg-teal px-6 py-3 text-[0.75rem] font-medium uppercase tracking-[0.1em] text-canvas no-underline transition-colors hover:bg-mint"
           >
-            See the full process →
+            {t.ctaButton}
           </a>
         </div>
       </div>

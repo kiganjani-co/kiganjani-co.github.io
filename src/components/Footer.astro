@@ -1,4 +1,7 @@
 ---
+import { copy, type Lang } from "../i18n/copy";
+const { lang = "en" }: { lang?: Lang } = Astro.props;
+const t = copy[lang].footer;
 ---
 
 <footer
@@ -9,7 +12,7 @@
       <img src="/logo.png" alt="Kiganjani Co." width="500" height="350" class="h-11 w-auto" data-logo />
     </a>
     <span class="inline-block h-1 w-1 rounded-full bg-teal"></span>
-    <span class="text-[0.72rem] text-fg-dim">Dar es Salaam, Tanzania</span>
+    <span class="text-[0.72rem] text-fg-dim">{t.location}</span>
   </div>
   <div class="flex items-center gap-6">
     <a href="/blog" class="text-[0.72rem] text-fg-dim no-underline">Blog</a>
@@ -19,5 +22,5 @@
     <a href="https://www.linkedin.com/company/kiganjani-co" target="_blank" rel="noopener noreferrer" class="text-[0.72rem] text-fg-dim no-underline">LinkedIn</a>
     <a href="https://www.youtube.com/@kiganjanico" target="_blank" rel="noopener noreferrer" class="text-[0.72rem] text-fg-dim no-underline">YouTube</a>
   </div>
-  <p class="text-[0.72rem] text-fg-dim">&copy; {new Date().getFullYear()} Kiganjani Technologies Co. All rights reserved.</p>
+  <p class="text-[0.72rem] text-fg-dim">&copy; {new Date().getFullYear()} {t.rights}</p>
 </footer>

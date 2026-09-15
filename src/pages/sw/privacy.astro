@@ -1,0 +1,29 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import { copy } from "../../i18n/copy";
+
+const t = copy.sw.privacyPage;
+---
+
+<Layout lang="sw" title={t.metaTitle} description={t.metaDesc}>
+  <Nav lang="sw" altHref="/privacy/" />
+  <section class="mx-auto max-w-3xl px-6 pt-36 pb-24">
+    <h1 class="font-display text-[2.5rem] leading-[1.1] text-fg mb-8">{t.h1}</h1>
+    <div class="space-y-6 text-[0.95rem] leading-[1.8] text-fg-dim font-body">
+      <p>{t.updated}</p>
+
+      {t.sections.map((s) => (
+        <>
+          <h2 class="font-display text-[1.3rem] text-fg mt-8 mb-3">{s.h}</h2>
+          <p>{s.p}</p>
+        </>
+      ))}
+
+      <h2 class="font-display text-[1.3rem] text-fg mt-8 mb-3">{t.contactH}</h2>
+      <p>{t.contactA} <a href="/sw/#contact" class="text-teal underline">{t.contactLink}</a> {t.contactB} wbalaile&#64;kiganjani-co&#46;tech.</p>
+    </div>
+  </section>
+  <Footer lang="sw" />
+</Layout>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { copy, type Lang } from "../i18n/copy";
 
 function SunIcon() {
   return (
@@ -20,7 +21,8 @@ function MoonIcon() {
   );
 }
 
-export default function DarkModeToggle() {
+export default function DarkModeToggle({ lang = "en" }: { lang?: Lang }) {
+  const t = copy[lang].dark;
   const [dark, setDark] = useState(false);
 
   useEffect(() => {
@@ -43,7 +45,7 @@ export default function DarkModeToggle() {
   return (
     <button
       onClick={toggle}
-      aria-label="Toggle dark mode"
+      aria-label={t.aria}
       className="cursor-pointer rounded-sm border border-rule bg-transparent p-2 text-fg-dim transition-colors hover:border-teal hover:text-teal"
     >
       {dark ? <SunIcon /> : <MoonIcon />}

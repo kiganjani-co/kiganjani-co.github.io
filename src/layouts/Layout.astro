@@ -2,12 +2,15 @@
 import "../styles/global.css";
 import MobileStickyCTA from "../components/MobileStickyCTA.astro";
 import CookieNotice from "../components/CookieNotice";
+import type { Lang } from "../i18n/copy";
 
 export interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
   noindex?: boolean;
+  lang?: Lang;
+  alternates?: boolean;
 }
 
 const {
@@ -15,9 +18,16 @@ const {
   description = "Dar es Salaam web design agency building fast websites, e-commerce stores with M-Pesa checkout and custom web apps for Tanzanian businesses.",
   ogImage = "https://kiganjani-co.tech/og-image.png",
   noindex = false,
+  lang = "en",
+  alternates = true,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, "https://kiganjani-co.tech");
+
+// hreflang alternates: /sw/* mirrors every main page; blog/404 opt out.
+const pathname = Astro.url.pathname;
+const enPath = lang === "sw" ? pathname.replace(/^\/sw/, "") || "/" : pathname;
+const swPath = lang === "sw" ? pathname : pathname === "/" ? "/sw/" : `/sw${pathname}`;
 
 const jsonLD = {
   "@context": "https://schema.org",
@@ -64,7 +74,7 @@ const jsonLD = {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -72,6 +82,13 @@ const jsonLD = {
     <meta name="description" content={description} />
     <meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />
     <link rel="canonical" href={canonicalURL} />
+    {alternates && (
+      <>
+        <link rel="alternate" hreflang="en" href={new URL(enPath, "https://kiganjani-co.tech")} />
+        <link rel="alternate" hreflang="sw" href={new URL(swPath, "https://kiganjani-co.tech")} />
+        <link rel="alternate" hreflang="x-default" href={new URL(enPath, "https://kiganjani-co.tech")} />
+      </>
+    )}
 
     <!-- Preconnect to external origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -159,8 +176,26 @@ const jsonLD = {
       <slot />
     </main>
 
-    <MobileStickyCTA />
-    <CookieNotice client:load />
+    <MobileStickyCTA lang={lang} />
+    <CookieNotice client:load lang={lang} />
+
+    <!-- GA4 click tracking: any element with data-track fires a gtag event.
+         data-form-start="qualify" additionally fires form_start (external form). -->
+    <script is:inline>
+      document.addEventListener("click", function (e) {
+        var t = e.target;
+        var el = t && t.closest ? t.closest("[data-track]") : null;
+        if (!el || typeof window.gtag !== "function") return;
+        var params = {};
+        Object.keys(el.dataset).forEach(function (k) {
+          if (k !== "track" && k !== "formStart") params[k] = el.dataset[k];
+        });
+        window.gtag("event", el.dataset.track, params);
+        if (el.dataset.formStart) {
+          window.gtag("event", "form_start", { form: el.dataset.formStart });
+        }
+      });
+    </script>
 
     <!-- Vercel Analytics (optional — remove if not needed) -->
   </body>

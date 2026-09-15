@@ -1,52 +1,15 @@
 ---
-const pricing = [
-  {
-    tier: "Website",
-    price: "400,000",
-    cta: "Start project",
-    href: "https://snippe.me/pay/website",
-    features: [
-      "Custom landing page (up to 5 pages)",
-      "Custom .co.tz Domain + Emails",
-      "1yr Hosting + Maintenance",
-      "Contact form + Chat on WhatsApp",
-      "Search Engine Optimization",
-    ],
-  },
-  {
-    tier: "E-Commerce",
-    price: "1,800,000",
-    cta: "Start project",
-    href: "https://form.jotform.com/262568319503562",
-    features: [
-      "All core Website features included",
-      "Secure Payment Gateway Integration",
-      "Shopping Cart & Checkout system",
-      "Inventory, Order Tracking & Discount systems",
-      "Automated customer invoice & email notifications",
-    ],
-  },
-  {
-    tier: "Web Application",
-    price: "3,200,000",
-    cta: "Start project",
-    href: "https://form.jotform.com/262568319503562",
-    features: [
-      "All core Website features included",
-      "Secure Authentication (Login/Signup)",
-      "Interactive Dashboard + Database",
-      "Business Logic & API Integration",
-      "Admin Panel (manage users, content, and data)",
-    ],
-  },
-];
+import { copy, type Lang } from "../i18n/copy";
+const { lang = "en" }: { lang?: Lang } = Astro.props;
+const t = copy[lang].pricing;
+const pricing = t.plans;
 ---
 
 <section id="pricing" class="border-t border-rule px-[clamp(1.5rem,5vw,4rem)] py-[clamp(4rem,10vh,8rem)]">
   <div class="mb-16">
-    <p class="mb-4 text-[0.68rem] uppercase tracking-[0.24em] text-teal">Pricing</p>
+    <p class="mb-4 text-[0.68rem] uppercase tracking-[0.24em] text-teal">{t.eyebrow}</p>
     <h2 class="font-display text-[clamp(2rem,5vw,3.5rem)] font-normal leading-[1.1] text-fg">
-      Transparent packages
+      {t.heading}
     </h2>
   </div>
 
@@ -68,6 +31,9 @@ const pricing = [
         </ul>
         <a
           href={plan.href}
+          data-track={plan.event}
+          data-tier={plan.tierSlug}
+          data-form-start={plan.formStart}
           class="mt-8 block rounded-sm bg-teal p-3.5 text-center text-[0.75rem] font-medium uppercase tracking-[0.1em] text-canvas no-underline transition-colors hover:bg-mint"
         >
           {plan.cta}
@@ -79,18 +45,19 @@ const pricing = [
   <!-- Custom request -->
   <div class="mt-6 flex flex-wrap items-center justify-between gap-6 rounded-sm border border-rule p-8">
     <div>
-      <p class="font-display mb-1.5 text-[1.1rem] font-normal text-fg">Custom Request</p>
+      <p class="font-display mb-1.5 text-[1.1rem] font-normal text-fg">{t.customTitle}</p>
       <p class="text-[0.85rem] leading-[1.6] text-fg-dim">
-        Have a unique project in mind? Let's discuss your requirements and I'll provide a tailored quote.
+        {t.customBody}
       </p>
     </div>
     <a
       href="https://calendly.com/kiganjani-co/discovery-call"
       target="_blank"
       rel="noopener noreferrer"
+      data-track="calendly_click"
       class="flex-shrink-0 rounded-sm border border-rule px-6 py-3 text-[0.75rem] font-medium uppercase tracking-[0.1em] text-fg no-underline transition-colors hover:border-teal hover:bg-teal/5"
     >
-      Contact for Quote
+      {t.customCta}
     </a>
   </div>
 </section>

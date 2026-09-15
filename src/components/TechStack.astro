@@ -10,6 +10,9 @@ import expressIcon from "../assets/images/icons/express-svgrepo-com.svg";
 import mongodbIcon from "../assets/images/icons/mongodb-svgrepo-com.svg";
 import githubIcon from "../assets/images/icons/github-svgrepo-com.svg";
 import nodeIcon from "../assets/images/icons/node-dot-js-svgrepo-com.svg";
+import { copy, type Lang } from "../i18n/copy";
+const { lang = "en" }: { lang?: Lang } = Astro.props;
+const t = copy[lang].tech;
 
 const techStack = [
   { name: "HTML", icon: htmlIcon },
@@ -31,7 +34,7 @@ const tripled = [...techStack, ...techStack, ...techStack];
 
 <section id="tech-stack" class="overflow-hidden border-t border-rule bg-canvas-mid py-[clamp(2rem,4vh,3rem)]">
   <div class="mb-12 px-[clamp(1.5rem,5vw,4rem)]">
-    <p class="text-[0.68rem] uppercase tracking-[0.24em] text-teal">Tech Stack</p>
+    <p class="text-[0.68rem] uppercase tracking-[0.24em] text-teal">{t.label}</p>
   </div>
   <div
     class="tech-carousel"
