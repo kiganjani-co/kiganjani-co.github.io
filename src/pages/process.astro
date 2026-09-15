@@ -5,6 +5,7 @@ import Footer from "../components/Footer.astro";
 
 const whatsapp =
   "https://wa.me/255782506217?text=Hello%2C%20I%27m%20interested%20in%20your%20services";
+const calendly = "https://calendly.com/kiganjani-co/discovery-call";
 
 const steps = [
   {
@@ -87,14 +88,24 @@ const steps = [
           Message on WhatsApp with what you're building — I'll reply within 24 hours with next steps.
         </p>
       </div>
-      <a
-        href={whatsapp}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="flex-shrink-0 rounded-sm bg-teal px-6 py-3 text-[0.75rem] font-medium uppercase tracking-[0.1em] text-canvas no-underline transition-colors hover:bg-mint"
-      >
-        Start on WhatsApp
-      </a>
+      <div class="flex flex-shrink-0 flex-wrap gap-3">
+        <a
+          href={whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="rounded-sm bg-teal px-6 py-3 text-[0.75rem] font-medium uppercase tracking-[0.1em] text-canvas no-underline transition-colors hover:bg-mint"
+        >
+          Start on WhatsApp
+        </a>
+        <a
+          href={calendly}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="rounded-sm border border-rule px-6 py-3 text-[0.75rem] font-medium uppercase tracking-[0.1em] text-fg no-underline transition-colors hover:border-teal hover:bg-teal/5"
+        >
+          Book a Meeting
+        </a>
+      </div>
     </div>
   </section>
 
