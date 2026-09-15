@@ -11,6 +11,8 @@ export interface Plan {
   event: string;
   tierSlug?: string;
   formStart?: string;
+  featured?: boolean;
+  badge?: string;
   features: string[];
 }
 
@@ -94,6 +96,7 @@ export interface Copy {
     h1: string;
     intro: string;
     steps: { n: string; days: string; title: string; desc: string; includes: string[] }[];
+    scopeNote: string;
     ctaTitle: string;
     ctaBody: string;
     waBtn: string;
@@ -158,8 +161,8 @@ const en: Copy = {
   tech: { label: "Tech Stack" },
   process: {
     eyebrow: "How it works",
-    h1: "10 days —",
-    h1em: "from start to launch.",
+    h1: "Websites live in 10 days.",
+    h1em: "Bigger builds get a fixed timeline.",
     steps: [
       { phase: "Step 1", title: "Discovery & Strategy", desc: "We map your business goals, target clients, and the exact message your site needs to communicate." },
       { phase: "Step 2", title: "Design & Content", desc: "Brand-aligned layouts and copy written for your audience — no lorem ipsum, no placeholder thinking." },
@@ -181,6 +184,8 @@ const en: Copy = {
         event: "pay_click",
         tierSlug: undefined,
         formStart: undefined,
+        featured: true,
+        badge: "Start here",
         features: [
           "Custom landing page (up to 5 pages)",
           "Custom .co.tz Domain + Emails",
@@ -228,7 +233,7 @@ const en: Copy = {
   },
   stats: [
     { value: "1", unit: "person", label: "solo operator — direct contact throughout", icon: "person" },
-    { value: "10", unit: "days", label: "structured process from brief to launch", icon: "clock" },
+    { value: "Fixed", unit: "price", label: "quote agreed before work starts", icon: "tag" },
     { value: "M-Pesa", unit: "ready", label: "payment-ready builds for Tanzanian checkout", icon: "payment" },
   ],
   about: {
@@ -361,6 +366,7 @@ const en: Copy = {
     ],
     ctaTitle: "Ready to start?",
     ctaBody: "Message on WhatsApp with what you're building — I'll reply within 24 hours with next steps.",
+    scopeNote: "Timelines above are for standard websites — e-commerce and custom applications follow the same four steps, with a fixed timeline agreed before we start.",
     waBtn: "Start on WhatsApp",
     calBtn: "Book a Meeting",
   },
@@ -456,8 +462,8 @@ const sw: Copy = {
   tech: { label: "Teknolojia" },
   process: {
     eyebrow: "Jinsi inavyofanya kazi",
-    h1: "Siku 10 —",
-    h1em: "kutoka mwanzo hadi uzinduzi.",
+    h1: "Tovuti huwa hewani kwa siku 10.",
+    h1em: "Miradi mikubwa hupata ratiba maalum.",
     steps: [
       { phase: "Hatua 1", title: "Ugunduzi na Mkakati", desc: "Tunabainisha malengo ya biashara yako, wateja unaowalenga, na ujumbe sahihi ambao tovuti yako inahitaji kutoa." },
       { phase: "Hatua 2", title: "Ubunifu na Maudhui", desc: "Mipangilio inayolingana na chapa na nakala iliyoandikwa kwa hadhira yako — bila maandishi ya kupalia wala mawazo ya jumla." },
@@ -479,6 +485,8 @@ const sw: Copy = {
         event: "pay_click",
         tierSlug: undefined,
         formStart: undefined,
+        featured: true,
+        badge: "Anza hapa",
         features: [
           "Ukurasa maalum wa kutua (hadi kurasa 5)",
           "Domeni maalum .co.tz + Barua pepe",
@@ -526,7 +534,7 @@ const sw: Copy = {
   },
   stats: [
     { value: "1", unit: "mtu", label: "mwendeshaji binafsi — unawasiliana nami moja kwa moja", icon: "person" },
-    { value: "10", unit: "siku", label: "mchakato uliopangwa kutoka muhtasari hadi uzinduzi", icon: "clock" },
+    { value: "Bei", unit: "thabiti", label: "inayokubaliwa kabla ya kazi kuanza", icon: "tag" },
     { value: "M-Pesa", unit: "tayari", label: "majengo tayari kwa malipo ya Kitanzania", icon: "payment" },
   ],
   about: {
@@ -659,6 +667,7 @@ const sw: Copy = {
     ],
     ctaTitle: "Uko tayari kuanza?",
     ctaBody: "Tuma ujumbe WhatsApp ukiwa na unachojenga — nitakujibu ndani ya masaa 24 na hatua zinazofuata.",
+    scopeNote: "Ratiba hapo juu ni kwa tovuti za kawaida — biashara mtandaoni na programu maalum hufuata hatua nne zile zile, na ratiba maalum inayokubaliwa kabla hatujaanza.",
     waBtn: "Anza kwa WhatsApp",
     calBtn: "Weka Mkutano",
   },

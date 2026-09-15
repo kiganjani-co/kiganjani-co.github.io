@@ -1,11 +1,20 @@
 ---
 import DarkModeToggle from "./DarkModeToggle";
 import { copy, type Lang } from "../i18n/copy";
-const { isHome = false, lang = "en", altHref = "/" }: { isHome?: boolean; lang?: Lang; altHref?: string } = Astro.props;
+const { isHome = false, lang = "en" }: { isHome?: boolean; lang?: Lang } = Astro.props;
 const t = copy[lang].nav;
-const navLinks = t.links;
+// Section IDs stay constant — only labels translate.
+const linkIds = ["services", "work", "process", "pricing", "about", "contact"];
 const home = lang === "sw" ? "/sw/" : "/";
 const prefix = isHome ? "" : home;
+// Language counterparts derived from the current URL — no per-page wiring.
+const path = Astro.url.pathname;
+const enHref = lang === "sw" ? path.replace(/^\/sw/, "") || "/" : path;
+const swHref = lang === "sw" ? path : path === "/" ? "/sw/" : `/sw${path}`;
+const pillSeg = (active: boolean) =>
+  active
+    ? "rounded-full bg-teal/10 px-2.5 py-1 text-[0.7rem] font-semibold tracking-[0.08em] text-teal no-underline"
+    : "rounded-full px-2.5 py-1 text-[0.7rem] font-semibold tracking-[0.08em] text-fg-dim no-underline transition-colors hover:text-fg";
 ---
 
 <nav
@@ -24,35 +33,38 @@ const prefix = isHome ? "" : home;
   </a>
 
   <div class="hide-mobile flex items-center gap-10">
-    {navLinks.map((l) => (
+    {t.links.map((l, i) => (
       <a
-        href={`${prefix}#${l.toLowerCase()}`}
+        href={`${prefix}#${linkIds[i]}`}
         class="text-[0.75rem] uppercase tracking-[0.14em] text-fg-dim no-underline transition-colors hover:text-fg"
       >
         {l}
       </a>
     ))}
 
-    <DarkModeToggle client:load lang={lang} />
-
-    <a
-      href={altHref}
-      aria-label={t.toggleLabel}
-      class="rounded-sm border border-rule bg-transparent px-2.5 py-2 text-[0.72rem] font-semibold tracking-[0.08em] text-fg-dim no-underline transition-colors hover:border-teal hover:text-teal"
-    >
-      {lang === "en" ? "SW" : "EN"}
-    </a>
+    <div class="flex items-center gap-2">
+      <div role="group" aria-label={t.toggleLabel} class="flex items-center gap-1 rounded-full border border-rule p-1">
+        <a href={enHref} aria-current={lang === "en" ? "true" : undefined} class={pillSeg(lang === "en")}>
+          EN
+        </a>
+        <a href={swHref} aria-current={lang === "sw" ? "true" : undefined} class={pillSeg(lang === "sw")}>
+          SW
+        </a>
+      </div>
+      <DarkModeToggle client:load lang={lang} />
+    </div>
   </div>
 
   <!-- Mobile row -->
-  <div class="show-mobile flex items-center gap-3">
-    <a
-      href={altHref}
-      aria-label={t.toggleLabel}
-      class="rounded-sm border border-rule bg-transparent px-2 py-1.5 text-[0.72rem] font-semibold tracking-[0.08em] text-fg-dim no-underline transition-colors hover:border-teal hover:text-teal"
-    >
-      {lang === "en" ? "SW" : "EN"}
-    </a>
+  <div class="show-mobile flex items-center gap-2">
+    <div role="group" aria-label={t.toggleLabel} class="flex items-center gap-1 rounded-full border border-rule p-1">
+      <a href={enHref} aria-current={lang === "en" ? "true" : undefined} class={pillSeg(lang === "en")}>
+        EN
+      </a>
+      <a href={swHref} aria-current={lang === "sw" ? "true" : undefined} class={pillSeg(lang === "sw")}>
+        SW
+      </a>
+    </div>
     <DarkModeToggle client:load lang={lang} />
     <button
       id="mobile-menu-btn"
@@ -73,9 +85,9 @@ const prefix = isHome ? "" : home;
   id="mobile-overlay"
   class="fixed inset-0 z-40 hidden flex-col items-center justify-center gap-10 bg-overlay-bg"
 >
-  {navLinks.map((l) => (
+  {t.links.map((l, i) => (
     <a
-      href={`${prefix}#${l.toLowerCase()}`}
+      href={`${prefix}#${linkIds[i]}`}
       class="font-display text-4xl text-fg no-underline mobile-overlay-link"
     >
       {l}
