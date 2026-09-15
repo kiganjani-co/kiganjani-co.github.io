@@ -165,7 +165,11 @@ export default function Process() {
           })}
         </div>
 
-        <p className="mt-[clamp(1.25rem,2.5vh,2rem)] text-[0.7rem] tracking-[0.1em] text-fg-dim">
+        <p
+          className="mt-[clamp(1.25rem,2.5vh,2rem)] text-[0.7rem] tracking-[0.1em] text-fg-dim"
+          aria-hidden={ctaT > 0.5}
+          style={{ opacity: 1 - ctaT }}
+        >
           <span className="font-display text-[1rem] text-teal">{revealedCount}</span>
           {" / "}{n} steps
         </p>
@@ -180,14 +184,10 @@ export default function Process() {
             pointerEvents: ctaT > 0.5 ? "auto" : "none",
           }}
         >
-          <p className="text-[0.62rem] uppercase tracking-[0.18em] text-teal">Next step</p>
-          <p className="font-display mt-2 text-[clamp(1.1rem,2vw,1.5rem)] font-normal leading-[1.25] text-fg">
-            See exactly what happens on each of the 10 days.
-          </p>
           <a
             href="/process"
             tabIndex={ctaT > 0.5 ? 0 : -1}
-            className="mt-4 inline-block rounded-sm bg-teal px-6 py-3 text-[0.75rem] font-medium uppercase tracking-[0.1em] text-canvas no-underline transition-colors hover:bg-mint"
+            className="inline-block rounded-sm bg-teal px-6 py-3 text-[0.75rem] font-medium uppercase tracking-[0.1em] text-canvas no-underline transition-colors hover:bg-mint"
           >
             See the full process →
           </a>
