@@ -15,9 +15,9 @@ const pricing = t.plans;
 
   <div class="auto-grid-300 grid gap-px bg-rule">
     {pricing.map((plan) => (
-      <div class={`group cursor-default bg-canvas p-10 transition-colors duration-200 hover:bg-card-hover${plan.featured ? " bg-teal/[0.07] ring-2 ring-inset ring-teal" : ""}`}>
+      <div class={`group relative cursor-default bg-canvas p-10 transition-colors duration-200 hover:bg-card-hover${plan.featured ? " shadow-xl ring-2 ring-inset ring-teal md:-my-5 md:py-14" : ""}`}>
         {plan.badge && (
-          <p class="mb-4 inline-block rounded-full bg-teal/10 px-3 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-teal">
+          <p class="absolute right-4 top-4 rounded-sm bg-teal px-3 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-canvas">
             {plan.badge}
           </p>
         )}

@@ -44,10 +44,10 @@ const pillSeg = (active: boolean) =>
 
     <div class="flex items-center gap-2">
       <div role="group" aria-label={t.toggleLabel} class="flex items-center gap-1 rounded-full border border-rule p-1">
-        <a href={enHref} aria-current={lang === "en" ? "true" : undefined} class={pillSeg(lang === "en")}>
+        <a href={enHref} data-lang-toggle aria-current={lang === "en" ? "true" : undefined} class={pillSeg(lang === "en")}>
           EN
         </a>
-        <a href={swHref} aria-current={lang === "sw" ? "true" : undefined} class={pillSeg(lang === "sw")}>
+        <a href={swHref} data-lang-toggle aria-current={lang === "sw" ? "true" : undefined} class={pillSeg(lang === "sw")}>
           SW
         </a>
       </div>
@@ -58,10 +58,10 @@ const pillSeg = (active: boolean) =>
   <!-- Mobile row -->
   <div class="show-mobile flex items-center gap-2">
     <div role="group" aria-label={t.toggleLabel} class="flex items-center gap-1 rounded-full border border-rule p-1">
-      <a href={enHref} aria-current={lang === "en" ? "true" : undefined} class={pillSeg(lang === "en")}>
+      <a href={enHref} data-lang-toggle aria-current={lang === "en" ? "true" : undefined} class={pillSeg(lang === "en")}>
         EN
       </a>
-      <a href={swHref} aria-current={lang === "sw" ? "true" : undefined} class={pillSeg(lang === "sw")}>
+      <a href={swHref} data-lang-toggle aria-current={lang === "sw" ? "true" : undefined} class={pillSeg(lang === "sw")}>
         SW
       </a>
     </div>
@@ -115,6 +115,25 @@ const pillSeg = (active: boolean) =>
 </div>
 
 <script is:inline>
+  // Language toggle: carry the current section across, since both
+  // homepages share the same section IDs (pixel positions differ per language).
+  document.addEventListener("click", function (e) {
+    var t = e.target;
+    var a = t && t.closest ? t.closest("a[data-lang-toggle]") : null;
+    if (!a) return;
+    var ids = ["services", "work", "process", "pricing", "about", "contact"];
+    var line = window.scrollY + window.innerHeight * 0.3;
+    var current = "";
+    for (var i = 0; i < ids.length; i++) {
+      var el = document.getElementById(ids[i]);
+      if (el && el.getBoundingClientRect().top + window.scrollY <= line) current = ids[i];
+    }
+    if (current) {
+      e.preventDefault();
+      window.location.href = a.href + "#" + current;
+    }
+  });
+
   // Mobile menu toggle
   const btn = document.getElementById("mobile-menu-btn");
   const overlay = document.getElementById("mobile-overlay");

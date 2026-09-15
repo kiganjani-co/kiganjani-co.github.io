@@ -285,6 +285,11 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
 }
 
+/* Anchor jumps clear the fixed nav */
+section[id] {
+  scroll-margin-top: 4rem;
+}
+
 /* FAQ accordion: heading left, expandable rows right */
 .faq-split {
   display: grid;
