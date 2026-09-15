@@ -26,9 +26,9 @@ const pricing = t.plans;
     ))}
   </div>
 
-  <div id="pricing-track" class="pricing-grid auto-grid-300 grid gap-px bg-rule">
+  <div id="pricing-track" class="pricing-grid show-featured auto-grid-300 grid gap-px bg-rule">
     {pricing.map((plan) => (
-      <div class={`group relative cursor-default bg-canvas p-10 transition-colors duration-200 hover:bg-card-hover${plan.featured ? " shadow-xl ring-2 ring-inset ring-teal md:-my-5 md:py-14" : ""}`}>
+      <div class={`group relative cursor-default bg-canvas p-10 transition-colors duration-200 hover:bg-card-hover${plan.featured ? " plan-featured-ring shadow-xl md:-my-5 md:py-14" : ""}`}>
         {plan.badge && (
           <p class="absolute right-4 top-4 rounded-sm bg-teal px-3 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-canvas">
             {plan.badge}
@@ -95,6 +95,8 @@ const pricing = t.plans;
         tab.setAttribute("aria-selected", on ? "true" : "false");
         tab.classList.toggle("is-active", on);
       });
+      // Featured ring belongs to the active slide (first card = Website).
+      track.classList.toggle("show-featured", i === 0);
     }
     function cardStep() {
       var card = track.querySelector(":scope > div");

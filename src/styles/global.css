@@ -295,7 +295,18 @@ section[id] {
   display: none;
 }
 
+/* Featured card ring: always on desktop, gated to the active slide on mobile */
+.plan-featured-ring {
+  box-shadow: inset 0 0 0 2px var(--color-teal);
+}
+
 @media (max-width: 860px) {
+  .plan-featured-ring {
+    box-shadow: none;
+  }
+  .pricing-grid.show-featured .plan-featured-ring {
+    box-shadow: inset 0 0 0 2px var(--color-teal);
+  }
   .pricing-tabs {
     display: flex;
     gap: 0.25rem;
