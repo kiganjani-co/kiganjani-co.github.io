@@ -294,8 +294,8 @@ const en: Copy = {
     serviceLabel: "Service you're interested in",
     servicePh: "Select a service",
     serviceOptions: [
-      { value: "Website", label: "Website — from TZS 400,000" },
-      { value: "E-Commerce", label: "E-Commerce — from TZS 1,800,000" },
+      { value: "Marketing Website", label: "Website — from TZS 400,000" },
+      { value: "E-Commerce Store", label: "E-Commerce — from TZS 1,800,000" },
       { value: "Web Application", label: "Web Application — from TZS 3,200,000" },
       { value: "Custom", label: "Custom request" },
     ],
@@ -592,8 +592,8 @@ const sw: Copy = {
     serviceLabel: "Huduma unayovutiwa nayo",
     servicePh: "Chagua huduma",
     serviceOptions: [
-      { value: "Website", label: "Tovuti — kuanzia TZS 400,000" },
-      { value: "E-Commerce", label: "Biashara Mtandaoni — kuanzia TZS 1,800,000" },
+      { value: "Marketing Website", label: "Tovuti — kuanzia TZS 400,000" },
+      { value: "E-Commerce Store", label: "Biashara Mtandaoni — kuanzia TZS 1,800,000" },
       { value: "Web Application", label: "Programu ya Mtandao — kuanzia TZS 3,200,000" },
       { value: "Custom", label: "Ombi maalum" },
     ],

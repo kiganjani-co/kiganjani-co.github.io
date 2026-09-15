@@ -5,19 +5,24 @@ const t = copy[lang].faq;
 const faqs = t.items;
 ---
 
-<section id="faq" class="border-t border-rule px-[clamp(1.5rem,5vw,4rem)] py-[clamp(4rem,10vh,8rem)]">
-  <div class="mb-12 max-w-[720px]">
-    <p class="mb-4 text-[0.68rem] uppercase tracking-[0.24em] text-teal">FAQ</p>
-    <h2 class="font-display text-[clamp(2rem,5vw,3.5rem)] font-normal leading-[1.1] text-fg">
-      {t.heading}
-    </h2>
-  </div>
-  <div class="faq-grid">
-    {faqs.map((f) => (
-      <div class="rounded-sm border border-rule bg-canvas p-8">
-        <h3 class="font-display mb-3 text-[1.05rem] font-normal leading-[1.35] text-fg">{f.q}</h3>
-        <p class="text-[0.875rem] leading-[1.8] text-fg-dim">{f.a}</p>
-      </div>
-    ))}
+<section id="faq" class="border-t border-rule bg-canvas-mid px-[clamp(1.5rem,5vw,4rem)] py-[clamp(4rem,10vh,8rem)]">
+  <div class="faq-split">
+    <div>
+      <p class="mb-4 text-[0.68rem] uppercase tracking-[0.24em] text-teal">FAQ</p>
+      <h2 class="font-display text-[clamp(2rem,5vw,3.5rem)] font-normal leading-[1.1] text-fg">
+        {t.heading}
+      </h2>
+    </div>
+    <div>
+      {faqs.map((f) => (
+        <details class="faq-item">
+          <summary class="faq-q">
+            <span>{f.q}</span>
+            <span class="faq-plus" aria-hidden="true">+</span>
+          </summary>
+          <p class="faq-a">{f.a}</p>
+        </details>
+      ))}
+    </div>
   </div>
 </section>

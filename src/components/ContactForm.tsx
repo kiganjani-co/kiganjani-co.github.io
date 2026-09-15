@@ -21,11 +21,9 @@ const labelClass =
 
 const JOTFORM_URL = "https://submit.jotform.com/submit/262499042240051";
 
-// Must match the Dropdown question's Field Name in the Jotform builder
-// (form 262499042240051). Jotform ignores posted fields it doesn't recognise,
-// so after adding the "Service" dropdown there, paste its name (e.g.
-// "q13_q13_dropdown13") here.
-const SERVICE_FIELD_NAME = "q_service_dropdown";
+// Matches the Dropdown question on the Jotform form (input_13).
+// Option values below must stay identical to the Jotform options.
+const SERVICE_FIELD_NAME = "q13_whichService";
 
 export default function ContactForm({ lang = "en" }: { lang?: Lang }) {
   const t = copy[lang].contactForm;
