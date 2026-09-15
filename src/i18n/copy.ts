@@ -23,9 +23,10 @@ export interface Copy {
     eyebrow: string;
     heading: string;
     body: string;
-    items: { number: string; title: string; description: string }[];
+    learnMore: string;
+    items: { number: string; slug: string; title: string; description: string }[];
   };
-  work: { eyebrow: string; heading: string; body: string; moreText: string; moreLink: string };
+  work: { eyebrow: string; heading: string; body: string; moreText: string; moreLink: string; prevAria: string; nextAria: string };
   tech: { label: string };
   process: {
     eyebrow: string;
@@ -38,6 +39,7 @@ export interface Copy {
   pricing: {
     eyebrow: string;
     heading: string;
+    tabsLabel: string;
     plans: Plan[];
     customTitle: string;
     customBody: string;
@@ -125,6 +127,40 @@ export interface Copy {
     contactB: string;
   };
   meta: { homeTitle: string; homeDesc: string };
+  casePage: {
+    eyebrow: string;
+    categoryLabel: string;
+    servicesLabel: string;
+    processNote: string;
+    processLink: string;
+    relatedTitle: string;
+    ctaTitle: string;
+    ctaBody: string;
+    waBtn: string;
+    calBtn: string;
+  };
+  servicesPage: {
+    metaTitle: string;
+    metaDesc: string;
+    eyebrow: string;
+    h1: string;
+    intro: string;
+    services: {
+      slug: string;
+      number: string;
+      title: string;
+      tagline: string;
+      body: string[];
+      includes: string[];
+      price: string;
+      cta: string;
+      ctaHref: string;
+    }[];
+    ctaTitle: string;
+    ctaBody: string;
+    waBtn: string;
+    calBtn: string;
+  };
 }
 
 const en: Copy = {
@@ -145,10 +181,11 @@ const en: Copy = {
     eyebrow: "What we do",
     heading: "Services",
     body: "Minimalist design principles, open-source technology, and organic growth strategies.",
+    learnMore: "Learn more",
     items: [
-      { number: "01", title: "Websites", description: "Custom websites built around your brand and written for your customers. Clean, fast, mobile-first pages with local SEO so Dar es Salaam clients find you and enquire." },
-      { number: "02", title: "E-Commerce", description: "End-to-end online stores — product listings, inventory, orders, and M-Pesa checkout in one coherent system. Built to cut fulfilment time and grow repeat sales across Tanzania." },
-      { number: "03", title: "Application Development", description: "Responsive web applications built to meet your specific business needs — from internal tools to customer-facing platforms. Secure login, dashboards, databases and admin panels included." },
+      { number: "01", slug: "websites", title: "Websites", description: "Custom websites built around your brand and written for your customers. Clean, fast, mobile-first pages with local SEO so Dar es Salaam clients find you and enquire." },
+      { number: "02", slug: "ecommerce", title: "E-Commerce", description: "End-to-end online stores — product listings, inventory, orders, and M-Pesa checkout in one coherent system. Built to cut fulfilment time and grow repeat sales across Tanzania." },
+      { number: "03", slug: "webapps", title: "Application Development", description: "Responsive web applications built to meet your specific business needs — from internal tools to customer-facing platforms. Secure login, dashboards, databases and admin panels included." },
     ],
   },
   work: {
@@ -157,6 +194,8 @@ const en: Copy = {
     body: "Projects that moved the needle — from first website to full digital operations.",
     moreText: "More projects available on request —",
     moreLink: "get in touch",
+    prevAria: "Previous project",
+    nextAria: "Next project",
   },
   tech: { label: "Tech Stack" },
   process: {
@@ -175,6 +214,7 @@ const en: Copy = {
   pricing: {
     eyebrow: "Pricing",
     heading: "Transparent packages",
+    tabsLabel: "Choose a package",
     plans: [
       {
         tier: "Website",
@@ -426,6 +466,94 @@ const en: Copy = {
     homeTitle: "Kiganjani Co. — Websites, E-Commerce & Applications",
     homeDesc: "Dar es Salaam web design agency building fast websites, e-commerce stores with M-Pesa checkout and custom web apps for Tanzanian businesses.",
   },
+  casePage: {
+    eyebrow: "Case study",
+    categoryLabel: "Category",
+    servicesLabel: "Services",
+    processNote: "Built with the same four-step process —",
+    processLink: "see how it works",
+    relatedTitle: "More work",
+    ctaTitle: "Want something similar?",
+    ctaBody: "Message on WhatsApp with what you're building — I'll reply within 24 hours with next steps.",
+    waBtn: "Start on WhatsApp",
+    calBtn: "Book a Meeting",
+  },
+  servicesPage: {
+    metaTitle: "Services — Websites, E-Commerce & Web Apps | Kiganjani Co.",
+    metaDesc: "What Kiganjani Co. builds: custom websites from TZS 400,000, M-Pesa-ready e-commerce stores, and custom web applications for Tanzanian businesses.",
+    eyebrow: "Services",
+    h1: "What I build.",
+    intro: "Three offers, one standard: fast, mobile-first, and easy to maintain. Pick the one that matches where your business is right now.",
+    services: [
+      {
+        slug: "websites",
+        number: "01",
+        title: "Websites",
+        tagline: "Your business, online in 10 days.",
+        body: [
+          "A custom website built around your brand and written for your customers — up to five pages covering who you are, what you offer, and how to reach you. Every page is mobile-first, loads fast on Tanzanian networks, and carries local SEO so Dar es Salaam clients find you and enquire.",
+          "You get a custom .co.tz domain with matching emails, one year of hosting and maintenance, a contact form plus WhatsApp chat, and handover docs so the site keeps working without daily upkeep.",
+        ],
+        includes: [
+          "Custom design (up to 5 pages)",
+          "Custom .co.tz domain + emails",
+          "1 year hosting + maintenance",
+          "Contact form + WhatsApp chat",
+          "Local SEO basics",
+          "Live in 10 days",
+        ],
+        price: "from TZS 400,000",
+        cta: "Start project",
+        ctaHref: "https://snippe.me/pay/website",
+      },
+      {
+        slug: "ecommerce",
+        number: "02",
+        title: "E-Commerce",
+        tagline: "Sell online with M-Pesa checkout.",
+        body: [
+          "An end-to-end online store: product listings, shopping cart and checkout with M-Pesa alongside card options, plus inventory, order tracking and discount systems in one coherent setup. Built to cut fulfilment time and grow repeat sales across Tanzania.",
+          "Customers get automated invoices and email notifications; you get a store you can run from your phone. Includes everything in the Website package, with a fixed timeline agreed before we start.",
+        ],
+        includes: [
+          "Everything in Websites",
+          "M-Pesa + card checkout",
+          "Shopping cart & checkout system",
+          "Inventory, orders & discounts",
+          "Automated invoices & notifications",
+          "Fixed timeline agreed up front",
+        ],
+        price: "from TZS 1,800,000",
+        cta: "Start project",
+        ctaHref: "https://form.jotform.com/262568319503562",
+      },
+      {
+        slug: "webapps",
+        number: "03",
+        title: "Web Applications",
+        tagline: "Software shaped around your operations.",
+        body: [
+          "Responsive web applications built for your specific business needs — from internal tools to customer-facing platforms. Secure login and signup, interactive dashboards backed by a real database, business logic and API integrations, plus an admin panel so you manage users, content and data yourself.",
+          "Custom work takes longer than a standard website: we follow the same four-step process with a fixed scope, price and timeline agreed in writing before anything is built.",
+        ],
+        includes: [
+          "Everything in Websites",
+          "Secure authentication",
+          "Dashboard + database",
+          "Business logic & API integration",
+          "Admin panel included",
+          "Fixed scope, price & timeline",
+        ],
+        price: "from TZS 3,200,000",
+        cta: "Start project",
+        ctaHref: "https://form.jotform.com/262568319503562",
+      },
+    ],
+    ctaTitle: "Not sure which fits?",
+    ctaBody: "Message on WhatsApp with what you're building — I'll point you to the right package or a tailored quote within 24 hours.",
+    waBtn: "Start on WhatsApp",
+    calBtn: "Book a Meeting",
+  },
 };
 
 const sw: Copy = {
@@ -446,10 +574,11 @@ const sw: Copy = {
     eyebrow: "Tunachofanya",
     heading: "Huduma",
     body: "Kanuni za ubunifu rahisi, teknolojia huria, na mikakati ya ukuaji wa asili.",
+    learnMore: "Soma zaidi",
     items: [
-      { number: "01", title: "Tovuti", description: "Tovuti maalum zinazojengwa kuzunguka chapa yako na kuandikiwa wateja wako. Kurasa safi, za haraka, zinazofanya kazi kwenye simu, na SEO ya eneo ili wateja wa Dar es Salaam wakupate na wawasiliane." },
-      { number: "02", title: "Biashara Mtandaoni", description: "Maduka kamili ya mtandaoni — orodha za bidhaa, stoo, maagizo, na malipo ya M-Pesa katika mfumo mmoja. Yamejengwa kupunguza muda wa utoaji na kukuza mauzo ya kurudia kote Tanzania." },
-      { number: "03", title: "Programu za Mtandao", description: "Programu za mtandao zinazofanya kazi kwenye vifaa vyote, zilizojengwa kukidhi mahitaji ya biashara yako — kutoka zana za ndani hadi mifumo ya wateja. Ingizo salama, dashibodi, hifadhidata na paneli za usimamizi zimejumuishwa." },
+      { number: "01", slug: "websites", title: "Tovuti", description: "Tovuti maalum zinazojengwa kuzunguka chapa yako na kuandikiwa wateja wako. Kurasa safi, za haraka, zinazofanya kazi kwenye simu, na SEO ya eneo ili wateja wa Dar es Salaam wakupate na wawasiliane." },
+      { number: "02", slug: "ecommerce", title: "Biashara Mtandaoni", description: "Maduka kamili ya mtandaoni — orodha za bidhaa, stoo, maagizo, na malipo ya M-Pesa katika mfumo mmoja. Yamejengwa kupunguza muda wa utoaji na kukuza mauzo ya kurudia kote Tanzania." },
+      { number: "03", slug: "webapps", title: "Programu za Mtandao", description: "Programu za mtandao zinazofanya kazi kwenye vifaa vyote, zilizojengwa kukidhi mahitaji ya biashara yako — kutoka zana za ndani hadi mifumo ya wateja. Ingizo salama, dashibodi, hifadhidata na paneli za usimamizi zimejumuishwa." },
     ],
   },
   work: {
@@ -458,6 +587,8 @@ const sw: Copy = {
     body: "Miradi iliyoleta mabadiliko — kutoka tovuti ya kwanza hadi uendeshaji kamili wa kidijitali.",
     moreText: "Miradi zaidi inapatikana kwa ombi —",
     moreLink: "wasiliana",
+    prevAria: "Mradi uliopita",
+    nextAria: "Mradi unaofuata",
   },
   tech: { label: "Teknolojia" },
   process: {
@@ -476,6 +607,7 @@ const sw: Copy = {
   pricing: {
     eyebrow: "Bei",
     heading: "Vifurushi vilivyo wazi",
+    tabsLabel: "Chagua kifurushi",
     plans: [
       {
         tier: "Tovuti",
@@ -726,6 +858,94 @@ const sw: Copy = {
   meta: {
     homeTitle: "Kiganjani Co. — Tovuti, Biashara Mtandaoni na Programu",
     homeDesc: "Wakala wa tovuti wa Dar es Salaam anayejenga tovuti za haraka, maduka ya mtandaoni yenye malipo ya M-Pesa na programu maalum kwa biashara za Tanzania.",
+  },
+  casePage: {
+    eyebrow: "Mfano wa kazi",
+    categoryLabel: "Kundi",
+    servicesLabel: "Huduma",
+    processNote: "Imejengwa kwa mchakato ule ule wa hatua nne —",
+    processLink: "ona jinsi unavyofanya kazi",
+    relatedTitle: "Kazi zaidi",
+    ctaTitle: "Unataka kitu kama hiki?",
+    ctaBody: "Tuma ujumbe WhatsApp ukiwa na unachojenga — nitakujibu ndani ya masaa 24 na hatua zinazofuata.",
+    waBtn: "Anza kwa WhatsApp",
+    calBtn: "Weka Mkutano",
+  },
+  servicesPage: {
+    metaTitle: "Huduma — Tovuti, Biashara Mtandaoni na Programu | Kiganjani Co.",
+    metaDesc: "Kiganjani Co. inajenga nini: tovuti maalum kuanzia TZS 400,000, maduka ya mtandaoni tayari kwa M-Pesa, na programu maalum kwa biashara za Tanzania.",
+    eyebrow: "Huduma",
+    h1: "Ninachojenga.",
+    intro: "Matoleo matatu, kiwango kimoja: haraka, yanayofanya kazi kwenye simu, na rahisi kutunza. Chagua linalolingana na biashara yako ilipo sasa.",
+    services: [
+      {
+        slug: "websites",
+        number: "01",
+        title: "Tovuti",
+        tagline: "Biashara yako, mtandaoni kwa siku 10.",
+        body: [
+          "Tovuti maalum inayojengwa kuzunguka chapa yako na kuandikiwa wateja wako — hadi kurasa tano zinazoeleza wewe ni nani, unatoa nini, na jinsi ya kukupata. Kila ukurasa unafanya kazi kwenye simu, unapakia haraka kwenye mitandao ya Tanzania, na una SEO ya eneo ili wateja wa Dar es Salaam wakupate na wawasiliane.",
+          "Unapata domeni maalum .co.tz na barua pepe, mwaka 1 wa hifadhi na matengenezo, fomu ya mawasiliano pamoja na gumzo la WhatsApp, na maelezo ya ukabidhiano ili tovuti iendelee kufanya kazi bila uangalizi wa kila siku.",
+        ],
+        includes: [
+          "Ubunifu maalum (hadi kurasa 5)",
+          "Domeni maalum .co.tz + barua pepe",
+          "Mwaka 1 wa hifadhi + matengenezo",
+          "Fomu ya mawasiliano + WhatsApp",
+          "Misingi ya SEO ya eneo",
+          "Hai kwa siku 10",
+        ],
+        price: "kuanzia TZS 400,000",
+        cta: "Anza mradi",
+        ctaHref: "https://snippe.me/pay/website",
+      },
+      {
+        slug: "ecommerce",
+        number: "02",
+        title: "Biashara Mtandaoni",
+        tagline: "Uza mtandaoni kwa malipo ya M-Pesa.",
+        body: [
+          "Duka kamili la mtandaoni: orodha za bidhaa, kikapu na malipo kwa M-Pesa pamoja na kadi, pamoja na mifumo ya stoo, ufuatiliaji wa maagizo na punguzo katika mpangilio mmoja. Limejengwa kupunguza muda wa utoaji na kukuza mauzo ya kurudia kote Tanzania.",
+          "Wateja hupata ankara kiotomatiki na arifa za barua pepe; wewe unapata duka unaloweza kuliendesha kutoka simuni. Linajumuisha kila kitu cha kifurushi cha Tovuti, na ratiba maalum inayokubaliwa kabla hatujaanza.",
+        ],
+        includes: [
+          "Kila kitu cha Tovuti",
+          "Malipo ya M-Pesa + kadi",
+          "Mfumo wa kikapu na malipo",
+          "Stoo, maagizo na punguzo",
+          "Ankara kiotomatiki na arifa",
+          "Ratiba maalum inayokubaliwa",
+        ],
+        price: "kuanzia TZS 1,800,000",
+        cta: "Anza mradi",
+        ctaHref: "https://form.jotform.com/262568319503562",
+      },
+      {
+        slug: "webapps",
+        number: "03",
+        title: "Programu za Mtandao",
+        tagline: "Programu inayolingana na uendeshaji wako.",
+        body: [
+          "Programu za mtandao zinazofanya kazi kwenye vifaa vyote, zilizojengwa kukidhi mahitaji ya biashara yako — kutoka zana za ndani hadi mifumo ya wateja. Ingizo salama na kujisajili, dashibodi shirikishi zinazoungwa mkono na hifadhidata halisi, mantiki ya biashara na ujumuishaji wa API, pamoja na paneli ya usimamizi ili usimamie watumiaji, maudhui na data mwenyewe.",
+          "Kazi maalum huchukua muda mrefu kuliko tovuti ya kawaida: tunafuata mchakato ule ule wa hatua nne na wigo, bei na ratiba maalum zinazokubaliwa kwa maandishi kabla ya chochote kujengwa.",
+        ],
+        includes: [
+          "Kila kitu cha Tovuti",
+          "Uthibitishaji salama",
+          "Dashibodi + hifadhidata",
+          "Mantiki ya biashara na API",
+          "Paneli ya usimamizi imejumuishwa",
+          "Wigo, bei na ratiba maalum",
+        ],
+        price: "kuanzia TZS 3,200,000",
+        cta: "Anza mradi",
+        ctaHref: "https://form.jotform.com/262568319503562",
+      },
+    ],
+    ctaTitle: "Huna uhakika kinachofaa?",
+    ctaBody: "Tuma ujumbe WhatsApp ukiwa na unachojenga — nitakuelekeza kwenye kifurushi sahihi au bei maalum ndani ya masaa 24.",
+    waBtn: "Anza kwa WhatsApp",
+    calBtn: "Weka Mkutano",
   },
 };
 

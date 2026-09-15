@@ -21,7 +21,17 @@ const services = t.items;
         <p class="font-display mb-6 text-[0.72rem] tracking-[0.06em] text-teal">{svc.number}</p>
         <h3 class="font-display mb-3.5 text-[1.35rem] font-normal leading-[1.2] text-fg">{svc.title}</h3>
         <p class="text-[0.875rem] leading-[1.8] text-fg-dim">{svc.description}</p>
-        <div class="mt-8 h-[1.5px] w-5 bg-teal transition-all duration-300 group-hover:w-12"></div>
+        <div class="mt-8 flex items-center justify-between gap-4">
+          <div class="h-[1.5px] w-5 bg-teal transition-all duration-300 group-hover:w-12"></div>
+          <a
+            href={`${lang === "sw" ? "/sw" : ""}/services#${svc.slug}`}
+            data-track="cta_click"
+            data-id={`services-${svc.slug}`}
+            class="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-teal no-underline opacity-0 transition-all duration-300 group-hover:opacity-100 group-focus-within:opacity-100 [@media(hover:none)]:opacity-100"
+          >
+            {t.learnMore} →
+          </a>
+        </div>
       </div>
     ))}
   </div>

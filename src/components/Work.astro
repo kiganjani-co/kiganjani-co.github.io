@@ -16,9 +16,14 @@ const t = copy[lang].work;
     </p>
   </div>
 
-  <div class="flex flex-col gap-6">
+  <div id="work-track" class="work-track">
     {projects.map((project) => (
-      <div class="auto-grid-320 grid bg-canvas-mid transition-colors duration-300 hover:bg-card-hover">
+      <a
+        href={`${lang === "sw" ? "/sw" : ""}/work/${project.slug}`}
+        data-track="cta_click"
+        data-id={`work-card-${project.slug}`}
+        class="auto-grid-320 grid cursor-pointer bg-canvas-mid no-underline transition-colors duration-300 hover:bg-card-hover focus-visible:outline-2 focus-visible:outline-teal focus-visible:outline-offset-4"
+      >
         <div class="overflow-hidden bg-[#888] h-[280px]">
           <img
             src={project.image}
@@ -47,8 +52,25 @@ const t = copy[lang].work;
             ))}
           </div>
         </div>
-      </div>
+      </a>
     ))}
+  </div>
+
+  <div class="work-nav">
+    <button
+      id="work-prev"
+      aria-label={t.prevAria}
+      class="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-rule bg-transparent text-fg-dim transition-colors hover:border-teal hover:text-teal"
+    >
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button
+      id="work-next"
+      aria-label={t.nextAria}
+      class="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-rule bg-transparent text-fg-dim transition-colors hover:border-teal hover:text-teal"
+    >
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
   </div>
 
   <div class="mt-12 text-center">
@@ -58,3 +80,19 @@ const t = copy[lang].work;
     </p>
   </div>
 </section>
+
+<script is:inline>
+  // Mobile carousel controls: scroll one card at a time.
+  (function () {
+    var track = document.getElementById("work-track");
+    if (!track) return;
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function step(dir) {
+      var card = track.querySelector(":scope > a");
+      var dx = card ? card.offsetWidth + 16 : 320;
+      track.scrollBy({ left: dir * dx, behavior: reduce ? "auto" : "smooth" });
+    }
+    document.getElementById("work-prev")?.addEventListener("click", function () { step(-1); });
+    document.getElementById("work-next")?.addEventListener("click", function () { step(1); });
+  })();
+</script>

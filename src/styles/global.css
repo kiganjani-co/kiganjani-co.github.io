@@ -290,6 +290,91 @@ section[id] {
   scroll-margin-top: 4rem;
 }
 
+/* Pricing: grid on desktop, tabs + swipeable track on mobile */
+.pricing-tabs {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .pricing-tabs {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .pricing-tab {
+    flex: 1;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    padding: 0.75rem 0.25rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-fg-dim);
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .pricing-tab.is-active {
+    color: var(--color-teal);
+    border-bottom-color: var(--color-teal);
+  }
+  .pricing-grid {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    background: transparent;
+    padding-bottom: 0.5rem;
+  }
+  .pricing-grid::-webkit-scrollbar {
+    display: none;
+  }
+  .pricing-grid > div {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
+  }
+}
+
+/* Work: vertical stack on desktop, snap carousel on mobile */
+.work-track {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.work-nav {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .work-track {
+    flex-direction: row;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 0.5rem;
+  }
+  .work-track::-webkit-scrollbar {
+    display: none;
+  }
+  .work-track > a {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
+  }
+  .work-nav {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+}
+
 /* FAQ accordion: heading left, expandable rows right */
 .faq-split {
   display: grid;
