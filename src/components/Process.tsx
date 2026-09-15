@@ -16,6 +16,10 @@ const SNAKE_POINTS = [
   { x: 88, y: 70 },
 ];
 
+// Extra pinned track after the snake completes: the CTA rises in and holds
+// while the user keeps scrolling, then the section releases to Pricing.
+const CTA_VH = 140;
+
 export default function Process() {
   const outerRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
@@ -66,9 +70,16 @@ export default function Process() {
 
   const n = STEPS.length;
   const p = reducedMotion ? 1 : progress;
-  const revealedCount = fractions.reduce((acc, f) => acc + (p >= f ? 1 : 0), 0);
-  const pct = Math.min(100, ((p * (n + 0.8)) / n) * 100);
-  const draw = pathLen * (1 - Math.min(1, Math.max(0, p)));
+  // Split the track: steps animate over the first segment, CTA over the last.
+  const stepsEnd = (n * 90 + 60 - 100) / (n * 90 + 60 + CTA_VH - 100);
+  const stepP = Math.min(1, p / stepsEnd);
+  const ctaRaw = Math.min(1, Math.max(0, (p - stepsEnd) / (1 - stepsEnd)));
+  // Enter over the first third of the CTA segment (eased), then hold at 1.
+  const ctaEnter = Math.min(1, ctaRaw / 0.35);
+  const ctaT = reducedMotion ? 1 : 1 - Math.pow(1 - ctaEnter, 3);
+  const revealedCount = fractions.reduce((acc, f) => acc + (stepP >= f ? 1 : 0), 0);
+  const pct = Math.min(100, ((stepP * (n + 0.8)) / n) * 100);
+  const draw = pathLen * (1 - Math.min(1, Math.max(0, stepP)));
 
   const teal = "var(--color-teal)";
   const rule = "var(--color-rule)";
@@ -80,7 +91,7 @@ export default function Process() {
       ref={outerRef}
       id="process"
       className="relative border-t border-rule"
-      style={{ height: `${STEPS.length * 90 + 60}vh` }}
+      style={{ height: `${STEPS.length * 90 + 60 + CTA_VH}vh` }}
     >
       <div
         className="process-sticky sticky top-0 flex flex-col justify-center overflow-hidden bg-canvas"
@@ -112,7 +123,7 @@ export default function Process() {
           {STEPS.map((step, i) => {
             const pt = SNAKE_POINTS[i];
             const above = i % 2 === 0;
-            const visible = p >= fractions[i];
+            const visible = stepP >= fractions[i];
             return (
               <div key={step.phase} className="snake-step">
                 <div
@@ -158,6 +169,29 @@ export default function Process() {
           <span className="font-display text-[1rem] text-teal">{revealedCount}</span>
           {" / "}{n} steps
         </p>
+
+        {/* End-of-animation CTA: rises in once the snake completes, holds pinned */}
+        <div
+          className="process-cta"
+          aria-hidden={ctaT < 0.5}
+          style={{
+            opacity: ctaT,
+            transform: `translateY(${(1 - ctaT) * 2.5}rem)`,
+            pointerEvents: ctaT > 0.5 ? "auto" : "none",
+          }}
+        >
+          <p className="text-[0.62rem] uppercase tracking-[0.18em] text-teal">Next step</p>
+          <p className="font-display mt-2 text-[clamp(1.1rem,2vw,1.5rem)] font-normal leading-[1.25] text-fg">
+            See exactly what happens on each of the 10 days.
+          </p>
+          <a
+            href="/process"
+            tabIndex={ctaT > 0.5 ? 0 : -1}
+            className="mt-4 inline-block rounded-sm bg-teal px-6 py-3 text-[0.75rem] font-medium uppercase tracking-[0.1em] text-canvas no-underline transition-colors hover:bg-mint"
+          >
+            See the full process →
+          </a>
+        </div>
       </div>
     </div>
   );

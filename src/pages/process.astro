@@ -1,0 +1,102 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+
+const whatsapp =
+  "https://wa.me/255782506217?text=Hello%2C%20I%27m%20interested%20in%20your%20services";
+
+const steps = [
+  {
+    n: "01",
+    days: "Days 1–2",
+    title: "Discovery & Strategy",
+    desc: "We map your business goals, target clients, and the exact message your site needs to communicate.",
+    includes: ["Goal and audience map", "Page outline (sitemap)", "Message and section plan"],
+  },
+  {
+    n: "02",
+    days: "Days 3–5",
+    title: "Design & Content",
+    desc: "Brand-aligned layouts and copy written for your audience — no lorem ipsum, no placeholder thinking.",
+    includes: ["Layout draft for each page", "Copy written for your audience", "Review round before build"],
+  },
+  {
+    n: "03",
+    days: "Days 6–8",
+    title: "Build & Review",
+    desc: "The site comes together. You review, request changes, and we refine until it's exactly right.",
+    includes: ["Working site on a preview link", "M-Pesa checkout where needed", "Two review rounds included"],
+  },
+  {
+    n: "04",
+    days: "Days 9–10",
+    title: "Launch & Handover",
+    desc: "Launch the site on your domain, understand how it runs, working for you without daily upkeep.",
+    includes: ["Launch on your domain", "Handover notes", "Hosting and maintenance terms"],
+  },
+];
+---
+
+<Layout
+  title="Our Process — 10 Days from Brief to Launch | Kiganjani Co."
+  description="How Kiganjani Co. works: a structured 10-day process from discovery to launch, with M-Pesa-ready builds for Tanzanian businesses."
+>
+  <Nav />
+
+  <section class="mx-auto max-w-3xl px-6 pt-36 pb-16">
+    <p class="mb-4 text-[0.68rem] uppercase tracking-[0.24em] text-teal">Process</p>
+    <h1 class="font-display text-[clamp(2rem,5vw,3.25rem)] font-normal leading-[1.1] text-fg">
+      10 days — from brief to launch.
+    </h1>
+    <p class="mt-6 text-[0.95rem] leading-[1.8] text-fg-dim">
+      One person, one structured process. You always know what happens next, what you get at
+      each step, and what is needed from you.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 pb-16">
+    <div class="flex flex-col gap-px border border-rule bg-rule">
+      {steps.map((s) => (
+        <div class="bg-canvas p-8">
+          <div class="mb-4 flex items-baseline justify-between gap-4">
+            <p class="text-[0.62rem] uppercase tracking-[0.18em] text-teal">
+              Step {s.n} · {s.title}
+            </p>
+            <p class="flex-shrink-0 text-[0.65rem] uppercase tracking-[0.1em] text-fg-dim">{s.days}</p>
+          </div>
+          <p class="text-[0.9rem] leading-[1.75] text-fg-dim">{s.desc}</p>
+          <ul class="m-0 mt-5 flex list-none flex-col gap-2.5 p-0">
+            {s.includes.map((item) => (
+              <li class="flex items-start gap-2.5 text-[0.82rem] leading-[1.5] text-fg-dim">
+                <span class="mt-0.5 flex-shrink-0 text-teal">&#10003;</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 pb-24">
+    <div class="flex flex-wrap items-center justify-between gap-6 rounded-sm border border-rule p-8">
+      <div>
+        <p class="font-display mb-1.5 text-[1.1rem] font-normal text-fg">Ready to start?</p>
+        <p class="text-[0.85rem] leading-[1.6] text-fg-dim">
+          Message on WhatsApp with what you're building — I'll reply within 24 hours with next steps.
+        </p>
+      </div>
+      <a
+        href={whatsapp}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex-shrink-0 rounded-sm bg-teal px-6 py-3 text-[0.75rem] font-medium uppercase tracking-[0.1em] text-canvas no-underline transition-colors hover:bg-mint"
+      >
+        Start on WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

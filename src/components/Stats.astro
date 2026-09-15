@@ -1,8 +1,8 @@
 ---
 const stats = [
-  { value: "10", unit: "days", label: "from brief to live site" },
-  { value: "100%", unit: "", label: "remote — anywhere in East Africa" },
-  { value: "1", unit: "owner", label: "direct access, no middlemen" },
+  { value: "1", unit: "person", label: "solo operator — direct contact throughout", icon: "person" },
+  { value: "10", unit: "days", label: "structured process from brief to launch", icon: "clock" },
+  { value: "M-Pesa", unit: "ready", label: "payment-ready builds for Tanzanian checkout", icon: "payment" },
 ];
 ---
 
@@ -11,17 +11,17 @@ const stats = [
     {stats.map((s) => (
       <div class="flex min-w-[220px] items-center gap-3.5 rounded-sm border border-rule bg-canvas px-6 py-3.5">
         <div class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md bg-teal/10 text-teal">
-          {s.label.includes("brief") && (
+          {s.icon === "clock" && (
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
             </svg>
           )}
-          {s.label.includes("remote") && (
+          {s.icon === "payment" && (
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              <rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/>
             </svg>
           )}
-          {s.label.includes("direct") && (
+          {s.icon === "person" && (
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
             </svg>
