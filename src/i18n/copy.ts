@@ -127,6 +127,16 @@ export interface Copy {
     contactB: string;
   };
   meta: { homeTitle: string; homeDesc: string };
+  blogPage: {
+    metaTitle: string;
+    metaDesc: string;
+    eyebrow: string;
+    h1: string;
+    intro: string;
+    cardTitle: string;
+    cardBody: string;
+    cta: string;
+  };
   casePage: {
     eyebrow: string;
     categoryLabel: string;
@@ -465,6 +475,16 @@ const en: Copy = {
   meta: {
     homeTitle: "Kiganjani Co. — Websites, E-Commerce & Applications",
     homeDesc: "Dar es Salaam web design agency building fast websites, e-commerce stores with M-Pesa checkout and custom web apps for Tanzanian businesses.",
+  },
+  blogPage: {
+    metaTitle: "Blog — Kiganjani Co.",
+    metaDesc: "Insights on web design, e-commerce, and digital growth for businesses in Tanzania and East Africa.",
+    eyebrow: "Blog",
+    h1: "Insights & Guides",
+    intro: "Practical advice on web design, e-commerce, and growing your business online — written for entrepreneurs and teams in Tanzania and East Africa.",
+    cardTitle: "Read on Hashnode",
+    cardBody: "All posts are published on our Hashnode blog. Head over for the latest articles, guides, and deep dives on building your digital presence.",
+    cta: "Visit Blog",
   },
   casePage: {
     eyebrow: "Case study",
@@ -858,6 +878,16 @@ const sw: Copy = {
   meta: {
     homeTitle: "Kiganjani Co. — Tovuti, Biashara Mtandaoni na Programu",
     homeDesc: "Wakala wa tovuti wa Dar es Salaam anayejenga tovuti za haraka, maduka ya mtandaoni yenye malipo ya M-Pesa na programu maalum kwa biashara za Tanzania.",
+  },
+  blogPage: {
+    metaTitle: "Blogu — Kiganjani Co.",
+    metaDesc: "Maarifa kuhusu ubunifu wa tovuti, biashara mtandaoni, na ukuaji wa kidijitali kwa biashara nchini Tanzania na Afrika Mashariki.",
+    eyebrow: "Blogu",
+    h1: "Maarifa na Miongozo",
+    intro: "Ushauri wa vitendo kuhusu ubunifu wa tovuti, biashara mtandaoni, na kukuza biashara yako mtandaoni — umeandikiwa wajasiriamali na timu nchini Tanzania na Afrika Mashariki.",
+    cardTitle: "Soma kwenye Hashnode",
+    cardBody: "Makala zote zinachapishwa kwenye blogu yetu ya Hashnode. Tembelea kwa makala, miongozo, na uchambuzi wa kina wa kujenga uwepo wako wa kidijitali.",
+    cta: "Tembelea Blogu",
   },
   casePage: {
     eyebrow: "Mfano wa kazi",

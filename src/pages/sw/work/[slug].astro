@@ -9,9 +9,12 @@ export function getStaticPaths() {
   return projects.map((p) => ({ params: { slug: p.slug }, props: { project: p } }));
 }
 
-const { project } = Astro.props;
+const { project: item } = Astro.props;
+const project = { ...item, ...item.sw };
 const t = copy.sw.casePage;
-const related = projects.filter((p) => p.slug !== project.slug);
+const related = projects
+  .filter((p) => p.slug !== project.slug)
+  .map((p) => ({ ...p, ...p.sw }));
 
 const whatsapp =
   "https://wa.me/255782506217?text=Hello%2C%20I%27m%20interested%20in%20your%20services";

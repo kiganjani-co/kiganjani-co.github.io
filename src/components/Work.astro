@@ -17,7 +17,9 @@ const t = copy[lang].work;
   </div>
 
   <div id="work-track" class="work-track">
-    {projects.map((project) => (
+    {projects.map((item) => {
+      const project = lang === "sw" ? { ...item, ...item.sw } : item;
+      return (
       <a
         href={`${lang === "sw" ? "/sw" : ""}/work/${project.slug}`}
         data-track="cta_click"
@@ -53,7 +55,8 @@ const t = copy[lang].work;
           </div>
         </div>
       </a>
-    ))}
+      );
+    })}
   </div>
 
   <div class="work-nav">
