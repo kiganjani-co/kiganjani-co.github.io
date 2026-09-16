@@ -74,6 +74,12 @@ export default function ContactForm({ lang = "en" }: { lang?: Lang }) {
         <p className="text-[0.875rem] leading-[1.7] text-fg-dim">
           {t.sentBody}
         </p>
+        <a
+          href={lang === "sw" ? "/sw/process" : "/process"}
+          className="mt-6 inline-block text-[0.8rem] text-teal no-underline transition-colors hover:text-mint"
+        >
+          {t.sentLink} →
+        </a>
       </div>
     );
   }

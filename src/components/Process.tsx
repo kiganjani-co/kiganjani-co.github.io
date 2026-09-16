@@ -96,7 +96,7 @@ export default function Process({ lang = "en" }: { lang?: Lang }) {
         {/* Header */}
         <p className="mb-2.5 text-[0.68rem] uppercase tracking-[0.24em] text-teal">{t.eyebrow}</p>
         <h2
-          className="font-display mb-[clamp(1.5rem,3vh,2.5rem)] text-[clamp(1.8rem,4vw,3rem)] font-normal leading-[1.1] text-fg"
+          className="font-display mb-[clamp(2.5rem,6vh,4.5rem)] text-[clamp(1.8rem,4vw,3rem)] font-normal leading-[1.1] text-fg"
         >
           {t.h1} <em className="not-italic text-teal">{t.h1em}</em>
         </h2>

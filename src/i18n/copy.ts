@@ -83,6 +83,7 @@ export interface Copy {
     sending: string;
     sentTitle: string;
     sentBody: string;
+    sentLink: string;
     errorA: string;
     errorLink: string;
     errorB: string;
@@ -349,9 +350,9 @@ const en: Copy = {
     serviceLabel: "Service you're interested in",
     servicePh: "Select a service",
     serviceOptions: [
-      { value: "Marketing Website", label: "Website — from TZS 400,000" },
-      { value: "E-Commerce Store", label: "E-Commerce — from TZS 1,800,000" },
-      { value: "Web Application", label: "Web Application — from TZS 3,200,000" },
+      { value: "Marketing Website", label: "Website" },
+      { value: "E-Commerce Store", label: "E-Commerce" },
+      { value: "Web Application", label: "Web Application" },
       { value: "Custom", label: "Custom request" },
     ],
     msgLabel: "Tell me about your project",
@@ -360,6 +361,7 @@ const en: Copy = {
     sending: "Sending…",
     sentTitle: "Message sent.",
     sentBody: "Thanks — I'll get back to you within 24 hours.",
+    sentLink: "See what happens next",
     errorA: "Something went wrong sending your message. Please try",
     errorLink: "WhatsApp",
     errorB: "instead.",
@@ -752,9 +754,9 @@ const sw: Copy = {
     serviceLabel: "Huduma unayovutiwa nayo",
     servicePh: "Chagua huduma",
     serviceOptions: [
-      { value: "Marketing Website", label: "Tovuti — kuanzia TZS 400,000" },
-      { value: "E-Commerce Store", label: "Biashara Mtandaoni — kuanzia TZS 1,800,000" },
-      { value: "Web Application", label: "Programu ya Mtandao — kuanzia TZS 3,200,000" },
+      { value: "Marketing Website", label: "Tovuti" },
+      { value: "E-Commerce Store", label: "Biashara Mtandaoni" },
+      { value: "Web Application", label: "Programu ya Mtandao" },
       { value: "Custom", label: "Ombi maalum" },
     ],
     msgLabel: "Niambie kuhusu mradi wako",
@@ -763,6 +765,7 @@ const sw: Copy = {
     sending: "Inatuma…",
     sentTitle: "Ujumbe umetumwa.",
     sentBody: "Asante — nitakujibu ndani ya masaa 24.",
+    sentLink: "Ona kinachofuata",
     errorA: "Hitilafu imetokea wakati wa kutuma ujumbe wako. Tafadhali jaribu",
     errorLink: "WhatsApp",
     errorB: "badala yake.",
