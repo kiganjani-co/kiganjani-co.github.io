@@ -5,10 +5,7 @@ import Footer from "../components/Footer.astro";
 import { copy } from "../i18n/copy";
 
 const t = copy.en.servicesPage;
-
-const whatsapp =
-  "https://wa.me/255782506217?text=Hello%2C%20I%27m%20interested%20in%20your%20services";
-const calendly = "https://calendly.com/kiganjani-co/discovery-call";
+const formUrl = "https://form.jotform.com/262568319503562";
 ---
 
 <Layout title={t.metaTitle} description={t.metaDesc}>
@@ -69,21 +66,11 @@ const calendly = "https://calendly.com/kiganjani-co/discovery-call";
       </div>
       <div class="flex flex-shrink-0 flex-wrap gap-3">
         <a
-          href={whatsapp}
+          href={formUrl}
           target="_blank"
           rel="noopener noreferrer"
-          data-track="whatsapp_click"
-          data-placement="services"
+          data-track="form_start"
           class="rounded-sm bg-teal px-6 py-3 text-[0.75rem] font-medium uppercase tracking-[0.1em] text-canvas no-underline transition-colors hover:bg-mint"
-        >
-          {t.waBtn}
-        </a>
-        <a
-          href={calendly}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-track="calendly_click"
-          class="rounded-sm border border-rule px-6 py-3 text-[0.75rem] font-medium uppercase tracking-[0.1em] text-fg no-underline transition-colors hover:border-teal hover:bg-teal/5"
         >
           {t.calBtn}
         </a>

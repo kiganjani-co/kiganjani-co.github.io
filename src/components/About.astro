@@ -1,8 +1,15 @@
 ---
 import devPhoto from "../assets/images/kiganjani-dev.jpg";
+import ContactForm from "./ContactForm";
 import { copy, type Lang } from "../i18n/copy";
 const { lang = "en" }: { lang?: Lang } = Astro.props;
 const t = copy[lang].about;
+const ct = copy[lang].contact;
+const contactMethods = [
+  { icon: "✆", href: "https://wa.me/255782506217?text=Hello%2C%20I%27m%20interested%20in%20your%20services", track: "whatsapp_click", placement: "about" },
+  { icon: "⊕", href: "https://instagram.com/kiganjani.co", track: undefined, placement: undefined },
+  { icon: "◉", href: "#about", track: undefined, placement: undefined },
+];
 ---
 
 <section id="about" class="border-t border-rule px-[clamp(1.5rem,5vw,4rem)] py-[clamp(4rem,10vh,8rem)]">
@@ -48,4 +55,86 @@ const t = copy[lang].about;
       </p>
     </div>
   </div>
+
+  <div class="mt-20 pt-16 border-t border-rule">
+    <p class="mb-6 text-[0.68rem] uppercase tracking-[0.24em] text-teal">{ct.eyebrow}</p>
+    <h3 class="font-display mb-6 text-[clamp(1.5rem,3vw,2.25rem)] font-normal leading-[1.2] text-fg">
+      {ct.heading}
+    </h3>
+    <p class="mb-10 text-base leading-[1.85] text-fg-dim">
+      {ct.body}
+    </p>
+    <div class="flex flex-col-4 gap-4 mb-12">
+      <a
+        href="#about"
+        id="email-link-about"
+        data-track="cta_click"
+        data-id="contact-email-about"
+        data-email-user="wbalaile"
+        data-email-domain="kiganjani-co.tech"
+        class="flex items-center gap-4 rounded-sm border border-rule p-4 no-underline transition-colors hover:border-teal/40 hover:bg-teal/5"
+      >
+        <span
+          class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-sm bg-teal/10 text-[0.9rem] text-teal"
+        >
+          ✉
+        </span>
+        <div>
+          <p class="mb-0.5 text-[0.62rem] uppercase tracking-[0.14em] text-fg-dim">{ct.emailLabel}</p>
+          <p class="text-[0.9rem] text-fg">wbalaile&#64;kiganjani-co&#46;tech</p>
+        </div>
+      </a>
+      {contactMethods.map((cm, i) => (
+        <a
+          href={cm.href}
+          target={cm.href.startsWith("http") ? "_blank" : undefined}
+          rel={cm.href.startsWith("http") ? "noopener noreferrer" : undefined}
+          data-track={cm.track}
+          data-placement={cm.placement}
+          class="flex items-center gap-4 rounded-sm border border-rule p-4 no-underline transition-colors hover:border-teal/40 hover:bg-teal/5"
+        >
+          <span
+            class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-sm bg-teal/10 text-[0.9rem] text-teal"
+          >
+            {cm.icon}
+          </span>
+          <div>
+            <p class="mb-0.5 text-[0.62rem] uppercase tracking-[0.14em] text-fg-dim">{ct.methods[i].label}</p>
+            <p class="text-[0.9rem] text-fg">{ct.methods[i].value}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <details class="group border border-rule rounded-sm overflow-hidden">
+      <summary
+        class="flex items-center justify-between cursor-pointer rounded-sm border-none bg-teal/5 p-5 no-underline transition-colors hover:bg-teal/10 list-none"
+        aria-expanded="false"
+      >
+        <span class="flex items-center gap-3 text-[0.8rem] font-medium text-fg">
+          <span class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-sm bg-teal/10 text-teal">✎</span>
+          <span>{ct.eyebrow}</span>
+        </span>
+        <span class="flex items-center gap-2 text-[0.7rem] uppercase tracking-[0.14em] text-teal transition-transform group-open:rotate-180">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="flex-shrink-0">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </span>
+      </summary>
+      <div class="border-t border-rule p-6">
+        <ContactForm client:visible lang={lang} />
+      </div>
+    </details>
+  </div>
 </section>
+
+<script is:inline>
+  // Assemble the email link at runtime so scrapers never see a plain address
+  const emailLink = document.getElementById("email-link-about");
+  emailLink?.addEventListener("click", (e) => {
+    e.preventDefault();
+    const user = emailLink.getAttribute("data-email-user");
+    const domain = emailLink.getAttribute("data-email-domain");
+    window.location.href = `mailto:${user}@${domain}`;
+  });
+</script>

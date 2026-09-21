@@ -102,7 +102,6 @@ export interface Copy {
     scopeNote: string;
     ctaTitle: string;
     ctaBody: string;
-    waBtn: string;
     calBtn: string;
   };
   privacyPage: {
@@ -147,7 +146,6 @@ export interface Copy {
     relatedTitle: string;
     ctaTitle: string;
     ctaBody: string;
-    waBtn: string;
     calBtn: string;
   };
   servicesPage: {
@@ -169,7 +167,6 @@ export interface Copy {
     }[];
     ctaTitle: string;
     ctaBody: string;
-    waBtn: string;
     calBtn: string;
   };
 }
@@ -419,8 +416,7 @@ const en: Copy = {
     ctaTitle: "Ready to start?",
     ctaBody: "Message on WhatsApp with what you're building — I'll reply within 24 hours with next steps.",
     scopeNote: "Timelines above are for standard websites — e-commerce and custom applications follow the same four steps, with a fixed timeline agreed before we start.",
-    waBtn: "Start on WhatsApp",
-    calBtn: "Book a Meeting",
+    calBtn: "Start Project",
   },
   privacyPage: {
     metaTitle: "Privacy Policy — Kiganjani Co.",
@@ -497,8 +493,7 @@ const en: Copy = {
     relatedTitle: "More work",
     ctaTitle: "Want something similar?",
     ctaBody: "Message on WhatsApp with what you're building — I'll reply within 24 hours with next steps.",
-    waBtn: "Start on WhatsApp",
-    calBtn: "Book a Meeting",
+    calBtn: "Start Project",
   },
   servicesPage: {
     metaTitle: "Services — Websites, E-Commerce & Web Apps | Kiganjani Co.",
@@ -573,8 +568,7 @@ const en: Copy = {
     ],
     ctaTitle: "Not sure which fits?",
     ctaBody: "Message on WhatsApp with what you're building — I'll point you to the right package or a tailored quote within 24 hours.",
-    waBtn: "Start on WhatsApp",
-    calBtn: "Book a Meeting",
+    calBtn: "Start Project",
   },
 };
 
@@ -823,8 +817,7 @@ const sw: Copy = {
     ctaTitle: "Uko tayari kuanza?",
     ctaBody: "Tuma ujumbe WhatsApp ukiwa na unachojenga — nitakujibu ndani ya masaa 24 na hatua zinazofuata.",
     scopeNote: "Ratiba hapo juu ni kwa tovuti za kawaida — biashara mtandaoni na programu maalum hufuata hatua nne zile zile, na ratiba maalum inayokubaliwa kabla hatujaanza.",
-    waBtn: "Anza kwa WhatsApp",
-    calBtn: "Weka Mkutano",
+    calBtn: "Anza Project",
   },
   privacyPage: {
     metaTitle: "Sera ya Faragha — Kiganjani Co.",
@@ -901,8 +894,7 @@ const sw: Copy = {
     relatedTitle: "Kazi zaidi",
     ctaTitle: "Unataka kitu kama hiki?",
     ctaBody: "Tuma ujumbe WhatsApp ukiwa na unachojenga — nitakujibu ndani ya masaa 24 na hatua zinazofuata.",
-    waBtn: "Anza kwa WhatsApp",
-    calBtn: "Weka Mkutano",
+    calBtn: "Anza Project",
   },
   servicesPage: {
     metaTitle: "Huduma — Tovuti, Biashara Mtandaoni na Programu | Kiganjani Co.",
@@ -977,8 +969,7 @@ const sw: Copy = {
     ],
     ctaTitle: "Huna uhakika kinachofaa?",
     ctaBody: "Tuma ujumbe WhatsApp ukiwa na unachojenga — nitakuelekeza kwenye kifurushi sahihi au bei maalum ndani ya masaa 24.",
-    waBtn: "Anza kwa WhatsApp",
-    calBtn: "Weka Mkutano",
+    calBtn: "Anza Project",
   },
 };
 

@@ -163,6 +163,20 @@ const jsonLD = {
         }
       })();
     </script>
+
+    <!-- Locale redirect: Swahili-preferred browsers land on /sw/ -->
+    <script is:inline>
+      (function () {
+        try {
+          if (sessionStorage.getItem("langChecked")) return;
+          sessionStorage.setItem("langChecked", "1");
+          var lang = (navigator.language || navigator.languages?.[0] || "").toLowerCase();
+          if (lang.startsWith("sw") && location.pathname === "/") {
+            location.replace("/sw/");
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <a
