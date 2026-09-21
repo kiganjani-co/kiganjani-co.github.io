@@ -332,7 +332,7 @@ const en: Copy = {
     methods: [
       { label: "Phone / WhatsApp", value: "+255 782 506 217" },
       { label: "Instagram", value: "@kiganjani.co" },
-      { label: "Location", value: "Dar es Salaam, Tanzania · serving East Africa remotely" },
+      { label: "Location", value: "Dar es Salaam, Tanzania" },
     ],
   },
   contactForm: {
