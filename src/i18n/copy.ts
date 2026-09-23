@@ -733,7 +733,7 @@ const sw: Copy = {
     methods: [
       { label: "Simu / WhatsApp", value: "+255 782 506 217" },
       { label: "Instagram", value: "@kiganjani.co" },
-      { label: "Mahali", value: "Dar es Salaam, Tanzania · ninahudumia Afrika Mashariki kwa mbali" },
+      { label: "Mahali", value: "Dar es Salaam, Tanzania" },
     ],
   },
   contactForm: {
